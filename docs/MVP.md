@@ -18,5 +18,5 @@ Se deberán implementar las siguientes funcionalidades:
 
 ## Diseño de la aplicación
 
-> [!IMPORTANT] IMPORTANTE
+> [!IMPORTANT]
 > Work in progress
