@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>assets/eos-icons--project-outlined.svg</file>
+    <file>assets/ic--baseline-lightbulb.svg</file>
+    <file>assets/ic--baseline-menu.svg</file>
+  </qresource>
+</RCC>
