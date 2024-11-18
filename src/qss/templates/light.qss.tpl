@@ -3,6 +3,14 @@
     color: #000000;
 }
 
-QFrame#frNavbar > *:hover {
-    background-color: $accent;
+/* Eliminar el degradado de los botones: */
+QPushButton {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QFrame#frNavbar > QPushButton:hover {
+    background-color: ${accent};
+    color: ${button_hover};
 }

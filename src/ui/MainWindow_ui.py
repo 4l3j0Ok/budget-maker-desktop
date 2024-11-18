@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(709, 432)
+        MainWindow.resize(760, 432)
         MainWindow.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         MainWindow.setAutoFillBackground(False)
         self.centralwidget = QWidget(MainWindow)
@@ -51,15 +51,11 @@ class Ui_MainWindow(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.btnMenu = QPushButton(self.frNavbar)
         self.btnMenu.setObjectName(u"btnMenu")
-        self.btnMenu.setStyleSheet(u"text-align: left;\n"
-"hover {\n"
-"background-color: red;\n"
-"}")
+        self.btnMenu.setStyleSheet(u"text-align: left;")
         icon = QIcon()
         icon.addFile(u":/icons/assets/ic--baseline-menu.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnMenu.setIcon(icon)
         self.btnMenu.setIconSize(QSize(32, 32))
-        self.btnMenu.setFlat(True)
 
         self.verticalLayout.addWidget(self.btnMenu)
 
@@ -70,7 +66,6 @@ class Ui_MainWindow(object):
         icon1.addFile(u":/icons/assets/eos-icons--project-outlined.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnProjects.setIcon(icon1)
         self.btnProjects.setIconSize(QSize(32, 32))
-        self.btnProjects.setFlat(True)
 
         self.verticalLayout.addWidget(self.btnProjects)
 
@@ -81,8 +76,6 @@ class Ui_MainWindow(object):
         icon2.addFile(u":/icons/assets/ic--baseline-lightbulb.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnProducts.setIcon(icon2)
         self.btnProducts.setIconSize(QSize(32, 32))
-        self.btnProducts.setAutoDefault(False)
-        self.btnProducts.setFlat(True)
 
         self.verticalLayout.addWidget(self.btnProducts)
 
