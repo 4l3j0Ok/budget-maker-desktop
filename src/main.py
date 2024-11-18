@@ -37,14 +37,14 @@ class MainWindow(QMainWindow, MainWindow.Ui_MainWindow):
     def setupButtons(self):
         buttons = self.frNavbar.findChildren(QPushButton)
         for button in buttons:
-            self.setButtonsColor(
+            self.setButtonColor(
                 Dark.button, button
-            ) if dark_mode else self.setButtonsColor(Light.button, button)
+            ) if dark_mode else self.setButtonColor(Light.button, button)
             button.installEventFilter(self)
             if button.objectName() != "btnMenu":
                 button.clicked.connect(self.switchPage)
 
-    def setButtonsColor(self, color, button):
+    def setButtonColor(self, color, button):
         icon = button.icon()
         current_size = button.iconSize()
         pixmap = icon.pixmap(current_size)
@@ -62,9 +62,9 @@ class MainWindow(QMainWindow, MainWindow.Ui_MainWindow):
     def eventFilter(self, obj, event):
         selected_color = Light if not dark_mode else Dark
         if event.type() == event.Type.HoverEnter:
-            self.setButtonsColor(selected_color.button_hover, button=obj)
+            self.setButtonColor(selected_color.button_hover, obj)
         elif event.type() == event.Type.HoverLeave:
-            self.setButtonsColor(selected_color.button, button=obj)
+            self.setButtonColor(selected_color.button, obj)
         return super().eventFilter(obj, event)
 
 
