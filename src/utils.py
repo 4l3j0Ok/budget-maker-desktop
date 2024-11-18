@@ -8,9 +8,9 @@ def load_stylesheet(
     dark_mode: bool = False,
 ) -> None:
     style_file = (
-        f"{Path.templates.value}/dark.qss.tpl"
+        f"{Path.templates}/dark.qss.tpl"
         if dark_mode
-        else f"{Path.templates.value}/light.qss.tpl"
+        else f"{Path.templates}/light.qss.tpl"
     )
     try:
         with open(style_file) as file:
@@ -25,18 +25,17 @@ def load_stylesheet_tpl(
     dark_mode: bool = False,
 ) -> None:
     style_file = (
-        f"{Path.templates.value}/light.qss.tpl"
+        f"{Path.templates}/light.qss.tpl"
         if not dark_mode
-        else f"{Path.templates.value}/dark.qss.tpl"
+        else f"{Path.templates}/dark.qss.tpl"
     )
     try:
         with open(style_file) as file:
             stylesheet = file.read()
             selected_color = colors.Light if not dark_mode else colors.Dark
-            for color in selected_color:
-                stylesheet = stylesheet.replace(
-                    "${" + f"{color.name}" + "}", f"{color.value}"
-                )
+            for key, color in selected_color.__dict__.items():
+                stylesheet = stylesheet.replace("${" + f"{key}" + "}", f"{color}")
+            print(stylesheet)
             app.setStyleSheet(stylesheet)
     except FileNotFoundError:
         print(f"Archivo no encontrado: {style_file}")
