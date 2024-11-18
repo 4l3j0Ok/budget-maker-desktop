@@ -35,7 +35,6 @@ def load_stylesheet_tpl(
             selected_color = colors.Light if not dark_mode else colors.Dark
             for key, color in selected_color.__dict__.items():
                 stylesheet = stylesheet.replace("${" + f"{key}" + "}", f"{color}")
-            print(stylesheet)
             app.setStyleSheet(stylesheet)
     except FileNotFoundError:
         print(f"Archivo no encontrado: {style_file}")
