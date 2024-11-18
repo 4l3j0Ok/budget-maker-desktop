@@ -5,7 +5,7 @@
 
 /* Eliminar el degradado de los botones: */
 QPushButton {
-    border: none;
+    border: 0px;
     border-radius: 5px;
     padding: 5px;
 }

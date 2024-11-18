@@ -10,7 +10,7 @@ QPushButton {
     padding: 5px;
 }
 
-QFrame#frNavbar > *:hover {
-    background-color: $accent;
-    color: $button_hover;
+QFrame#frNavbar > QPushButton:hover {
+    background-color: ${accent};
+    color: ${button_hover};
 }
