@@ -15,9 +15,7 @@ class MainWindow(QMainWindow, MainWindow.Ui_MainWindow):
         self.setupNavbar()
         self.setMinimumWidth(Size.app_min_width)
         self.setMinimumHeight(Size.app_min_height)
-        self.setButtonsColor(Dark.button) if dark_mode else self.setButtonsColor(
-            Light.button
-        )
+        self.setupButtons()
 
     def setupNavbar(self):
         self.frNavbar.setMaximumWidth(Size.navbar_base_width)
@@ -36,29 +34,30 @@ class MainWindow(QMainWindow, MainWindow.Ui_MainWindow):
         self.animation.setEndValue(new_width)
         self.animation.start()
 
-    def setButtonsColor(self, color, button=None):
-        if button:
-            icon = button.icon()
-            current_size = button.iconSize()
-            pixmap = icon.pixmap(current_size)
-            painter = QPainter(pixmap)
-            painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
-            painter.fillRect(pixmap.rect(), color)
-            painter.end()
-            button.setIcon(QIcon(pixmap))
-            return
+    def setupButtons(self):
         buttons = self.frNavbar.findChildren(QPushButton)
         for button in buttons:
-            button: QPushButton
+            self.setButtonsColor(
+                Dark.button, button
+            ) if dark_mode else self.setButtonsColor(Light.button, button)
             button.installEventFilter(self)
-            icon = button.icon()
-            current_size = button.iconSize()
-            pixmap = icon.pixmap(current_size)
-            painter = QPainter(pixmap)
-            painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
-            painter.fillRect(pixmap.rect(), color)
-            painter.end()
-            button.setIcon(QIcon(pixmap))
+            if button.objectName() != "btnMenu":
+                button.clicked.connect(self.switchPage)
+
+    def setButtonsColor(self, color, button):
+        icon = button.icon()
+        current_size = button.iconSize()
+        pixmap = icon.pixmap(current_size)
+        painter = QPainter(pixmap)
+        painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        painter.fillRect(pixmap.rect(), color)
+        painter.end()
+        button.setIcon(QIcon(pixmap))
+        return
+
+    def switchPage(self):
+        # Acá hay que renderizar el widget correspondiente.
+        pass
 
     def eventFilter(self, obj, event):
         selected_color = Light if not dark_mode else Dark
@@ -73,7 +72,7 @@ if __name__ == "__main__":
     print(sys.argv)
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
-    dark_mode = True
+    dark_mode = False
     load_stylesheet_tpl(app, dark_mode=dark_mode)
     window = MainWindow(dark_mode=dark_mode)
     window.show()
