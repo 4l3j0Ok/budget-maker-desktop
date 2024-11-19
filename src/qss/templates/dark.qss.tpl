@@ -3,14 +3,19 @@
     color: #f0f0f0;
 }
 
-/* Eliminar el degradado de los botones: */
 QPushButton {
-    border: 0px;
+    border: none;
     border-radius: 5px;
     padding: 5px;
+    background-color: ${accent};
+}
+
+/* Eliminar el degradado de los botones: */
+QFrame#frNavbar > QPushButton {
+    background-color: none;
 }
 
 QFrame#frNavbar > QPushButton:hover {
     background-color: ${accent};
-    color: ${button_hover};
+    color: ${button_text_alt};
 }

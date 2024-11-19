@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
-    <height>432</height>
+    <width>752</width>
+    <height>296</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -187,7 +187,7 @@
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Shadow::Raised</enum>
@@ -196,27 +196,13 @@
           <property name="spacing">
            <number>2</number>
           </property>
-          <property name="sizeConstraint">
-           <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
-          </property>
-          <property name="leftMargin">
-           <number>9</number>
-          </property>
-          <property name="topMargin">
-           <number>9</number>
-          </property>
-          <property name="rightMargin">
-           <number>9</number>
-          </property>
-          <property name="bottomMargin">
-           <number>9</number>
-          </property>
           <item>
            <widget class="QLabel" name="lblTitle">
             <property name="font">
              <font>
               <family>Montserrat</family>
               <pointsize>20</pointsize>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -232,7 +218,7 @@
             <property name="font">
              <font>
               <family>Montserrat</family>
-              <pointsize>9</pointsize>
+              <pointsize>12</pointsize>
              </font>
             </property>
             <property name="text">
@@ -252,7 +238,7 @@
           <enum>Qt::LayoutDirection::LeftToRight</enum>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Shadow::Raised</enum>
