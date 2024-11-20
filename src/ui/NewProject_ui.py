@@ -68,6 +68,13 @@ class Ui_Form(object):
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 684, 180))
         self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.leAmount = QLineEdit(self.scrollAreaWidgetContents)
+        self.leAmount.setObjectName(u"leAmount")
+        self.leAmount.setFont(font)
+        self.leAmount.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_2.addWidget(self.leAmount, 1, 2, 1, 1)
+
         self.label_3 = QLabel(self.scrollAreaWidgetContents)
         self.label_3.setObjectName(u"label_3")
         font1 = QFont()
@@ -78,13 +85,20 @@ class Ui_Form(object):
 
         self.gridLayout_2.addWidget(self.label_3, 0, 1, 1, 1)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.gridLayout_2.addItem(self.verticalSpacer, 2, 1, 1, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer_3, 3, 4, 1, 1)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.gridLayout_2.addItem(self.verticalSpacer_2, 2, 2, 1, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer_2, 3, 2, 1, 1)
+
+        self.leTotal = QLineEdit(self.scrollAreaWidgetContents)
+        self.leTotal.setObjectName(u"leTotal")
+        self.leTotal.setFont(font)
+        self.leTotal.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_2.addWidget(self.leTotal, 1, 4, 1, 1)
 
         self.label_4 = QLabel(self.scrollAreaWidgetContents)
         self.label_4.setObjectName(u"label_4")
@@ -93,16 +107,6 @@ class Ui_Form(object):
 
         self.gridLayout_2.addWidget(self.label_4, 0, 2, 1, 1)
 
-        self.btnAdd = QPushButton(self.scrollAreaWidgetContents)
-        self.btnAdd.setObjectName(u"btnAdd")
-        self.btnAdd.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.btnAdd, 6, 1, 1, 4)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_3, 2, 4, 1, 1)
-
         self.label_5 = QLabel(self.scrollAreaWidgetContents)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setFont(font)
@@ -110,12 +114,9 @@ class Ui_Form(object):
 
         self.gridLayout_2.addWidget(self.label_5, 0, 4, 1, 1)
 
-        self.leAmount = QLineEdit(self.scrollAreaWidgetContents)
-        self.leAmount.setObjectName(u"leAmount")
-        self.leAmount.setFont(font)
-        self.leAmount.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.gridLayout_2.addWidget(self.leAmount, 1, 2, 1, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer, 3, 1, 1, 1)
 
         self.leProduct = QLineEdit(self.scrollAreaWidgetContents)
         self.leProduct.setObjectName(u"leProduct")
@@ -126,12 +127,11 @@ class Ui_Form(object):
 
         self.gridLayout_2.addWidget(self.leProduct, 1, 1, 1, 1)
 
-        self.leTotal = QLineEdit(self.scrollAreaWidgetContents)
-        self.leTotal.setObjectName(u"leTotal")
-        self.leTotal.setFont(font)
-        self.leTotal.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.btnAdd = QPushButton(self.scrollAreaWidgetContents)
+        self.btnAdd.setObjectName(u"btnAdd")
+        self.btnAdd.setFont(font1)
 
-        self.gridLayout_2.addWidget(self.leTotal, 1, 4, 1, 1)
+        self.gridLayout_2.addWidget(self.btnAdd, 2, 1, 1, 4)
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
@@ -166,8 +166,8 @@ class Ui_Form(object):
         self.btnNext.setText(QCoreApplication.translate("Form", u"Siguiente", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"Producto", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"Cantidad", None))
-        self.btnAdd.setText(QCoreApplication.translate("Form", u"+", None))
         self.label_5.setText(QCoreApplication.translate("Form", u"Total", None))
+        self.btnAdd.setText(QCoreApplication.translate("Form", u"+", None))
         self.label.setText(QCoreApplication.translate("Form", u"Proyecto", None))
     # retranslateUi
 
