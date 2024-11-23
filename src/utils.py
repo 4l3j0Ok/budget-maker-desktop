@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QApplication
-from ui import colors
+from views.ui import colors
 from config import Path
 
 

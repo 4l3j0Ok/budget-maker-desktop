@@ -1,16 +1,10 @@
-from PySide6.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QPushButton,
-    QWidget,
-    QSizePolicy,
-)
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 from PySide6.QtGui import QIcon, QPainter
 from PySide6.QtCore import QPropertyAnimation
-from ui.MainWindow_ui import Ui_MainWindow as MainWindow
-from ui.sizes import Size
-from ui.colors import Light, Dark
-from forms.new_project import NewProject
+from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
+from views.ui.sizes import Size
+from views.ui.colors import Light, Dark
+from views.forms.new_project import NewProject
 from config import Pages
 from utils import load_stylesheet_tpl
 import sys
@@ -51,7 +45,7 @@ class MainWindow(QMainWindow, MainWindow):
         buttons = self.frNavbar.findChildren(QPushButton)
         for button in buttons:
             self.setButtonColor(
-                Dark.button, button
+                Dark.button_text, button
             ) if self.darkMode else self.setButtonColor(Light.button_text, button)
             button.installEventFilter(self)
             if button.objectName() != "btnMenu":

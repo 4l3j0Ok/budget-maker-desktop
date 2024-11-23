@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QSizePolicy
-from ui import NewProject_ui as NewProject
+from views.ui import NewProject_ui as NewProject
 
 
 class NewProject(QWidget, NewProject.Ui_Form):
