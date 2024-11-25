@@ -7,14 +7,46 @@
     <x>0</x>
     <y>0</y>
     <width>791</width>
-    <height>338</height>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Proyectos</string>
+   <string>Productos</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Precio por unidad</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Producto</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
     <widget class="QScrollArea" name="scrollArea">
      <property name="frameShape">
       <enum>QFrame::Shape::NoFrame</enum>
@@ -28,7 +60,7 @@
         <x>0</x>
         <y>0</y>
         <width>773</width>
-        <height>285</height>
+        <height>235</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -49,7 +81,7 @@
      </widget>
     </widget>
    </item>
-   <item>
+   <item row="2" column="0" colspan="2">
     <widget class="QPushButton" name="btnNew">
      <property name="font">
       <font>

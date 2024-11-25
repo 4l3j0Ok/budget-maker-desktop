@@ -73,7 +73,7 @@ class Ui_Element(object):
     # setupUi
 
     def retranslateUi(self, Element):
-        Element.setWindowTitle(QCoreApplication.translate("Element", u"Proyectos", None))
+        Element.setWindowTitle(QCoreApplication.translate("Element", u"Proyecto", None))
         self.lblProjectName.setText(QCoreApplication.translate("Element", u"Nombre de proyecto", None))
         self.btnEdit.setText("")
         self.btnPreview.setText("")

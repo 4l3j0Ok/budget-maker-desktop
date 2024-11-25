@@ -4,7 +4,7 @@ from PySide6.QtCore import QPropertyAnimation
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
-from views.pages import projects, new_project
+from views.pages import projects, new_project, products
 from utils import load_stylesheet_tpl
 import sys
 
@@ -69,7 +69,9 @@ class MainWindow(QMainWindow, MainWindow):
             return
         self.current_page = widget
         if self.frContent.layout().count() > 0:
-            self.frContent.layout().removeItem(self.frContent.layout().itemAt(0))
+            self.frContent.layout().removeWidget(
+                self.frContent.layout().itemAt(0).widget()
+            )
         self.frContent.layout().addWidget(widget)
         return
 
@@ -77,7 +79,7 @@ class MainWindow(QMainWindow, MainWindow):
         if name == "btnProjects":
             return projects.setPage(self)
         elif name == "btnProducts":
-            return new_project.setPage(self)
+            return products.setPage(self)
         return QWidget()
 
     def eventFilter(self, obj, event) -> bool:
