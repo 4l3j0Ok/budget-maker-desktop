@@ -87,8 +87,8 @@
           <string>Menú</string>
          </property>
          <property name="icon">
-          <iconset resource="../resources.qrc">
-           <normaloff>:/icons/assets/ic--baseline-menu.svg</normaloff>:/icons/assets/ic--baseline-menu.svg</iconset>
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/views/assets/ic--baseline-menu.svg</normaloff>:/icons/views/assets/ic--baseline-menu.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -107,8 +107,8 @@
           <string>Proyectos</string>
          </property>
          <property name="icon">
-          <iconset resource="../resources.qrc">
-           <normaloff>:/icons/assets/eos-icons--project-outlined.svg</normaloff>:/icons/assets/eos-icons--project-outlined.svg</iconset>
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/views/assets/eos-icons--project-outlined.svg</normaloff>:/icons/views/assets/eos-icons--project-outlined.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -127,8 +127,8 @@
           <string>Productos y Servicios</string>
          </property>
          <property name="icon">
-          <iconset resource="../resources.qrc">
-           <normaloff>:/icons/assets/ic--baseline-lightbulb.svg</normaloff>:/icons/assets/ic--baseline-lightbulb.svg</iconset>
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/views/assets/ic--baseline-lightbulb.svg</normaloff>:/icons/views/assets/ic--baseline-lightbulb.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -253,7 +253,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

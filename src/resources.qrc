@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>views/assets/ic--outline-delete.svg</file>
+    <file>views/assets/ic--outline-edit.svg</file>
+    <file>views/assets/ic--outline-remove-red-eye.svg</file>
+    <file>views/assets/eos-icons--project-outlined.svg</file>
+    <file>views/assets/ic--baseline-lightbulb.svg</file>
+    <file>views/assets/ic--baseline-menu.svg</file>
+  </qresource>
+</RCC>

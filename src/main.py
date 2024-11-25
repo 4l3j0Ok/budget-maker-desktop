@@ -4,8 +4,7 @@ from PySide6.QtCore import QPropertyAnimation
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
-from views.forms.new_project import NewProject
-from config import Pages
+from views.pages import projects, new_project
 from utils import load_stylesheet_tpl
 import sys
 
@@ -65,19 +64,21 @@ class MainWindow(QMainWindow, MainWindow):
 
     def switchPage(self) -> None:
         button = self.sender()
-        if button.objectName() == "btnProjects":
-            # Establecer el título y la descripción de la página.
-            self.lblTitle.setText(Pages.new_project["title"])
-            self.lblDescription.setText(Pages.new_project["description"])
-            # Reemplazar el contenido de frContent
-            if isinstance(self.current_page, NewProject):
-                return
-            widget = NewProject(self.frContent)
-            self.current_page = widget
-            if self.frContent.layout().count() > 0:
-                self.frContent.layout().removeItem(self.frContent.layout().itemAt(0))
-            self.frContent.layout().addWidget(widget)
+        widget = self.get_page_widget(button.objectName())
+        if isinstance(self.current_page, widget.__class__):
+            return
+        self.current_page = widget
+        if self.frContent.layout().count() > 0:
+            self.frContent.layout().removeItem(self.frContent.layout().itemAt(0))
+        self.frContent.layout().addWidget(widget)
         return
+
+    def get_page_widget(self, name: str):
+        if name == "btnProjects":
+            return projects.setPage(self)
+        elif name == "btnProducts":
+            return new_project.setPage(self)
+        return QWidget()
 
     def eventFilter(self, obj, event) -> bool:
         selected_color = Light if not dark_mode else Dark
