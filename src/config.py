@@ -19,3 +19,7 @@ class Pages:
         title="Productos",
         description="Añade productos a tu proyecto de forma sencilla",
     )
+
+
+class Database:
+    name = "data.db"

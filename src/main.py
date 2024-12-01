@@ -1,10 +1,11 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 from PySide6.QtGui import QIcon, QPainter
 from PySide6.QtCore import QPropertyAnimation
+from controllers import products, projects
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
-from views.pages import projects, new_project, products
+from models.database import Database
 from utils import load_stylesheet_tpl
 import sys
 
@@ -19,6 +20,7 @@ class MainWindow(QMainWindow, MainWindow):
         self.setMinimumWidth(Size.app_min_width)
         self.setMinimumHeight(Size.app_min_height)
         self.setupButtons()
+        self.db = Database()
         return
 
     def setupNavbar(self) -> None:
@@ -51,6 +53,19 @@ class MainWindow(QMainWindow, MainWindow):
                 button.clicked.connect(self.switchPage)
         return
 
+    def switchPage(self) -> None:
+        button = self.sender()
+        widget = self.getPageWidget(button.objectName())
+        if isinstance(self.current_page, widget.__class__):
+            return
+        self.current_page = widget
+        if self.frContent.layout().count() > 0:
+            self.frContent.layout().removeWidget(
+                self.frContent.layout().itemAt(0).widget()
+            )
+        self.frContent.layout().addWidget(widget)
+        return
+
     def setButtonColor(self, color, button) -> None:
         icon = button.icon()
         current_size = button.iconSize()
@@ -62,20 +77,7 @@ class MainWindow(QMainWindow, MainWindow):
         button.setIcon(QIcon(pixmap))
         return
 
-    def switchPage(self) -> None:
-        button = self.sender()
-        widget = self.get_page_widget(button.objectName())
-        if isinstance(self.current_page, widget.__class__):
-            return
-        self.current_page = widget
-        if self.frContent.layout().count() > 0:
-            self.frContent.layout().removeWidget(
-                self.frContent.layout().itemAt(0).widget()
-            )
-        self.frContent.layout().addWidget(widget)
-        return
-
-    def get_page_widget(self, name: str):
+    def getPageWidget(self, name: str):
         if name == "btnProjects":
             return projects.setPage(self)
         elif name == "btnProducts":
