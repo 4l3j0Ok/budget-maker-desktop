@@ -15,7 +15,7 @@ class MainWindow(QMainWindow, MainWindow):
         super().__init__()
         self.setupUi(self)
         self.setupNavbar()
-        self.darkMode: bool = dark_mode
+        self.dark_mode: bool = dark_mode
         self.current_page: QWidget = None
         self.setMinimumWidth(Size.app_min_width)
         self.setMinimumHeight(Size.app_min_height)
