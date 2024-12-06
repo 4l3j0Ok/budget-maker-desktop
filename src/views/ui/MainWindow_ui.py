@@ -43,8 +43,6 @@ class Ui_MainWindow(object):
         self.frNavbar.setObjectName(u"frNavbar")
         self.frNavbar.setMaximumSize(QSize(42, 16777215))
         self.frNavbar.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frNavbar.setFrameShadow(QFrame.Shadow.Raised)
-        self.frNavbar.setLineWidth(1)
         self.verticalLayout = QVBoxLayout(self.frNavbar)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)

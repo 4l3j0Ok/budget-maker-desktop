@@ -56,12 +56,6 @@
       <property name="frameShape">
        <enum>QFrame::Shape::StyledPanel</enum>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
-      </property>
-      <property name="lineWidth">
-       <number>1</number>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="sizeConstraint">
         <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
