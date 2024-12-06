@@ -53,16 +53,15 @@ class MainWindow(QMainWindow, MainWindow):
                 button.clicked.connect(self.switchPage)
         return
 
-    def switchPage(self) -> None:
-        button = self.sender()
-        widget = self.getPageWidget(button.objectName())
+    def switchPage(self, widget: QWidget = None) -> None:
+        if not widget:
+            button = self.sender()
+            widget = self.getPageWidget(button.objectName())
         if isinstance(self.current_page, widget.__class__):
             return
         self.current_page = widget
         if self.frContent.layout().count() > 0:
-            self.frContent.layout().removeWidget(
-                self.frContent.layout().itemAt(0).widget()
-            )
+            self.frContent.layout().itemAt(0).widget().deleteLater()
         self.frContent.layout().addWidget(widget)
         return
 

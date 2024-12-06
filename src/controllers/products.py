@@ -18,7 +18,9 @@ class Products(QWidget, Products_ui.Ui_Form):
         self.btnNew.clicked.connect(self.onBtnNewClicked)
 
     def onBtnNewClicked(self) -> None:
-        print("New product clicked")
+        widget = Product()
+        self.scrollAreaWidgetContents.layout().insertWidget(0, widget)
+        return
 
 
 def setPage(cls) -> None:
