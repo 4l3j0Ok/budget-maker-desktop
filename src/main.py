@@ -84,7 +84,7 @@ class MainWindow(QMainWindow, MainWindow):
         return QWidget()
 
     def eventFilter(self, obj, event) -> bool:
-        selected_color = Light if not dark_mode else Dark
+        selected_color = Light if not self.dark_mode else Dark
         if event.type() == QEvent.Type.HoverEnter:
             self.setButtonColor(selected_color.button_text_alt, obj)
         elif event.type() == QEvent.Type.HoverLeave:
