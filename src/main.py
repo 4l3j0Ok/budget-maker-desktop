@@ -47,7 +47,7 @@ class MainWindow(QMainWindow, MainWindow):
         for button in buttons:
             self.setButtonColor(
                 Dark.button_text, button
-            ) if self.darkMode else self.setButtonColor(Light.button_text, button)
+            ) if self.dark_mode else self.setButtonColor(Light.button_text, button)
             button.installEventFilter(self)
             if button.objectName() != "btnMenu":
                 button.clicked.connect(self.switchPage)
