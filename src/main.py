@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 from PySide6.QtGui import QIcon, QPainter
-from PySide6.QtCore import QPropertyAnimation
+from PySide6.QtCore import QPropertyAnimation, QEvent
 from controllers import products, projects
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
@@ -85,9 +85,9 @@ class MainWindow(QMainWindow, MainWindow):
 
     def eventFilter(self, obj, event) -> bool:
         selected_color = Light if not dark_mode else Dark
-        if event.type() == event.Type.HoverEnter:
+        if event.type() == QEvent.Type.HoverEnter:
             self.setButtonColor(selected_color.button_text_alt, obj)
-        elif event.type() == event.Type.HoverLeave:
+        elif event.type() == QEvent.Type.HoverLeave:
             self.setButtonColor(selected_color.button_text, obj)
         return super().eventFilter(obj, event)
 
