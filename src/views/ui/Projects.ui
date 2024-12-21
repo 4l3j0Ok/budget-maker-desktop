@@ -28,7 +28,7 @@
         <x>0</x>
         <y>0</y>
         <width>773</width>
-        <height>285</height>
+        <height>290</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -53,7 +53,6 @@
     <widget class="QPushButton" name="btnNew">
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
        <bold>true</bold>
       </font>
      </property>

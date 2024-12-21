@@ -4,6 +4,8 @@ class Light:
     text = "#333"
     button_text = text
     button_text_alt = "#f0f0f0"
+    delete = "#9b2424"
+    delete_alt = "#631717"
 
 
 class Dark:

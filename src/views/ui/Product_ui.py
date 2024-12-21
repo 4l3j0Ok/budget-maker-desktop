@@ -23,13 +23,14 @@ class Ui_Element(object):
     def setupUi(self, Element):
         if not Element.objectName():
             Element.setObjectName(u"Element")
-        Element.resize(816, 65)
+        Element.resize(816, 42)
         self.gridLayout = QGridLayout(Element)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.lineEdit_2 = QLineEdit(Element)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.lePrice = QLineEdit(Element)
+        self.lePrice.setObjectName(u"lePrice")
+        self.lePrice.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout.addWidget(self.lineEdit_2, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.lePrice, 0, 1, 1, 1)
 
         self.btnDelete = QPushButton(Element)
         self.btnDelete.setObjectName(u"btnDelete")
@@ -39,10 +40,11 @@ class Ui_Element(object):
 
         self.gridLayout.addWidget(self.btnDelete, 0, 2, 1, 1)
 
-        self.lineEdit = QLineEdit(Element)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.leName = QLineEdit(Element)
+        self.leName.setObjectName(u"leName")
+        self.leName.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout.addWidget(self.lineEdit, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.leName, 0, 0, 1, 1)
 
 
         self.retranslateUi(Element)
@@ -51,7 +53,7 @@ class Ui_Element(object):
     # setupUi
 
     def retranslateUi(self, Element):
-        Element.setWindowTitle(QCoreApplication.translate("Element", u"Product", None))
+        Element.setWindowTitle(QCoreApplication.translate("Element", u"Producto", None))
         self.btnDelete.setText("")
     # retranslateUi
 

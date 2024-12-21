@@ -31,7 +31,7 @@ class Ui_Form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 773, 285))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 773, 290))
         self.verticalLayout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
@@ -45,7 +45,6 @@ class Ui_Form(object):
         self.btnNew = QPushButton(Form)
         self.btnNew.setObjectName(u"btnNew")
         font = QFont()
-        font.setPointSize(12)
         font.setBold(True)
         self.btnNew.setFont(font)
 
