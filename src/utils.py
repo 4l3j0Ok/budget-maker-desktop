@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QIcon, QPainter
 from views.ui import colors
 from config import Path
 
@@ -38,3 +39,16 @@ def load_stylesheet_tpl(
             app.setStyleSheet(stylesheet)
     except FileNotFoundError:
         print(f"Archivo no encontrado: {style_file}")
+
+
+def set_button_color(fg_color, button) -> None:
+    icon = button.icon()
+    current_size = button.iconSize()
+    pixmap = icon.pixmap(current_size)
+    painter = QPainter(pixmap)
+    painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+    painter.fillRect(pixmap.rect(), fg_color)
+    painter.end()
+    button.setIcon(QIcon(pixmap))
+
+    return

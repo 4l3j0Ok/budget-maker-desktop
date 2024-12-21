@@ -6,20 +6,29 @@ from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
 from models.database import Database
-from utils import load_stylesheet_tpl
+from utils import load_stylesheet_tpl, set_button_color
 import sys
 
 
 class MainWindow(QMainWindow, MainWindow):
     def __init__(self, dark_mode=False) -> None:
         super().__init__()
+        # UI Setup
         self.setupUi(self)
         self.setupNavbar()
         self.dark_mode: bool = dark_mode
         self.current_page: QWidget = None
+        ## Window
         self.setMinimumWidth(Size.app_min_width)
         self.setMinimumHeight(Size.app_min_height)
+        ## Navbar
         self.setupButtons()
+        self.btnPage = {
+            "btnProjects": projects.setPage,
+            "btnProducts": products.setPage,
+        }
+        self.switchPage(self.btnPage["btnProjects"](self))
+        # Database
         self.db = Database()
         return
 
@@ -45,9 +54,9 @@ class MainWindow(QMainWindow, MainWindow):
     def setupButtons(self) -> None:
         buttons = self.frNavbar.findChildren(QPushButton)
         for button in buttons:
-            self.setButtonColor(
+            set_button_color(
                 Dark.button_text, button
-            ) if self.dark_mode else self.setButtonColor(Light.button_text, button)
+            ) if self.dark_mode else set_button_color(Light.button_text, button)
             button.installEventFilter(self)
             if button.objectName() != "btnMenu":
                 button.clicked.connect(self.switchPage)
@@ -56,7 +65,7 @@ class MainWindow(QMainWindow, MainWindow):
     def switchPage(self, widget: QWidget = None) -> None:
         if not widget:
             button = self.sender()
-            widget = self.getPageWidget(button.objectName())
+            widget = self.btnPage[button.objectName()](self)
         if isinstance(self.current_page, widget.__class__):
             return
         self.current_page = widget
@@ -65,30 +74,12 @@ class MainWindow(QMainWindow, MainWindow):
         self.frContent.layout().addWidget(widget)
         return
 
-    def setButtonColor(self, color, button) -> None:
-        icon = button.icon()
-        current_size = button.iconSize()
-        pixmap = icon.pixmap(current_size)
-        painter = QPainter(pixmap)
-        painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
-        painter.fillRect(pixmap.rect(), color)
-        painter.end()
-        button.setIcon(QIcon(pixmap))
-        return
-
-    def getPageWidget(self, name: str):
-        if name == "btnProjects":
-            return projects.setPage(self)
-        elif name == "btnProducts":
-            return products.setPage(self)
-        return QWidget()
-
     def eventFilter(self, obj, event) -> bool:
         selected_color = Light if not self.dark_mode else Dark
         if event.type() == QEvent.Type.HoverEnter:
-            self.setButtonColor(selected_color.button_text_alt, obj)
+            set_button_color(selected_color.button_text_alt, obj)
         elif event.type() == QEvent.Type.HoverLeave:
-            self.setButtonColor(selected_color.button_text, obj)
+            set_button_color(selected_color.button_text, obj)
         return super().eventFilter(obj, event)
 
 
