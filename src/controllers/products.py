@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget, QSizePolicy
 from views.ui import Product_ui, Products_ui
 from config import Pages
+from utils import set_button_color
 
 
 class Product(QWidget, Product_ui.Ui_Element):
@@ -9,6 +10,7 @@ class Product(QWidget, Product_ui.Ui_Element):
         self.setupUi(self)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self.setMinimumHeight(42)
+        set_button_color("white", self.btnDelete)
 
 
 class Products(QWidget, Products_ui.Ui_Form):
@@ -19,12 +21,11 @@ class Products(QWidget, Products_ui.Ui_Form):
 
     def onBtnNewClicked(self) -> None:
         widget = Product()
-        self.scrollAreaWidgetContents.layout().insertWidget(0, widget)
+        self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
         return
 
 
 def setPage(cls) -> None:
-    # Establecer el título y la descripción de la página.
     cls.lblTitle.setText(Pages.products["title"])
     cls.lblDescription.setText(Pages.products["description"])
     widget = Products(cls.frContent)
