@@ -41,14 +41,26 @@ def load_stylesheet_tpl(
         print(f"Archivo no encontrado: {style_file}")
 
 
-def set_button_color(fg_color, button) -> None:
-    icon = button.icon()
-    current_size = button.iconSize()
-    pixmap = icon.pixmap(current_size)
-    painter = QPainter(pixmap)
-    painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
-    painter.fillRect(pixmap.rect(), fg_color)
-    painter.end()
-    button.setIcon(QIcon(pixmap))
-
+def modify_button(
+    button,
+    fg_color: str = None,
+    bg_color: str = None,
+    icon: str = None,
+) -> None:
+    if icon:
+        icon = QIcon(icon)
+        button.setIcon(icon)
+    if bg_color:
+        current_style = button.styleSheet()
+        current_style += f"background-color: {bg_color};"
+        button.setStyleSheet(current_style)
+    if fg_color:
+        current_size = button.iconSize()
+        icon = button.icon()
+        pixmap = icon.pixmap(current_size)
+        painter = QPainter(pixmap)
+        painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        painter.fillRect(pixmap.rect(), fg_color)
+        painter.end()
+        button.setIcon(QIcon(pixmap))
     return

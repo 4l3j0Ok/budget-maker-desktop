@@ -36,10 +36,12 @@ QFrame#frNavbar > QPushButton:hover {
 }
 
 QLineEdit {
-    border: 1px solid;
+    border: 0.5px solid;
+    border-color: grey;
     border-radius: 5px;
     padding: 5px;
     color: ${text};
+    background-color: white;
 }
 
 QLineEdit:focus {

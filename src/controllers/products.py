@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QSizePolicy
 from views.ui import Product_ui, Products_ui
 from config import Pages
-from utils import set_button_color
+from utils import modify_button
 
 
 class Product(QWidget, Product_ui.Ui_Element):
@@ -10,7 +10,7 @@ class Product(QWidget, Product_ui.Ui_Element):
         self.setupUi(self)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self.setMinimumHeight(42)
-        set_button_color("white", self.btnDelete)
+        modify_button("white", self.btnDelete)
 
 
 class Products(QWidget, Products_ui.Ui_Form):

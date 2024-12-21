@@ -1,12 +1,11 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
-from PySide6.QtGui import QIcon, QPainter
 from PySide6.QtCore import QPropertyAnimation, QEvent
 from controllers import products, projects
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
 from models.database import Database
-from utils import load_stylesheet_tpl, set_button_color
+from utils import load_stylesheet_tpl, modify_button
 import sys
 
 
@@ -54,9 +53,10 @@ class MainWindow(QMainWindow, MainWindow):
     def setupButtons(self) -> None:
         buttons = self.frNavbar.findChildren(QPushButton)
         for button in buttons:
-            set_button_color(
-                Dark.button_text, button
-            ) if self.dark_mode else set_button_color(Light.button_text, button)
+            modify_button(
+                button,
+                fg_color=Dark.button_text,
+            ) if self.dark_mode else modify_button(button, fg_color=Light.button_text)
             button.installEventFilter(self)
             if button.objectName() != "btnMenu":
                 button.clicked.connect(self.switchPage)
@@ -77,9 +77,15 @@ class MainWindow(QMainWindow, MainWindow):
     def eventFilter(self, obj, event) -> bool:
         selected_color = Light if not self.dark_mode else Dark
         if event.type() == QEvent.Type.HoverEnter:
-            set_button_color(selected_color.button_text_alt, obj)
+            modify_button(
+                obj,
+                fg_color=selected_color.button_text_alt,
+            )
         elif event.type() == QEvent.Type.HoverLeave:
-            set_button_color(selected_color.button_text, obj)
+            modify_button(
+                obj,
+                fg_color=selected_color.button_text,
+            )
         return super().eventFilter(obj, event)
 
 
