@@ -45,6 +45,7 @@ def modify_button(
     button,
     fg_color: str = None,
     bg_color: str = None,
+    bg_pressed_color: str = None,
     icon: str = None,
 ) -> None:
     if icon:
@@ -52,7 +53,17 @@ def modify_button(
         button.setIcon(icon)
     if bg_color:
         current_style = button.styleSheet()
-        current_style += f"background-color: {bg_color};"
+        current_style += f"""
+        QPushButton {{
+            background-color: {bg_color};
+        }}"""
+        button.setStyleSheet(current_style)
+    if bg_pressed_color:
+        current_style = button.styleSheet()
+        current_style += f"""
+        QPushButton:pressed {{
+            background-color: {bg_pressed_color};
+        }}"""
         button.setStyleSheet(current_style)
     if fg_color:
         current_size = button.iconSize()
