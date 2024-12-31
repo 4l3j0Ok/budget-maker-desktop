@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
-from PySide6.QtCore import QPropertyAnimation, QEvent
+from PySide6.QtCore import QPropertyAnimation, QEvent, QTranslator, QLibraryInfo
 from controllers import products, projects
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
@@ -10,13 +10,13 @@ import sys
 
 
 class MainWindow(QMainWindow, MainWindow):
-    def __init__(self, dark_mode=False) -> None:
+    def __init__(self, dark_mode: bool = False) -> None:
         super().__init__()
         # UI Setup
         self.setupUi(self)
         self.setupNavbar()
-        self.dark_mode: bool = dark_mode
-        self.current_page: QWidget = None
+        self.dark_mode = dark_mode
+        self.current_page = None
         ## Window
         self.setMinimumWidth(Size.app_min_width)
         self.setMinimumHeight(Size.app_min_height)
@@ -66,8 +66,6 @@ class MainWindow(QMainWindow, MainWindow):
         if not widget:
             button = self.sender()
             widget = self.btnPage[button.objectName()](self)
-        if isinstance(self.current_page, widget.__class__):
-            return
         self.current_page = widget
         if self.frContent.layout().count() > 0:
             self.frContent.layout().itemAt(0).widget().deleteLater()
@@ -89,9 +87,16 @@ class MainWindow(QMainWindow, MainWindow):
         return super().eventFilter(obj, event)
 
 
+def init_translator(app: QApplication) -> None:
+    translator = QTranslator(app)
+    translations = QLibraryInfo.path(QLibraryInfo.TranslationsPath)
+    translator.load("qt_es", translations)
+    app.installTranslator(translator)
+
+
 if __name__ == "__main__":
-    print(sys.argv)
     app = QApplication(sys.argv)
+    init_translator(app)
     app.setStyle("Fusion")
     dark_mode = False
     load_stylesheet_tpl(app, dark_mode=dark_mode)
