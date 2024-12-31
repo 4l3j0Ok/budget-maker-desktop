@@ -26,11 +26,11 @@ class Ui_Element(object):
         Element.resize(816, 42)
         self.gridLayout = QGridLayout(Element)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.lePrice = QLineEdit(Element)
-        self.lePrice.setObjectName(u"lePrice")
-        self.lePrice.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.leName = QLineEdit(Element)
+        self.leName.setObjectName(u"leName")
+        self.leName.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout.addWidget(self.lePrice, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.leName, 0, 0, 1, 1)
 
         self.btnDelete = QPushButton(Element)
         self.btnDelete.setObjectName(u"btnDelete")
@@ -38,13 +38,21 @@ class Ui_Element(object):
         icon.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnDelete.setIcon(icon)
 
-        self.gridLayout.addWidget(self.btnDelete, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.btnDelete, 0, 3, 1, 1)
 
-        self.leName = QLineEdit(Element)
-        self.leName.setObjectName(u"leName")
-        self.leName.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.lePrice = QLineEdit(Element)
+        self.lePrice.setObjectName(u"lePrice")
+        self.lePrice.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout.addWidget(self.leName, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.lePrice, 0, 1, 1, 1)
+
+        self.btnEdit = QPushButton(Element)
+        self.btnEdit.setObjectName(u"btnEdit")
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/views/assets/ic--outline-edit.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnEdit.setIcon(icon1)
+
+        self.gridLayout.addWidget(self.btnEdit, 0, 2, 1, 1)
 
 
         self.retranslateUi(Element)
@@ -55,5 +63,6 @@ class Ui_Element(object):
     def retranslateUi(self, Element):
         Element.setWindowTitle(QCoreApplication.translate("Element", u"Producto", None))
         self.btnDelete.setText("")
+        self.btnEdit.setText("")
     # retranslateUi
 

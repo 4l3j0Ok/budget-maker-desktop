@@ -35,7 +35,7 @@ class Ui_Form(object):
         self.lblProduct = QLabel(self.frColumns)
         self.lblProduct.setObjectName(u"lblProduct")
         font = QFont()
-        font.setBold(True)
+        font.setBold(False)
         self.lblProduct.setFont(font)
         self.lblProduct.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -47,6 +47,19 @@ class Ui_Form(object):
         self.lblPrice.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout.addWidget(self.lblPrice)
+
+        self.label = QLabel(self.frColumns)
+        self.label.setObjectName(u"label")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        self.label.setMinimumSize(QSize(80, 0))
+        self.label.setFont(font)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.label)
 
 
         self.verticalLayout_2.addWidget(self.frColumns)
@@ -71,7 +84,9 @@ class Ui_Form(object):
 
         self.btnNew = QPushButton(Form)
         self.btnNew.setObjectName(u"btnNew")
-        self.btnNew.setFont(font)
+        font1 = QFont()
+        font1.setBold(True)
+        self.btnNew.setFont(font1)
 
         self.verticalLayout_2.addWidget(self.btnNew)
 
@@ -85,6 +100,7 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Productos", None))
         self.lblProduct.setText(QCoreApplication.translate("Form", u"Producto", None))
         self.lblPrice.setText(QCoreApplication.translate("Form", u"Precio por unidad", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Acci\u00f3n", None))
         self.btnNew.setText(QCoreApplication.translate("Form", u"+", None))
     # retranslateUi
 

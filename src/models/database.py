@@ -1,7 +1,8 @@
-from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlError
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from config import Database as cfg
 from models.products import Products
 from models.projects import Projects
+from models.project_products import ProjectProducts
 import sys
 import traceback
 
@@ -23,18 +24,12 @@ class Database(QSqlDatabase):
         try:
             Projects.create_table(self)
             Products.create_table(self)
+            ProjectProducts.create_table(self)
             return True
         except Exception as e:
             print(e)
             return False
 
-    def execute_query(self, statement: str) -> bool:
-        try:
-            query = QSqlQuery()
-            if not query.exec(statement):
-                raise Exception(query.lastError().text())
-            return True
-        except Exception as e:
-            print(e)
-            traceback.print_exc()
-            return False
+    def execute_query(self, statement: str) -> QSqlQuery:
+        result = QSqlQuery(statement)
+        return result

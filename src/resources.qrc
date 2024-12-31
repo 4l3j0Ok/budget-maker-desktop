@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>views/assets/ic--baseline-done.svg</file>
     <file>views/assets/ic--outline-lock-open.svg</file>
     <file>views/assets/ic--outline-lock.svg</file>
     <file>views/assets/ic--outline-delete.svg</file>
