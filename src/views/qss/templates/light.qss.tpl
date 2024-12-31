@@ -15,16 +15,6 @@ QPushButton:pressed {
     background-color: ${accent_alt};
 }
 
-QPushButton#btnDelete {
-    background-color: ${delete};
-    color: white;
-}
-
-QPushButton#btnDelete:pressed {
-    background-color: ${delete_alt};
-    color: white;
-}
-
 QFrame#frNavbar > QPushButton {
     background-color: none;
     color: ${button_text};
