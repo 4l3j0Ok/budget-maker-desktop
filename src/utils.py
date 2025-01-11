@@ -4,6 +4,7 @@ from views.ui import colors
 from config import Path
 from jinja2 import Template
 import os
+from xhtml2pdf import pisa
 
 
 def load_stylesheet(
@@ -90,3 +91,15 @@ def render_template(
     with open(template_file) as file:
         template = Template(file.read())
         return template.render(**kwargs)
+
+
+def create_pdf(
+    html: str,
+    output_file: str,
+) -> tuple[bool, str]:
+    with open(output_file, "w+b") as file:
+        pisa_status = pisa.CreatePDF(
+            html,
+            dest=file,
+        )
+        return pisa_status.err, output_file
