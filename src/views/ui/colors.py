@@ -1,6 +1,10 @@
 class Light:
     accent = "#4285F4"
     accent_alt = "#2d5ba7"
+    selected = "#0c9100"
+    selected_alt = "#085a00"
+    deselected = "#9e9e9e"
+    deselected_alt = "#7c7c7c"
     text = "#333"
     button_text = text
     button_text_alt = "#f0f0f0"

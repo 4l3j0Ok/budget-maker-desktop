@@ -31,7 +31,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="leAmount">
+    <widget class="QLineEdit" name="leQuantity">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -47,7 +47,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="leTotal">
+    <widget class="QLineEdit" name="leCost">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -58,7 +58,18 @@
       <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
      <property name="placeholderText">
-      <string>Ingrese el precio total</string>
+      <string>Ingrese el costo</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btnHide">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../../resources.qrc">
+       <normaloff>:/icons/views/assets/eva--eye-outline.svg</normaloff>:/icons/views/assets/eva--eye-outline.svg</iconset>
      </property>
     </widget>
    </item>

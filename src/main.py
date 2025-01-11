@@ -62,14 +62,22 @@ class MainWindow(QMainWindow, MainWindow):
                 button.clicked.connect(self.switchPage)
         return
 
-    def switchPage(self, widget: QWidget = None) -> None:
+    def switchPage(self, widget: QWidget = None, hide=False, hidden=False) -> None:
         if not widget:
             button = self.sender()
             widget = self.btnPage[button.objectName()](self)
         self.current_page = widget
-        if self.frContent.layout().count() > 0:
-            self.frContent.layout().itemAt(0).widget().deleteLater()
-        self.frContent.layout().addWidget(widget)
+        layout = self.frContent.layout()
+        if layout.count() > 0:
+            current_widget = layout.itemAt(0).widget()
+            for i in range(layout.count()):
+                if hide:
+                    if layout.itemAt(i).widget() == current_widget:
+                        layout.itemAt(i).widget().hide()
+                        continue
+                if layout.itemAt(i).widget() != widget:
+                    layout.itemAt(i).widget().deleteLater()
+        self.frContent.layout().addWidget(widget) if not hidden else widget.show()
         return
 
     def eventFilter(self, obj, event) -> bool:

@@ -7,8 +7,8 @@ class ProjectProducts:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 project_id INTEGER NOT NULL,
                 name TEXT NOT NULL,
-                amount INTEGER NOT NULL,
-                price REAL NOT NULL,
+                quantity INTEGER NOT NULL,
+                cost REAL NOT NULL,
                 FOREIGN KEY (project_id) REFERENCES projects (id)
             )
             """

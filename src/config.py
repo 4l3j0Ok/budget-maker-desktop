@@ -3,7 +3,8 @@ import os
 
 class Path:
     current = os.path.dirname(os.path.realpath(__file__))
-    templates = f"{current}/views/qss/templates"
+    qss_tpls = f"{current}/views/qss/templates"
+    html_tpls = f"{current}/views/html/templates"
 
 
 class Pages:

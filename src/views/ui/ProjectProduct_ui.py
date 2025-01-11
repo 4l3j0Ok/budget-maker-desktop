@@ -37,35 +37,43 @@ class Ui_Element(object):
 
         self.horizontalLayout.addWidget(self.leProduct)
 
-        self.leAmount = QLineEdit(Element)
-        self.leAmount.setObjectName(u"leAmount")
-        sizePolicy.setHeightForWidth(self.leAmount.sizePolicy().hasHeightForWidth())
-        self.leAmount.setSizePolicy(sizePolicy)
-        self.leAmount.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.leQuantity = QLineEdit(Element)
+        self.leQuantity.setObjectName(u"leQuantity")
+        sizePolicy.setHeightForWidth(self.leQuantity.sizePolicy().hasHeightForWidth())
+        self.leQuantity.setSizePolicy(sizePolicy)
+        self.leQuantity.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout.addWidget(self.leAmount)
+        self.horizontalLayout.addWidget(self.leQuantity)
 
-        self.leTotal = QLineEdit(Element)
-        self.leTotal.setObjectName(u"leTotal")
-        sizePolicy.setHeightForWidth(self.leTotal.sizePolicy().hasHeightForWidth())
-        self.leTotal.setSizePolicy(sizePolicy)
-        self.leTotal.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.leCost = QLineEdit(Element)
+        self.leCost.setObjectName(u"leCost")
+        sizePolicy.setHeightForWidth(self.leCost.sizePolicy().hasHeightForWidth())
+        self.leCost.setSizePolicy(sizePolicy)
+        self.leCost.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout.addWidget(self.leTotal)
+        self.horizontalLayout.addWidget(self.leCost)
+
+        self.btnHide = QPushButton(Element)
+        self.btnHide.setObjectName(u"btnHide")
+        icon = QIcon()
+        icon.addFile(u":/icons/views/assets/eva--eye-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnHide.setIcon(icon)
+
+        self.horizontalLayout.addWidget(self.btnHide)
 
         self.btnLock = QPushButton(Element)
         self.btnLock.setObjectName(u"btnLock")
-        icon = QIcon()
-        icon.addFile(u":/icons/views/assets/ic--outline-lock.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnLock.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/views/assets/ic--outline-lock.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnLock.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.btnLock)
 
         self.btnDelete = QPushButton(Element)
         self.btnDelete.setObjectName(u"btnDelete")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnDelete.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnDelete.setIcon(icon2)
 
         self.horizontalLayout.addWidget(self.btnDelete)
 
@@ -78,8 +86,9 @@ class Ui_Element(object):
     def retranslateUi(self, Element):
         Element.setWindowTitle(QCoreApplication.translate("Element", u"Proyecto - Producto", None))
         self.leProduct.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese el nombre del producto", None))
-        self.leAmount.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese la cantidad", None))
-        self.leTotal.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese el precio total", None))
+        self.leQuantity.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese la cantidad", None))
+        self.leCost.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese el costo", None))
+        self.btnHide.setText("")
         self.btnLock.setText("")
         self.btnDelete.setText("")
     # retranslateUi

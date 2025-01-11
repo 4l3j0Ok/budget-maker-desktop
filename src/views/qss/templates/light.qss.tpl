@@ -34,6 +34,14 @@ QLineEdit {
     background-color: white;
 }
 
+QWebEngineView {
+    border: 0.5px solid;
+    border-color: grey;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
 QLineEdit:focus {
     border-color: ${accent};
 }

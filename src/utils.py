@@ -2,6 +2,8 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon, QPainter
 from views.ui import colors
 from config import Path
+from jinja2 import Template
+import os
 
 
 def load_stylesheet(
@@ -9,9 +11,9 @@ def load_stylesheet(
     dark_mode: bool = False,
 ) -> None:
     style_file = (
-        f"{Path.templates}/dark.qss.tpl"
+        f"{Path.qss_tpls}/dark.qss.tpl"
         if dark_mode
-        else f"{Path.templates}/light.qss.tpl"
+        else f"{Path.qss_tpls}/light.qss.tpl"
     )
     try:
         with open(style_file) as file:
@@ -26,9 +28,9 @@ def load_stylesheet_tpl(
     dark_mode: bool = False,
 ) -> None:
     style_file = (
-        f"{Path.templates}/light.qss.tpl"
+        f"{Path.qss_tpls}/light.qss.tpl"
         if not dark_mode
-        else f"{Path.templates}/dark.qss.tpl"
+        else f"{Path.qss_tpls}/dark.qss.tpl"
     )
     try:
         with open(style_file) as file:
@@ -75,3 +77,16 @@ def modify_button(
         painter.end()
         button.setIcon(QIcon(pixmap))
     return
+
+
+def get_template_list():
+    return os.listdir(Path.html_tpls)
+
+
+def render_template(
+    template_file: str,
+    **kwargs,
+) -> str:
+    with open(template_file) as file:
+        template = Template(file.read())
+        return template.render(**kwargs)

@@ -1,11 +1,12 @@
 <RCC>
   <qresource prefix="icons">
+    <file>views/assets/eva--eye-off-2-outline.svg</file>
+    <file>views/assets/eva--eye-outline.svg</file>
     <file>views/assets/ic--baseline-done.svg</file>
     <file>views/assets/ic--outline-lock-open.svg</file>
     <file>views/assets/ic--outline-lock.svg</file>
     <file>views/assets/ic--outline-delete.svg</file>
     <file>views/assets/ic--outline-edit.svg</file>
-    <file>views/assets/ic--outline-remove-red-eye.svg</file>
     <file>views/assets/eos-icons--project-outlined.svg</file>
     <file>views/assets/ic--baseline-lightbulb.svg</file>
     <file>views/assets/ic--baseline-menu.svg</file>

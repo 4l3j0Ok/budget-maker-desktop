@@ -32,46 +32,26 @@ class Ui_Form(object):
         Form.setSizePolicy(sizePolicy)
         self.gridLayout = QGridLayout(Form)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.frTotal = QFrame(Form)
-        self.frTotal.setObjectName(u"frTotal")
+        self.leProjectName = QLineEdit(Form)
+        self.leProjectName.setObjectName(u"leProjectName")
+        self.leProjectName.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout.addWidget(self.leProjectName, 2, 0, 1, 2)
+
+        self.lblProject = QLabel(Form)
+        self.lblProject.setObjectName(u"lblProject")
         font = QFont()
-        font.setPointSize(12)
-        self.frTotal.setFont(font)
-        self.frTotal.setFrameShape(QFrame.Shape.NoFrame)
-        self.frTotal.setFrameShadow(QFrame.Shadow.Raised)
-        self.frTotal.setLineWidth(3)
-        self.horizontalLayout_2 = QHBoxLayout(self.frTotal)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.lblTotalInfo = QLabel(self.frTotal)
-        self.lblTotalInfo.setObjectName(u"lblTotalInfo")
-        font1 = QFont()
-        font1.setPointSize(9)
-        self.lblTotalInfo.setFont(font1)
+        font.setBold(True)
+        self.lblProject.setFont(font)
+        self.lblProject.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout_2.addWidget(self.lblTotalInfo)
+        self.gridLayout.addWidget(self.lblProject, 0, 0, 1, 2)
 
-        self.lblPrice = QLabel(self.frTotal)
-        self.lblPrice.setObjectName(u"lblPrice")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.lblPrice.sizePolicy().hasHeightForWidth())
-        self.lblPrice.setSizePolicy(sizePolicy1)
-        font2 = QFont()
-        font2.setPointSize(9)
-        font2.setBold(True)
-        self.lblPrice.setFont(font2)
+        self.btnAdd = QPushButton(Form)
+        self.btnAdd.setObjectName(u"btnAdd")
+        self.btnAdd.setFont(font)
 
-        self.horizontalLayout_2.addWidget(self.lblPrice)
-
-        self.lblTotal = QLabel(self.frTotal)
-        self.lblTotal.setObjectName(u"lblTotal")
-        self.lblTotal.setFont(font2)
-
-        self.horizontalLayout_2.addWidget(self.lblTotal)
-
-
-        self.gridLayout.addWidget(self.frTotal, 6, 1, 1, 1)
+        self.gridLayout.addWidget(self.btnAdd, 5, 0, 1, 2)
 
         self.scrollArea = QScrollArea(Form)
         self.scrollArea.setObjectName(u"scrollArea")
@@ -80,18 +60,10 @@ class Ui_Form(object):
         self.scrollArea.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 690, 119))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 690, 148))
         self.verticalLayout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
-
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-
-        self.gridLayout.addWidget(self.scrollArea, 4, 0, 1, 2)
-
-        self.frColumns = QFrame(Form)
+        self.frColumns = QFrame(self.scrollAreaWidgetContents)
         self.frColumns.setObjectName(u"frColumns")
         self.frColumns.setFrameShape(QFrame.Shape.NoFrame)
         self.frColumns.setFrameShadow(QFrame.Shadow.Raised)
@@ -117,25 +89,27 @@ class Ui_Form(object):
 
         self.label_4 = QLabel(self.frColumns)
         self.label_4.setObjectName(u"label_4")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
-        self.label_4.setSizePolicy(sizePolicy2)
-        self.label_4.setMinimumSize(QSize(80, 0))
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
+        self.label_4.setSizePolicy(sizePolicy1)
+        self.label_4.setMinimumSize(QSize(100, 0))
         self.label_4.setBaseSize(QSize(70, 0))
         self.label_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_3.addWidget(self.label_4)
 
 
-        self.gridLayout.addWidget(self.frColumns, 3, 0, 1, 2)
+        self.verticalLayout.addWidget(self.frColumns)
 
-        self.leProjectName = QLineEdit(Form)
-        self.leProjectName.setObjectName(u"leProjectName")
-        self.leProjectName.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.gridLayout.addWidget(self.leProjectName, 2, 0, 1, 2)
+        self.verticalLayout.addItem(self.verticalSpacer)
+
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.gridLayout.addWidget(self.scrollArea, 4, 0, 1, 2)
 
         self.frButtons = QFrame(Form)
         self.frButtons.setObjectName(u"frButtons")
@@ -156,20 +130,50 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.frButtons, 10, 0, 1, 2)
 
-        self.btnAdd = QPushButton(Form)
-        self.btnAdd.setObjectName(u"btnAdd")
+        self.frTotal = QFrame(Form)
+        self.frTotal.setObjectName(u"frTotal")
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.frTotal.setFont(font1)
+        self.frTotal.setFrameShape(QFrame.Shape.NoFrame)
+        self.frTotal.setFrameShadow(QFrame.Shadow.Raised)
+        self.frTotal.setLineWidth(3)
+        self.horizontalLayout_2 = QHBoxLayout(self.frTotal)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.lblTotalInfo = QLabel(self.frTotal)
+        self.lblTotalInfo.setObjectName(u"lblTotalInfo")
+        font2 = QFont()
+        font2.setPointSize(9)
+        self.lblTotalInfo.setFont(font2)
+
+        self.horizontalLayout_2.addWidget(self.lblTotalInfo)
+
+        self.lblPrice = QLabel(self.frTotal)
+        self.lblPrice.setObjectName(u"lblPrice")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.lblPrice.sizePolicy().hasHeightForWidth())
+        self.lblPrice.setSizePolicy(sizePolicy2)
         font3 = QFont()
+        font3.setPointSize(9)
         font3.setBold(True)
-        self.btnAdd.setFont(font3)
+        self.lblPrice.setFont(font3)
 
-        self.gridLayout.addWidget(self.btnAdd, 5, 0, 1, 2)
+        self.horizontalLayout_2.addWidget(self.lblPrice)
 
-        self.lblProject = QLabel(Form)
-        self.lblProject.setObjectName(u"lblProject")
-        self.lblProject.setFont(font3)
-        self.lblProject.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.leTotal = QLineEdit(self.frTotal)
+        self.leTotal.setObjectName(u"leTotal")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.leTotal.sizePolicy().hasHeightForWidth())
+        self.leTotal.setSizePolicy(sizePolicy3)
 
-        self.gridLayout.addWidget(self.lblProject, 0, 0, 1, 2)
+        self.horizontalLayout_2.addWidget(self.leTotal)
+
+
+        self.gridLayout.addWidget(self.frTotal, 6, 1, 1, 1)
 
 
         self.retranslateUi(Form)
@@ -179,17 +183,16 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Nuevo Proyecto", None))
-        self.lblTotalInfo.setText(QCoreApplication.translate("Form", u"Total General:", None))
-        self.lblPrice.setText(QCoreApplication.translate("Form", u"$", None))
-        self.lblTotal.setText(QCoreApplication.translate("Form", u"0", None))
+        self.leProjectName.setPlaceholderText(QCoreApplication.translate("Form", u"Ingresa el nombre del proyecto", None))
+        self.lblProject.setText(QCoreApplication.translate("Form", u"Proyecto", None))
+        self.btnAdd.setText(QCoreApplication.translate("Form", u"+", None))
         self.label.setText(QCoreApplication.translate("Form", u"Producto", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"Cantidad", None))
-        self.label_3.setText(QCoreApplication.translate("Form", u"Total", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"Costo", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"Acci\u00f3n", None))
-        self.leProjectName.setPlaceholderText(QCoreApplication.translate("Form", u"Ingresa el nombre del proyecto", None))
         self.btnClear.setText(QCoreApplication.translate("Form", u"Limpiar", None))
         self.btnNext.setText(QCoreApplication.translate("Form", u"Siguiente", None))
-        self.btnAdd.setText(QCoreApplication.translate("Form", u"+", None))
-        self.lblProject.setText(QCoreApplication.translate("Form", u"Proyecto", None))
+        self.lblTotalInfo.setText(QCoreApplication.translate("Form", u"Total General:", None))
+        self.lblPrice.setText(QCoreApplication.translate("Form", u"$", None))
     # retranslateUi
 
