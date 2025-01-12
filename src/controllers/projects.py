@@ -14,8 +14,8 @@ class Project(QWidget, Project_ui.Ui_Element):
 
 
 class Projects(QWidget, Projects_ui.Ui_Form):
-    def __init__(self, cls, parent=None):
-        super().__init__(parent)
+    def __init__(self, cls):
+        super().__init__()
         self.setupUi(self)
         self.btnNew.clicked.connect(lambda: self.onBtnNewClicked(cls))
 
@@ -29,5 +29,5 @@ def setPage(cls) -> None:
     # Establecer el título y la descripción de la página.
     cls.lblTitle.setText(Pages.projects["title"])
     cls.lblDescription.setText(Pages.projects["description"])
-    widget = Projects(cls, cls.frContent)
+    widget = Projects(cls)
     return widget

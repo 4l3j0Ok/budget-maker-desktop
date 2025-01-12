@@ -117,8 +117,8 @@ class Product(QWidget, Product_ui.Ui_Element):
 
 
 class Products(QWidget, Products_ui.Ui_Form):
-    def __init__(self, cls, parent=None):
-        super().__init__(parent)
+    def __init__(self, cls):
+        super().__init__()
         self.setupUi(self)
         self.db = cls.db
         self.btnNew.clicked.connect(self.onBtnNewClicked)
@@ -143,5 +143,5 @@ class Products(QWidget, Products_ui.Ui_Form):
 def setPage(cls) -> None:
     cls.lblTitle.setText(Pages.products["title"])
     cls.lblDescription.setText(Pages.products["description"])
-    widget = Products(cls, cls.frContent)
+    widget = Products(cls)
     return widget
