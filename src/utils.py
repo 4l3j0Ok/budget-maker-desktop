@@ -1,10 +1,11 @@
 from PySide6.QtWidgets import QApplication
-from PySide6.QtGui import QIcon, QPainter
+from PySide6.QtGui import QIcon, QPainter, QPageLayout, QPageSize
+from PySide6.QtCore import QMarginsF
+from PySide6.QtWebEngineWidgets import QWebEngineView
 from views.ui import colors
 from config import Path
 from jinja2 import Template
 import os
-from xhtml2pdf import pisa
 
 
 def load_stylesheet(
@@ -93,13 +94,21 @@ def render_template(
         return template.render(**kwargs)
 
 
-def create_pdf(
-    html: str,
-    output_file: str,
-) -> tuple[bool, str]:
-    with open(output_file, "w+b") as file:
-        pisa_status = pisa.CreatePDF(
-            html,
-            dest=file,
-        )
-        return pisa_status.err, output_file
+def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
+    try:
+        webView = QWebEngineView()
+        layout = QPageLayout(QPageSize.A4, QPageLayout.Portrait, QMarginsF(0, 0, 0, 0))
+
+        def on_load_finished(success):
+            if success:
+                webView.page().printToPdf(output_file, layout)
+            else:
+                raise Exception("Failed to load HTML content")
+
+        webView.loadFinished.connect(on_load_finished)
+        webView.setHtml(html)
+
+        return True, output_file
+    except Exception as e:
+        print(e)
+        return False, str(e)
