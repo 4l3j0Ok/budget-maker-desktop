@@ -108,7 +108,7 @@
       <item>
        <widget class="QPushButton" name="btnNext">
         <property name="text">
-         <string>Siguiente</string>
+         <string>Finalizar</string>
         </property>
        </widget>
       </item>

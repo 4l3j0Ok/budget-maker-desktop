@@ -53,7 +53,7 @@ class Ui_Element(object):
         self.btnPreview = QPushButton(Element)
         self.btnPreview.setObjectName(u"btnPreview")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/ic--outline-remove-red-eye.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/icons/views/assets/eva--eye-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnPreview.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.btnPreview)

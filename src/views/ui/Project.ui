@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>811</width>
-    <height>0</height>
+    <height>42</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -54,7 +54,7 @@
      </property>
      <property name="icon">
       <iconset resource="../../resources.qrc">
-       <normaloff>:/icons/views/assets/ic--outline-remove-red-eye.svg</normaloff>:/icons/views/assets/ic--outline-remove-red-eye.svg</iconset>
+       <normaloff>:/icons/views/assets/eva--eye-outline.svg</normaloff>:/icons/views/assets/eva--eye-outline.svg</iconset>
      </property>
     </widget>
    </item>

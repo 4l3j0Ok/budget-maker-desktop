@@ -101,6 +101,6 @@ class Ui_Form(object):
         self.lblProject.setText(QCoreApplication.translate("Form", u"Proyecto", None))
         self.leProjectName.setPlaceholderText(QCoreApplication.translate("Form", u"Nombre no establecido", None))
         self.btnBack.setText(QCoreApplication.translate("Form", u"Atr\u00e1s", None))
-        self.btnNext.setText(QCoreApplication.translate("Form", u"Siguiente", None))
+        self.btnNext.setText(QCoreApplication.translate("Form", u"Finalizar", None))
     # retranslateUi
 
