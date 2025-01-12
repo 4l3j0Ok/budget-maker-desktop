@@ -9,12 +9,12 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f9;
             color: #333;
         }
 
         h1 {
-            color: #1b1b1b;
+            color: #000000;
+            font-size: 2em;
         }
 
         table {
@@ -23,20 +23,15 @@
             margin: 20px 0;
         }
 
-        table,
         th,
         td {
             border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 12px;
+            padding: 5px;
             text-align: center;
         }
 
         th {
-            background-color: #1b1b1b;
+            background-color: #000000;
             color: white;
         }
 
@@ -46,7 +41,6 @@
 
         .total {
             font-weight: bold;
-            font-size: 1.2em;
             margin-top: 20px;
         }
     </style>

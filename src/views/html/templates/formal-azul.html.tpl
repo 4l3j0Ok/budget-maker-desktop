@@ -9,7 +9,6 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f9;
             color: #333;
         }
 
@@ -23,15 +22,10 @@
             margin: 20px 0;
         }
 
-        table,
         th,
         td {
             border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 12px;
+            padding: 5px;
             text-align: center;
         }
 
@@ -46,7 +40,6 @@
 
         .total {
             font-weight: bold;
-            font-size: 1.2em;
             margin-top: 20px;
         }
     </style>
