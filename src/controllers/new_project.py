@@ -5,12 +5,19 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QLabel,
     QVBoxLayout,
+    QFileDialog,
 )
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from views.ui import NewProject_ui, ProjectProduct_ui, NewProjectTemplate_ui, colors
+from views.ui import (
+    NewProject_ui,
+    ProjectProduct_ui,
+    NewProjectTemplate_ui,
+    Success_ui,
+    colors,
+)
 from config import Pages, Path
-from utils import modify_button, get_template_list, render_template
+from utils import modify_button, get_template_list, render_template, create_pdf
 
 
 class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
@@ -94,8 +101,8 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
 
 
 class NewProject(QWidget, NewProject_ui.Ui_Form):
-    def __init__(self, cls, parent=None):
-        super().__init__(parent)
+    def __init__(self, cls):
+        super().__init__()
         self.setupUi(self)
         self.setupButtons(cls)
 
@@ -195,7 +202,8 @@ class Template(QWidget):
         self.selected = False
         self.verticalLayout = QVBoxLayout(self)
         self.webView = QWebEngineView()
-        self.webView.setHtml(html)
+        self.html = html
+        self.webView.setHtml(self.html)
         self.lblProjectName = QLabel()
         self.lblProjectName.setText(name)
         self.btnSelect = QPushButton()
@@ -219,6 +227,7 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
         modify_button(self.btnNext, bg_color=colors.Light.deselected)
         self.btnNext.setEnabled(False)
         self.btnBack.clicked.connect(lambda: cls.switchPage(parent_widget, hidden=True))
+        self.btnNext.clicked.connect(lambda: self.onButtonNextClicked(cls))
         self.leProjectName.setText(project_name)
         self.gridLayout.setSpacing(10)
         self.templates = []
@@ -262,6 +271,10 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
                 is_any_selected = True
         self.toggleNextButton(is_any_selected)
 
+    def onButtonNextClicked(self, cls):
+        html = next((template.html for template in self.templates if template.selected))
+        cls.switchPage(Success(cls, html=html))
+
     def toggleNextButton(self, enabled: bool) -> None:
         self.btnNext.setEnabled(enabled)
         modify_button(
@@ -271,6 +284,43 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
             if enabled
             else colors.Light.deselected_alt,
         )
+
+
+class Success(QWidget, Success_ui.Ui_Form):
+    def __init__(self, cls, html):
+        super().__init__()
+        self.setupUi(self)
+        self.setupButtons()
+        self.html = html
+
+    def setupButtons(self):
+        modify_button(
+            self.btnHome,
+            fg_color="white",
+            bg_color=colors.Light.accent,
+            bg_pressed_color=colors.Light.accent_alt,
+        )
+        modify_button(
+            self.btnSavePDF,
+            fg_color="white",
+            bg_color=colors.Light.accent,
+            bg_pressed_color=colors.Light.accent_alt,
+        )
+        self.btnSavePDF.clicked.connect(self.save_pdf)
+
+    def save_pdf(self):
+        # Mostramos el dialogo de guardado
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, "Guardar PDF", "", "PDF Files (*.pdf)"
+        )
+        if file_path:
+            create_pdf(self.html, file_path)
+            modify_button(
+                self.btnSavePDF,
+                fg_color="white",
+                bg_color=colors.Light.selected,
+                bg_pressed_color=colors.Light.selected_alt,
+            )
 
 
 class Product:
@@ -289,5 +339,5 @@ class Product:
 def setPage(cls) -> None:
     cls.lblTitle.setText(Pages.new_project["title"])
     cls.lblDescription.setText(Pages.new_project["description"])
-    widget = NewProject(cls, cls.frContent)
+    widget = NewProject(cls)
     return widget
