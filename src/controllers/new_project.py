@@ -18,6 +18,8 @@ from views.ui import (
 )
 from config import Pages, Path
 from utils import modify_button, get_template_list, render_template, create_pdf
+from models.products import Product
+from models.projects import Project
 
 
 class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
@@ -42,7 +44,6 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
         self.locked = False
         self.costVisible = True
         self.btnLock.clicked.connect(self.toggleLock)
-        self.btnDelete.clicked.connect(self.deleteLater)
         self.btnHide.clicked.connect(self.toggleVisibility)
 
     def setupLineEdit(self):
@@ -105,6 +106,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.setupButtons(cls)
+        self.leTotal.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
 
     def setupButtons(self, cls):
         self.btnAdd.clicked.connect(self.addProduct)
@@ -128,11 +130,18 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         widget = ProjectProduct()
         self.toggleNextButton(False)
         self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
-        widget.leCost.textChanged.connect(lambda: self.lineEditChanged(True))
-        widget.leProduct.textChanged.connect(lambda: self.lineEditChanged(False))
-        widget.leQuantity.textChanged.connect(lambda: self.lineEditChanged(False))
+        widget.leCost.textChanged.connect(lambda: self.checkLineEdits(True))
+        widget.leProduct.textChanged.connect(lambda: self.checkLineEdits(False))
+        widget.leQuantity.textChanged.connect(lambda: self.checkLineEdits(False))
+        widget.btnDelete.clicked.connect(lambda: self.deleteProduct(widget))
 
-    def lineEditChanged(self, update_total: bool) -> None:
+    def deleteProduct(self, widget):
+        widget.deleteLater()
+        # Eliminamos el widget del layout porque deleteLater lo hace al siguiente ciclo de eventos.
+        self.verticalLayout.removeWidget(widget)
+        self.checkLineEdits(True)
+
+    def checkLineEdits(self, update_total: bool) -> None:
         line_edits_values = []
         for i in range(self.verticalLayout.count()):
             widget = self.verticalLayout.itemAt(i).widget()
@@ -273,6 +282,7 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
 
     def onButtonNextClicked(self, cls):
         html = next((template.html for template in self.templates if template.selected))
+
         cls.switchPage(Success(cls, html=html))
 
     def toggleNextButton(self, enabled: bool) -> None:
@@ -321,19 +331,6 @@ class Success(QWidget, Success_ui.Ui_Form):
                 bg_color=colors.Light.selected,
                 bg_pressed_color=colors.Light.selected_alt,
             )
-
-
-class Product:
-    name: str
-    quantity: int
-    cost: int
-    cost_visible: bool
-
-    def __init__(self, name: str, quantity: int, cost: int, cost_visible: bool) -> None:
-        self.name = name
-        self.quantity = quantity
-        self.cost = cost
-        self.cost_visible = cost_visible
 
 
 def setPage(cls) -> None:
