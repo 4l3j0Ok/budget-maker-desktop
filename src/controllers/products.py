@@ -3,7 +3,7 @@ from PySide6.QtGui import QRegularExpressionValidator
 from config import Pages
 from utils import modify_button
 from views.ui import colors, Product_ui, Products_ui
-from models.products import Products as ProductsModel
+from models.products import Product as ProductsModel
 
 
 class Product(QWidget, Product_ui.Ui_Element):

@@ -48,7 +48,9 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
 
     def setupLineEdit(self):
         self.leQuantity.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
-        self.leCost.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
+        self.leCost.setValidator(
+            QRegularExpressionValidator(r"^[0-9]*[.,]?[0-9]*$", self)
+        )
 
     def toggleLock(self):
         self.locked = not self.locked
@@ -158,8 +160,10 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         for i in range(self.verticalLayout.count()):
             widget = self.verticalLayout.itemAt(i).widget()
             if widget and isinstance(widget, ProjectProduct):
-                cost = int(widget.leCost.text()) if widget.leCost.text() else 0
+                widget.leCost.setText(widget.leCost.text().replace(",", "."))
+                cost = float(widget.leCost.text()) if widget.leCost.text() else 0
                 total += cost
+        total = total if not str(total).endswith(".0") else int(total)
         self.leTotal.setText(str(total))
 
     def getProducts(self):
@@ -171,7 +175,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
                     Product(
                         name=widget.leProduct.text(),
                         quantity=int(widget.leQuantity.text()),
-                        cost=int(widget.leCost.text()),
+                        cost=float(widget.leCost.text()),
                         cost_visible=widget.costVisible,
                     )
                 )
@@ -233,19 +237,22 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
     def __init__(self, cls, project_name, products, total, parent_widget):
         super().__init__()
         self.setupUi(self)
+        self.project_name = project_name
+        self.products = products
+        self.total = total
         modify_button(self.btnNext, bg_color=colors.Light.deselected)
         self.btnNext.setEnabled(False)
         self.btnBack.clicked.connect(lambda: cls.switchPage(parent_widget, hidden=True))
         self.btnNext.clicked.connect(lambda: self.onButtonNextClicked(cls))
-        self.leProjectName.setText(project_name)
+        self.leProjectName.setText(self.project_name)
         self.gridLayout.setSpacing(10)
         self.templates = []
         for file_name in get_template_list():
             html = render_template(
                 f"{Path.html_tpls}/{file_name}",
-                project_name=project_name,
-                items=products,
-                total=total,
+                project_name=self.project_name,
+                items=self.products,
+                total=self.total,
             )
             pretty_name = (
                 file_name.replace(".html", "")
@@ -282,6 +289,14 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
 
     def onButtonNextClicked(self, cls):
         html = next((template.html for template in self.templates if template.selected))
+        # Guardar el proyecto en la base de datos
+        self.project = Project(name=self.project_name, total=self.total)
+        self.project.insert(cls.db)
+        # Guardar los productos en la base de datos
+        for product in self.products:
+            product: Product
+            product.project_id = self.project.project_id
+            product.insert(cls.db)
 
         cls.switchPage(Success(cls, html=html))
 
