@@ -56,6 +56,28 @@ class Product:
             print(e)
             return []
 
+    @classmethod
+    def get_all(self, db) -> list:
+        try:
+            statement = """
+            SELECT * FROM products
+            """
+            query = db.execute_query(statement)
+            products = []
+            while query.next():
+                products.append(
+                    Product(
+                        name=query.value(1),
+                        quantity=query.value(2),
+                        cost=query.value(3),
+                        cost_visible=query.value(4),
+                    )
+                )
+            return products
+        except Exception as e:
+            print(e)
+            return []
+
     def insert(self, db) -> int | None:
         try:
             statement = f"""

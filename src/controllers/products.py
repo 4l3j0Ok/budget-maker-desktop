@@ -7,7 +7,7 @@ from models.products import Product as ProductsModel
 
 
 class Product(QWidget, Product_ui.Ui_Element):
-    def __init__(self, db, new=False, pid=None, name="", price=""):
+    def __init__(self, db, new=False, pid=None, name="", cost=""):
         super().__init__()
         self.db = db
         self.setupUi(self)
@@ -15,7 +15,7 @@ class Product(QWidget, Product_ui.Ui_Element):
         self.setMinimumHeight(42)
         self.setupButtons()
         self.leName.setText(name)
-        self.lePrice.setText(price)
+        self.lePrice.setText(str(cost))
         self.lePrice.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
         self.pid = pid
         if not new:
@@ -78,13 +78,13 @@ class Product(QWidget, Product_ui.Ui_Element):
     def save(self):
         try:
             if not self.pid:
-                self.pid = ProductsModel.insert_product(
+                self.pid = ProductsModel.insert(
                     self.db,
                     self.leName.text(),
                     self.lePrice.text(),
                 )
                 return
-            ProductsModel.update_product(
+            ProductsModel.update(
                 self.db,
                 self.leName.text(),
                 self.lePrice.text(),
@@ -103,7 +103,7 @@ class Product(QWidget, Product_ui.Ui_Element):
     def delete(self):
         if self.pid:
             try:
-                ProductsModel.delete_product(self.db, self.pid)
+                ProductsModel.delete(self.db, self.pid)
             except Exception as e:
                 print(e)
                 msg = QMessageBox()
@@ -125,14 +125,9 @@ class Products(QWidget, Products_ui.Ui_Form):
         self.loadProducts()
 
     def loadProducts(self):
-        products = ProductsModel.get_products(self.db)
+        products = ProductsModel.get_all(self.db)
         for product in products:
-            widget = Product(
-                self.db,
-                pid=product.pid,
-                name=product.name,
-                price=str(product.price),
-            )
+            widget = Product(self.db, name=product.name, cost=product.cost)
             self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
 
     def onBtnNewClicked(self) -> None:
