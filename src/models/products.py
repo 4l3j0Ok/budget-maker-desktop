@@ -7,12 +7,20 @@ class Product:
     product_id: int | None = None
 
     def __init__(
-        self, name: str, quantity: int, cost: float, cost_visible: bool
+        self,
+        name: str,
+        quantity: int,
+        cost: float,
+        cost_visible: bool,
+        project_id: int | None = None,
+        product_id: int | None = None,
     ) -> None:
         self.name = name
         self.quantity = quantity
         self.cost = cost
         self.cost_visible = cost_visible
+        self.project_id = project_id
+        self.product_id = product_id
 
     @classmethod
     def create_table(self, db) -> bool:
@@ -35,23 +43,29 @@ class Product:
             return False
 
     @classmethod
-    def get(self, db, project_id) -> list:
+    def get(self, db, product_id=None, project_id=None) -> list | object:
         try:
             statement = f"""
-            SELECT * FROM products WHERE project_id = {project_id}
+            SELECT * FROM products WHERE id = {product_id};
             """
+            if project_id:
+                statement = f"""
+                SELECT * FROM products WHERE project_id = {project_id};
+                """
             query = db.execute_query(statement)
             products = []
             while query.next():
                 products.append(
                     Product(
+                        product_id=query.value(0),
                         name=query.value(1),
-                        quantity=query.value(2),
-                        cost=query.value(3),
+                        cost=query.value(2),
+                        quantity=query.value(3),
                         cost_visible=query.value(4),
+                        project_id=query.value(5),
                     )
                 )
-            return products
+            return products[0] if not project_id else products
         except Exception as e:
             print(e)
             return []
@@ -92,6 +106,7 @@ class Product:
             return None
 
     def update(self, db) -> bool:
+        print("ACTUALIZANDO")
         try:
             statement = f"""
             UPDATE products

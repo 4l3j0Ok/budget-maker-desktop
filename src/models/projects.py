@@ -5,10 +5,19 @@ class Project:
     project_id: int | None = None
     name: str
     total: float
+    template: str | None = None
 
-    def __init__(self, name, total):
+    def __init__(
+        self,
+        name: str,
+        total: float,
+        template: str,
+        project_id: int | None = None,
+    ) -> None:
         self.name = name
         self.total = total
+        self.project_id = project_id
+        self.template = template
 
     @classmethod
     def create_table(self, db) -> bool:
@@ -17,7 +26,8 @@ class Project:
             CREATE TABLE IF NOT EXISTS projects (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                total REAL NOT NULL
+                total REAL NOT NULL,
+                template TEXT NOT NULL
             )
             """
             db.execute_query(statement)
@@ -27,7 +37,22 @@ class Project:
             return False
 
     @classmethod
-    def get(self, db) -> list:
+    def get(self, db, project_id: int):
+        try:
+            statement = f"""
+            SELECT * FROM projects
+            WHERE id = {project_id}
+            """
+            query = db.execute_query(statement)
+            if query.next():
+                return Project(project_id=query.value(0), name=query.value(1))
+            return None
+        except Exception as e:
+            print(e)
+            return None
+
+    @classmethod
+    def get_all(self, db) -> list:
         try:
             statement = """
             SELECT * FROM projects
@@ -35,7 +60,14 @@ class Project:
             query = db.execute_query(statement)
             projects = []
             while query.next():
-                projects.append(Project(project_id=query.value(0), name=query.value(1)))
+                projects.append(
+                    Project(
+                        project_id=query.value(0),
+                        name=query.value(1),
+                        total=query.value(2),
+                        template=query.value(3),
+                    )
+                )
             return projects
         except Exception as e:
             print(e)
@@ -44,8 +76,8 @@ class Project:
     def insert(self, db) -> int | None:
         try:
             statement = f"""
-            INSERT INTO projects (name, total)
-            VALUES ('{self.name}', {self.total})
+            INSERT INTO projects (name, total, template)
+            VALUES ('{self.name}', {self.total}, '{self.template}')
             """
             result = db.execute_query(statement)
             self.project_id = result.lastInsertId()
@@ -58,7 +90,9 @@ class Project:
         try:
             statement = f"""
             UPDATE projects
-            SET name = '{self.name}''
+            SET name = '{self.name}',
+            total = {self.total},
+            template = '{self.template}'
             WHERE id = {self.project_id}
             """
             db.execute_query(statement)
