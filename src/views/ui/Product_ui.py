@@ -15,44 +15,55 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QLineEdit, QPushButton,
-    QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLineEdit,
+    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_Element(object):
     def setupUi(self, Element):
         if not Element.objectName():
             Element.setObjectName(u"Element")
-        Element.resize(816, 42)
-        self.gridLayout = QGridLayout(Element)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.leName = QLineEdit(Element)
+        Element.resize(627, 42)
+        self.verticalLayout = QVBoxLayout(Element)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.frBox = QFrame(Element)
+        self.frBox.setObjectName(u"frBox")
+        self.frBox.setFrameShape(QFrame.Shape.NoFrame)
+        self.frBox.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout = QHBoxLayout(self.frBox)
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.leName = QLineEdit(self.frBox)
         self.leName.setObjectName(u"leName")
         self.leName.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout.addWidget(self.leName, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.leName)
 
-        self.btnDelete = QPushButton(Element)
-        self.btnDelete.setObjectName(u"btnDelete")
-        icon = QIcon()
-        icon.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnDelete.setIcon(icon)
-
-        self.gridLayout.addWidget(self.btnDelete, 0, 3, 1, 1)
-
-        self.lePrice = QLineEdit(Element)
+        self.lePrice = QLineEdit(self.frBox)
         self.lePrice.setObjectName(u"lePrice")
         self.lePrice.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout.addWidget(self.lePrice, 0, 1, 1, 1)
+        self.horizontalLayout.addWidget(self.lePrice)
 
-        self.btnEdit = QPushButton(Element)
+        self.btnEdit = QPushButton(self.frBox)
         self.btnEdit.setObjectName(u"btnEdit")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/ic--outline-edit.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnEdit.setIcon(icon1)
+        icon = QIcon()
+        icon.addFile(u":/icons/views/assets/ic--outline-edit.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnEdit.setIcon(icon)
 
-        self.gridLayout.addWidget(self.btnEdit, 0, 2, 1, 1)
+        self.horizontalLayout.addWidget(self.btnEdit)
+
+        self.btnDelete = QPushButton(self.frBox)
+        self.btnDelete.setObjectName(u"btnDelete")
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnDelete.setIcon(icon1)
+
+        self.horizontalLayout.addWidget(self.btnDelete)
+
+
+        self.verticalLayout.addWidget(self.frBox)
 
 
         self.retranslateUi(Element)
@@ -62,7 +73,7 @@ class Ui_Element(object):
 
     def retranslateUi(self, Element):
         Element.setWindowTitle(QCoreApplication.translate("Element", u"Producto", None))
-        self.btnDelete.setText("")
         self.btnEdit.setText("")
+        self.btnDelete.setText("")
     # retranslateUi
 
