@@ -68,7 +68,7 @@ class Projects(QWidget, Projects_ui.Ui_Form):
             )
         return
 
-    def onBtnNewOrAddClicked(self, cls, project: ProjectModel = None) -> None:
+    def onBtnNewOrAddClicked(self, cls, project: ProjectModel | None = None) -> None:
         widget = new_project.setPage(cls, project)
         cls.switchPage(widget)
         return

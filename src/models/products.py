@@ -1,4 +1,5 @@
 class Product:
+    db: object
     name: str
     quantity: int
     cost: float
@@ -8,19 +9,21 @@ class Product:
 
     def __init__(
         self,
-        name: str,
-        quantity: int,
-        cost: float,
-        cost_visible: bool,
+        db: object,
+        name: str = "",
+        quantity: int = 0,
+        cost: float = 0.0,
+        cost_visible: bool = False,
         project_id: int | None = None,
         product_id: int | None = None,
     ) -> None:
+        self.db = db
         self.name = name
         self.quantity = quantity
         self.cost = cost
         self.cost_visible = cost_visible
         self.project_id = project_id
-        self.product_id = product_id
+        self.product_id = self.insert() if not product_id else product_id
 
     @classmethod
     def create_table(self, db) -> bool:
@@ -57,6 +60,7 @@ class Product:
             while query.next():
                 products.append(
                     Product(
+                        db,
                         product_id=query.value(0),
                         name=query.value(1),
                         cost=query.value(2),
@@ -81,6 +85,7 @@ class Product:
             while query.next():
                 products.append(
                     Product(
+                        db,
                         name=query.value(1),
                         quantity=query.value(2),
                         cost=query.value(3),
@@ -92,20 +97,20 @@ class Product:
             print(e)
             return []
 
-    def insert(self, db) -> int | None:
+    def insert(self) -> int | None:
         try:
             statement = f"""
             INSERT INTO products (name, quantity, cost, cost_visible, project_id)
             VALUES ('{self.name}', {self.quantity}, {self.cost}, {self.cost_visible}, {self.project_id})
             """
-            result = db.execute_query(statement)
+            result = self.db.execute_query(statement)
             self.product_id = result.lastInsertId()
             return result.lastInsertId()
         except Exception as e:
             print(e)
             return None
 
-    def update(self, db) -> bool:
+    def update(self) -> bool:
         print("ACTUALIZANDO")
         try:
             statement = f"""
@@ -113,31 +118,31 @@ class Product:
             SET name = '{self.name}', quantity = {self.quantity}, cost = {self.cost}, cost_visible = {self.cost_visible}
             WHERE id = {self.product_id}
             """
-            db.execute_query(statement)
+            self.db.execute_query(statement)
             return True
         except Exception as e:
             print(e)
             return False
 
-    def delete(self, db, product_id: int) -> bool:
+    def delete(self) -> bool:
         try:
             statement = f"""
             DELETE FROM products
-            WHERE id = {product_id}
+            WHERE id = {self.product_id}
             """
-            db.execute_query(statement)
+            self.db.execute_query(statement)
             return True
         except Exception as e:
             print(e)
             return False
 
-    def delete_products(self, db, project_id: int) -> bool:
+    def delete_products(self, project_id: int) -> bool:
         try:
             statement = f"""
             DELETE FROM products
             WHERE project_id = {project_id}
             """
-            db.execute_query(statement)
+            self.db.execute_query(statement)
             return True
         except Exception as e:
             print(e)

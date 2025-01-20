@@ -2,22 +2,26 @@ from .products import Product
 
 
 class Project:
-    project_id: int | None = None
+    db: object
     name: str
     total: float
     template: str | None = None
+    project_id: int | None = None
 
     def __init__(
         self,
-        name: str,
-        total: float,
-        template: str,
+        db: object,
+        name: str = "",
+        total: float = 0.0,
+        template: str | None = None,
         project_id: int | None = None,
     ) -> None:
+        self.db = db
         self.name = name
         self.total = total
         self.project_id = project_id
         self.template = template
+        self.project_id = self.insert() if not project_id else project_id
 
     @classmethod
     def create_table(self, db) -> bool:
@@ -45,7 +49,7 @@ class Project:
             """
             query = db.execute_query(statement)
             if query.next():
-                return Project(project_id=query.value(0), name=query.value(1))
+                return Project(db, project_id=query.value(0), name=query.value(1))
             return None
         except Exception as e:
             print(e)
@@ -62,6 +66,7 @@ class Project:
             while query.next():
                 projects.append(
                     Project(
+                        db,
                         project_id=query.value(0),
                         name=query.value(1),
                         total=query.value(2),
@@ -73,20 +78,21 @@ class Project:
             print(e)
             return []
 
-    def insert(self, db) -> int | None:
+    def insert(self) -> int | None:
         try:
             statement = f"""
             INSERT INTO projects (name, total, template)
             VALUES ('{self.name}', {self.total}, '{self.template}')
             """
-            result = db.execute_query(statement)
+            result = self.db.execute_query(statement)
             self.project_id = result.lastInsertId()
             return result.lastInsertId()
         except Exception as e:
             print(e)
             return None
 
-    def update(self, db) -> bool:
+    def update(self) -> bool:
+        print("ACTUALIZANDO")
         try:
             statement = f"""
             UPDATE projects
@@ -95,7 +101,7 @@ class Project:
             template = '{self.template}'
             WHERE id = {self.project_id}
             """
-            db.execute_query(statement)
+            self.db.execute_query(statement)
             return True
         except Exception as e:
             print(e)
