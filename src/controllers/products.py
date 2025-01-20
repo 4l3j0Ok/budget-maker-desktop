@@ -14,6 +14,7 @@ class Product(QWidget, Product_ui.Ui_Element):
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self.setMinimumHeight(42)
         self.setupButtons()
+        self.setupProjectBox()
         self.leName.setText(name)
         self.lePrice.setText(str(cost))
         self.lePrice.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
@@ -36,6 +37,19 @@ class Product(QWidget, Product_ui.Ui_Element):
         )
         self.btnEdit.clicked.connect(self.toggleEdit)
         self.btnDelete.clicked.connect(self.delete)
+
+    def setupProjectBox(self):
+        style_sheet = f"""
+            QFrame {{
+                background-color: {colors.Light.card_background};
+                border-radius: 5px;
+                border: 1px solid {colors.Light.card_border};
+            }}
+            QLabel {{
+                border: none;
+            }}
+        """
+        self.frBox.setStyleSheet(style_sheet)
 
     def toggleEdit(self):
         msg = QMessageBox()
