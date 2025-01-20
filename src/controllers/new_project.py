@@ -104,14 +104,24 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
 
 
 class NewProject(QWidget, NewProject_ui.Ui_Form):
-    def __init__(self, cls):
+    def __init__(self, cls, project_db: Project = None):
         super().__init__()
         self.setupUi(self)
         self.setupButtons(cls)
         self.leTotal.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
+        if project_db:
+            self.project_db = project_db
+            self.leProjectName.setText(project_db.name)
+            for product in Product.get(cls.db, project_id=project_db.project_id):
+                self.addProduct(
+                    cost=str(product.cost),
+                    name=product.name,
+                    quantity=str(product.quantity),
+                    product_id=product.product_id,
+                )
 
     def setupButtons(self, cls):
-        self.btnAdd.clicked.connect(self.addProduct)
+        self.btnAdd.clicked.connect(lambda: self.addProduct())
         self.btnClear.clicked.connect(lambda: self.reloadWidget(cls))
         self.btnNext.setEnabled(False)
         modify_button(self.btnNext, bg_color=colors.Light.deselected)
@@ -119,23 +129,30 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
             lambda: cls.switchPage(
                 NewProjectTemplate(
                     cls,
-                    self.leProjectName.text(),
-                    self.getProducts(),
-                    self.leTotal.text(),
-                    self,
+                    project_name=self.leProjectName.text(),
+                    products=self.getProducts(cls),
+                    total=self.leTotal.text(),
+                    parent_widget=self,
+                    project_db=self.project_db,
                 ),
                 hide=True,
             )
         )
 
-    def addProduct(self):
+    def addProduct(
+        self, cost: str = "", name: str = "", quantity: str = "", product_id: int = None
+    ):
         widget = ProjectProduct()
+        widget.product_id = product_id if product_id else None
         self.toggleNextButton(False)
         self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
         widget.leCost.textChanged.connect(lambda: self.checkLineEdits(True))
         widget.leProduct.textChanged.connect(lambda: self.checkLineEdits(False))
         widget.leQuantity.textChanged.connect(lambda: self.checkLineEdits(False))
         widget.btnDelete.clicked.connect(lambda: self.deleteProduct(widget))
+        widget.leProduct.setText(name)
+        widget.leQuantity.setText(quantity)
+        widget.leCost.setText(cost)
 
     def deleteProduct(self, widget):
         widget.deleteLater()
@@ -166,19 +183,23 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         total = total if not str(total).endswith(".0") else int(total)
         self.leTotal.setText(str(total))
 
-    def getProducts(self):
+    def getProducts(self, cls):
         products = []
         for i in range(self.verticalLayout.count()):
             widget = self.verticalLayout.itemAt(i).widget()
             if widget and isinstance(widget, ProjectProduct):
-                products.append(
-                    Product(
-                        name=widget.leProduct.text(),
-                        quantity=int(widget.leQuantity.text()),
-                        cost=float(widget.leCost.text()),
-                        cost_visible=widget.costVisible,
+                if widget.product_id:
+                    products.append(Product.get(cls.db, product_id=widget.product_id))
+                else:
+                    products.append(
+                        Product(
+                            name=widget.leProduct.text(),
+                            quantity=int(widget.leQuantity.text()),
+                            cost=float(widget.leCost.text()),
+                            cost_visible=widget.costVisible,
+                            product_id=widget.product_id,
+                        )
                     )
-                )
         return products
 
     def reloadWidget(self, cls) -> None:
@@ -234,9 +255,18 @@ class Template(QWidget):
 
 # Ventana para seleccionar el template de PDF
 class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
-    def __init__(self, cls, project_name, products, total, parent_widget):
+    def __init__(
+        self,
+        cls,
+        project_name,
+        products,
+        total,
+        parent_widget,
+        project_db=None,
+    ):
         super().__init__()
         self.setupUi(self)
+        self.project = project_db
         self.project_name = project_name
         self.products = products
         self.total = total
@@ -289,14 +319,27 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
 
     def onButtonNextClicked(self, cls):
         html = next((template.html for template in self.templates if template.selected))
-        # Guardar el proyecto en la base de datos
-        self.project = Project(name=self.project_name, total=self.total)
-        self.project.insert(cls.db)
-        # Guardar los productos en la base de datos
+        template = next(
+            (template.file_name for template in self.templates if template.selected)
+        )
+        if self.project:
+            self.project.name = self.project_name
+            self.project.total = self.total
+            self.project.template = template
+        else:
+            self.project = Project(
+                name=self.project_name,
+                total=self.total,
+                template=template,
+            )
+        self.project.insert(
+            cls.db
+        ) if not self.project.project_id else self.project.update(cls.db)
+        print(self.products)
         for product in self.products:
             product: Product
             product.project_id = self.project.project_id
-            product.insert(cls.db)
+            product.insert(cls.db) if not product.product_id else product.update(cls.db)
 
         cls.switchPage(Success(cls, html=html))
 
@@ -315,10 +358,10 @@ class Success(QWidget, Success_ui.Ui_Form):
     def __init__(self, cls, html):
         super().__init__()
         self.setupUi(self)
-        self.setupButtons()
+        self.setupButtons(cls)
         self.html = html
 
-    def setupButtons(self):
+    def setupButtons(self, cls):
         modify_button(
             self.btnHome,
             fg_color="white",
@@ -332,9 +375,9 @@ class Success(QWidget, Success_ui.Ui_Form):
             bg_pressed_color=colors.Light.accent_alt,
         )
         self.btnSavePDF.clicked.connect(self.save_pdf)
+        self.btnHome.clicked.connect(lambda: cls.switchPage(setPage(cls)))
 
     def save_pdf(self):
-        # Mostramos el dialogo de guardado
         file_path, _ = QFileDialog.getSaveFileName(
             self, "Guardar PDF", "", "PDF Files (*.pdf)"
         )
@@ -348,8 +391,8 @@ class Success(QWidget, Success_ui.Ui_Form):
             )
 
 
-def setPage(cls) -> None:
+def setPage(cls, project_db=None) -> None:
     cls.lblTitle.setText(Pages.new_project["title"])
     cls.lblDescription.setText(Pages.new_project["description"])
-    widget = NewProject(cls)
+    widget = NewProject(cls, project_db=project_db)
     return widget
