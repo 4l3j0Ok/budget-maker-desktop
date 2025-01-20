@@ -6,6 +6,7 @@ from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
 from models.database import Database
 from utils import load_stylesheet_tpl, modify_button
+from config import Features
 import sys
 
 
@@ -26,14 +27,18 @@ class MainWindow(QMainWindow, MainWindow):
             "btnProjects": projects.setPage,
             "btnProducts": products.setPage,
         }
-        self.switchPage(self.btnPage["btnProjects"](self))
         # Database
         self.db = Database()
+        self.switchPage(self.btnPage["btnProjects"](self))
         return
 
     def setupNavbar(self) -> None:
         self.frNavbar.setMaximumWidth(Size.navbar_base_width)
         self.btnMenu.clicked.connect(self.toggleMenu)
+        if not Features.projects:
+            self.btnProjects.hide()
+        if not Features.products:
+            self.btnProducts.hide()
         return
 
     def toggleMenu(self) -> None:

@@ -1,6 +1,11 @@
 import os
 
 
+class Features:
+    projects = True
+    products = False
+
+
 class Path:
     current = os.path.dirname(os.path.realpath(__file__))
     qss_tpls = f"{current}/views/qss/templates"
