@@ -184,7 +184,6 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
     def checkLineEdits(
         self, widget: ProjectProduct, update_total: bool = False, db_update: bool = True
     ) -> None:
-        # Obtenemos el widget donde está el line edit que ha cambiado.
         if db_update:
             widget.db_object.name = widget.leProduct.text()
             widget.db_object.quantity = (
@@ -248,7 +247,6 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         )
 
 
-# Templates de PDF que se pueden seleccionar para el proyecto.
 class Template(QWidget):
     def __init__(self, html, name, file_name):
         super(Template, self).__init__()
