@@ -51,7 +51,7 @@ class Project(QWidget, Project_ui.Ui_Element):
         )
 
 
-class Projects(QWidget, Projects_ui.Ui_Form):
+class ProjectManager(QWidget, Projects_ui.Ui_Form):
     def __init__(self, cls):
         super().__init__()
         self.setupUi(self)
@@ -64,19 +64,17 @@ class Projects(QWidget, Projects_ui.Ui_Form):
             widget = Project(project)
             self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
             widget.btnEdit.clicked.connect(
-                lambda: self.onBtnNewOrAddClicked(cls, project)
+                lambda _, p=project: self.onBtnNewOrAddClicked(cls, p)
             )
-        return
 
     def onBtnNewOrAddClicked(self, cls, project: ProjectModel | None = None) -> None:
         widget = new_project.setPage(cls, project)
         cls.switchPage(widget)
-        return
 
 
 def setPage(cls) -> None:
     # Establecer el título y la descripción de la página.
     cls.lblTitle.setText(Pages.projects["title"])
     cls.lblDescription.setText(Pages.projects["description"])
-    widget = Projects(cls)
+    widget = ProjectManager(cls)
     return widget
