@@ -4,6 +4,7 @@ from config import Pages
 from utils import modify_button
 from views.ui import colors, Product_ui, Products_ui
 from models.products import Product as ProductsModel
+from traceback import print_exc
 
 
 class Product(QWidget, Product_ui.Ui_Element):
@@ -105,7 +106,7 @@ class Product(QWidget, Product_ui.Ui_Element):
                 self.pid,
             )
         except Exception as e:
-            print(e)
+            print_exc(e)
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Icon.Critical)
             msg.setWindowTitle("Error al guardar")
@@ -119,7 +120,7 @@ class Product(QWidget, Product_ui.Ui_Element):
             try:
                 ProductsModel.delete(self.db, self.pid)
             except Exception as e:
-                print(e)
+                print_exc(e)
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Icon.Critical)
                 msg.setWindowTitle("Error al eliminar")

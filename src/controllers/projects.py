@@ -8,14 +8,14 @@ from utils import modify_button
 
 
 class Project(QWidget, Project_ui.Ui_Element):
-    def __init__(self, project_db: ProjectModel):
+    def __init__(self, db, project_id: int):
         super().__init__()
         self.setupUi(self)
-        self.project_db = project_db
-        self.lblProjectName.setText(project_db.name)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self.setupProjectBox()
         self.setupButtons()
+        self.db_object = ProjectModel.get(db, project_id)
+        self.lblProjectName.setText(self.db_object.name)
 
     def setupProjectBox(self):
         style_sheet = f"""
@@ -56,20 +56,29 @@ class ProjectManager(QWidget, Projects_ui.Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.loadProjects(cls)
-        self.btnNew.clicked.connect(lambda: self.onBtnNewOrAddClicked(cls))
+        self.btnNew.clicked.connect(lambda: self.NewOrAddProject(cls))
 
     def loadProjects(self, cls) -> None:
         projects = ProjectModel.get_all(cls.db)
         for project in projects:
-            widget = Project(project)
+            widget = Project(cls.db, project.project_id)
             self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
             widget.btnEdit.clicked.connect(
-                lambda _, p=project: self.onBtnNewOrAddClicked(cls, p)
+                lambda _, p=project: self.NewOrAddProject(cls, p)
             )
+            widget.btnDelete.clicked.connect(lambda _, w=widget: self.deleteProject(w))
 
-    def onBtnNewOrAddClicked(self, cls, project: ProjectModel | None = None) -> None:
+    def NewOrAddProject(self, cls, project: ProjectModel | None = None) -> None:
         widget = new_project.setPage(cls, project)
         cls.switchPage(widget)
+
+    def previewProject(self, project: ProjectModel) -> None:
+        pass
+
+    def deleteProject(self, widget: Project) -> None:
+        widget.db_object.delete()
+        widget.deleteLater()
+        self.verticalLayout.removeWidget(widget)
 
 
 def setPage(cls) -> None:

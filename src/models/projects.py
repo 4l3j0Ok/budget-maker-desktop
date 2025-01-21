@@ -1,4 +1,5 @@
 from .products import Product
+from traceback import print_exc
 
 
 class Project:
@@ -37,7 +38,7 @@ class Project:
             db.execute_query(statement)
             return True
         except Exception as e:
-            print(e)
+            print_exc(e)
             return False
 
     @classmethod
@@ -52,7 +53,7 @@ class Project:
                 return Project(db, project_id=query.value(0), name=query.value(1))
             return None
         except Exception as e:
-            print(e)
+            print_exc(e)
             return None
 
     @classmethod
@@ -75,7 +76,7 @@ class Project:
                 )
             return projects
         except Exception as e:
-            print(e)
+            print_exc(e)
             return []
 
     def insert(self) -> int | None:
@@ -88,7 +89,7 @@ class Project:
             self.project_id = result.lastInsertId()
             return result.lastInsertId()
         except Exception as e:
-            print(e)
+            print_exc(e)
             return None
 
     def update(self) -> bool:
@@ -104,18 +105,18 @@ class Project:
             self.db.execute_query(statement)
             return True
         except Exception as e:
-            print(e)
+            print_exc(e)
             return False
 
-    def delete(self, db) -> bool:
+    def delete(self) -> bool:
         try:
-            Product.delete_products(db, self.project_id)
+            Product.delete_products(self.db, self.project_id)
             statement = f"""
             DELETE FROM projects
             WHERE id = {self.project_id}
             """
-            db.execute_query(statement)
+            self.db.execute_query(statement)
             return True
         except Exception as e:
-            print(e)
+            print_exc(e)
             return False

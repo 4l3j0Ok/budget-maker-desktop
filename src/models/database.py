@@ -3,6 +3,7 @@ from config import Database as cfg
 from models.products import Product
 from models.projects import Project
 import sys
+from traceback import print_exc
 
 
 class Database(QSqlDatabase):
@@ -15,7 +16,7 @@ class Database(QSqlDatabase):
             self.create_initial_tables()
 
         except Exception as e:
-            print(e)
+            print_exc(e)
             sys.exit(1)
 
     def create_initial_tables(self) -> None:
@@ -24,7 +25,7 @@ class Database(QSqlDatabase):
             Product.create_table(self)
             return True
         except Exception as e:
-            print(e)
+            print_exc(e)
             return False
 
     def execute_query(self, statement: str) -> QSqlQuery:
