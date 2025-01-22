@@ -93,7 +93,6 @@ class ProjectModel:
             return None
 
     def update(self) -> bool:
-        print("ACTUALIZANDO")
         try:
             statement = f"""
             UPDATE projects
