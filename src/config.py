@@ -16,8 +16,16 @@ class Environment:
 
 class Path:
     current = os.path.dirname(os.path.realpath(__file__))
-    qss_tpls = f"{current}/views/qss/templates"
-    html_tpls = f"{current}/views/html/templates"
+    qss_tpls = (
+        f"{current}/views/qss/templates"
+        if Environment.dev_mode
+        else f"{current}/qss/templates"
+    )
+    html_tpls = (
+        f"{current}/views/html/templates"
+        if Environment.dev_mode
+        else f"{current}/html/templates"
+    )
 
 
 class Pages:
