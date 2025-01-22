@@ -3,7 +3,7 @@ name: Python application
 on:
   push:
     tags:
-      - "*.*.*"
+      - "*"
 
 permissions:
   contents: read
@@ -11,7 +11,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.12
@@ -37,4 +36,4 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          files: budget-maker-desktop.zip.zip
+          files: budget-maker-desktop.zip
