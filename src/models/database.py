@@ -1,9 +1,9 @@
+import sys
+from traceback import print_exception
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from config import Database as cfg
 from models.products import ProductModel
 from models.projects import ProjectModel
-import sys
-from traceback import print_exception
 
 
 class Database(QSqlDatabase):

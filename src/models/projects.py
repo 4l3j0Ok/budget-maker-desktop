@@ -1,5 +1,5 @@
-from .products import ProductModel
 from traceback import print_exception
+from .products import ProductModel
 from config import Project
 
 

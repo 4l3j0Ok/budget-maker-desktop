@@ -1,10 +1,10 @@
+from traceback import print_exception
 from PySide6.QtWidgets import QWidget, QSizePolicy, QMessageBox
 from PySide6.QtGui import QRegularExpressionValidator
 from config import Pages
 from utils import modify_button
 from views.ui import colors, Product_ui, Products_ui
 from models.products import ProductModel
-from traceback import print_exception
 
 
 class Product(QWidget, Product_ui.Ui_Element):

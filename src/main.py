@@ -1,3 +1,4 @@
+import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 from PySide6.QtCore import QPropertyAnimation, QEvent, QTranslator, QLibraryInfo
 from controllers import products, projects
@@ -7,7 +8,6 @@ from views.ui.colors import Light, Dark
 from models.database import Database
 from utils import load_stylesheet_tpl, modify_button
 from config import Features
-import sys
 
 
 class MainWindow(QMainWindow, MainWindow):
