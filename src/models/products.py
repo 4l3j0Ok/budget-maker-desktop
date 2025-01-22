@@ -114,7 +114,6 @@ class ProductModel:
             return None
 
     def update(self) -> bool:
-        print("ACTUALIZANDO")
         try:
             statement = f"""
             UPDATE products
