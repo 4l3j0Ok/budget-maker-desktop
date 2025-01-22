@@ -4,6 +4,7 @@ import os
 class Features:
     projects = True
     products = False
+    config = False
 
 
 class Path:
@@ -29,3 +30,7 @@ class Pages:
 
 class Database:
     name = "data.db"
+
+
+class Project:
+    default_template = "formal-negro.html.tpl"
