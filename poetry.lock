@@ -150,6 +150,20 @@ files = [
 shiboken6 = "6.8.0.2"
 
 [[package]]
+name = "python-dotenv"
+version = "1.0.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
+    {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
+]
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "qdarkstyle"
 version = "3.2.3"
 description = "The most complete dark/light style sheet for C++/Python and Qt applications"
@@ -201,4 +215,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.14"
-content-hash = "9f69cfa676e44dd3bcb823051f5919fc258b052ce3c7980eb468c2fea708ee17"
+content-hash = "c82c3e00aae41aaec894463eca7aa56c6bbff44c013143f6bdf9b3f6f1e80135"

@@ -1,10 +1,17 @@
 import os
+import dotenv
+
+dotenv.load_dotenv()
 
 
 class Features:
     projects = True
     products = False
     config = False
+
+
+class Environment:
+    dev_mode = os.getenv("DEV_MODE", "False").lower() == "true"
 
 
 class Path:
