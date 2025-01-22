@@ -38,6 +38,8 @@ jobs:
           zip -r budget-maker-desktop.zip *
           mv budget-maker-desktop.zip ..
       - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: softprops/action-gh-release@v2
         with:
           files: budget-maker-desktop.zip
