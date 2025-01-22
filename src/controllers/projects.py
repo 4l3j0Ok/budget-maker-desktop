@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QSizePolicy
 from views.ui import Projects_ui, Project_ui
 from controllers import new_project
-from models.projects import Project as ProjectModel
+from models.projects import ProjectModel
 from views.ui import colors
 from config import Pages
 from utils import modify_button

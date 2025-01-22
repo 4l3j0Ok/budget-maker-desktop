@@ -3,8 +3,8 @@ from PySide6.QtGui import QRegularExpressionValidator
 from config import Pages
 from utils import modify_button
 from views.ui import colors, Product_ui, Products_ui
-from models.products import Product as ProductsModel
-from traceback import print_exc
+from models.products import ProductModel
+from traceback import print_exception
 
 
 class Product(QWidget, Product_ui.Ui_Element):
@@ -93,20 +93,20 @@ class Product(QWidget, Product_ui.Ui_Element):
     def save(self):
         try:
             if not self.pid:
-                self.pid = ProductsModel.insert(
+                self.pid = ProductModel.insert(
                     self.db,
                     self.leName.text(),
                     self.lePrice.text(),
                 )
                 return
-            ProductsModel.update(
+            ProductModel.update(
                 self.db,
                 self.leName.text(),
                 self.lePrice.text(),
                 self.pid,
             )
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Icon.Critical)
             msg.setWindowTitle("Error al guardar")
@@ -118,9 +118,9 @@ class Product(QWidget, Product_ui.Ui_Element):
     def delete(self):
         if self.pid:
             try:
-                ProductsModel.delete(self.db, self.pid)
+                ProductModel.delete(self.db, self.pid)
             except Exception as e:
-                print_exc(e)
+                print_exception(e)
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Icon.Critical)
                 msg.setWindowTitle("Error al eliminar")
@@ -140,7 +140,7 @@ class Products(QWidget, Products_ui.Ui_Form):
         self.loadProducts()
 
     def loadProducts(self):
-        products = ProductsModel.get_all(self.db)
+        products = ProductModel.get_all(self.db)
         for product in products:
             widget = Product(self.db, name=product.name, cost=product.cost)
             self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)

@@ -18,20 +18,20 @@ from views.ui import (
 )
 from config import Pages, Path
 from utils import modify_button, get_template_list, render_template, create_pdf
-from models.products import Product
-from models.projects import Project
+from models.products import ProductModel
+from models.projects import ProjectModel
 
 
 class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
-    def __init__(self, db, product_id=None):
+    def __init__(self, db, project_id: int, product_id: int | None = None):
         super().__init__()
         self.setupUi(self)
         self.setupButtons()
         self.setupLineEdit()
         self.db_object = (
-            Product(db)
+            ProductModel(db, project_id=project_id)
             if not product_id
-            else Product.get(
+            else ProductModel.get(
                 db,
                 product_id=product_id,
             )
@@ -114,11 +114,11 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
 
 
 class NewProject(QWidget, NewProject_ui.Ui_Form):
-    def __init__(self, cls, db_object: Project | None = None):
+    def __init__(self, cls, db_object: ProjectModel | None = None):
         super().__init__()
         self.setupUi(self)
         self.setupButtons(cls)
-        self.db_object = Project(cls.db) if not db_object else db_object
+        self.db_object = ProjectModel(cls.db) if not db_object else db_object
         self.leTotal.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
         pretty_total = (
             str(self.db_object.total)
@@ -129,7 +129,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         self.leTotal.textChanged.connect(self.updateTotalDB)
         self.leProjectName.setText(self.db_object.name)
         self.leProjectName.textChanged.connect(self.updateNameDB)
-        for product in Product.get(cls.db, project_id=self.db_object.project_id):
+        for product in ProductModel.get(cls.db, project_id=self.db_object.project_id):
             pretty_cost = (
                 str(product.cost)
                 if not str(product.cost).endswith(".0")
@@ -164,7 +164,9 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         quantity: str = "",
         product_id: int = None,
     ):
-        widget = ProjectProduct(db, product_id=product_id)
+        widget = ProjectProduct(
+            db, project_id=self.db_object.project_id, product_id=product_id
+        )
         self.toggleNextButton(False)
         self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
         widget.leProduct.setText(name)
@@ -273,7 +275,7 @@ class Template(QWidget):
 
 # Ventana para seleccionar el template de PDF
 class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
-    def __init__(self, cls, parent_widget, db_object: Project):
+    def __init__(self, cls, parent_widget, db_object: ProjectModel):
         super().__init__()
         self.setupUi(self)
         self.db_object = db_object
@@ -293,7 +295,7 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
             html = render_template(
                 f"{Path.html_tpls}/{file_name}",
                 project_name=self.db_object.name,
-                items=Product.get(cls.db, project_id=self.db_object.project_id),
+                items=ProductModel.get(cls.db, project_id=self.db_object.project_id),
                 total=pretty_total,
             )
             pretty_name = (
@@ -335,8 +337,7 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
         self.db_object.template = next(
             (template.file_name for template in self.templates if template.selected)
         )
-        self.db_object.update(cls.db)
-
+        self.db_object.update()
         cls.switchPage(Success(cls, html=html))
 
     def toggleNextButton(self, enabled: bool) -> None:

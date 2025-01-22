@@ -1,8 +1,8 @@
-from .products import Product
-from traceback import print_exc
+from .products import ProductModel
+from traceback import print_exception
 
 
-class Project:
+class ProjectModel:
     db: object
     name: str
     total: float
@@ -20,12 +20,11 @@ class Project:
         self.db = db
         self.name = name
         self.total = total
-        self.project_id = project_id
         self.template = template
         self.project_id = self.insert() if not project_id else project_id
 
     @classmethod
-    def create_table(self, db) -> bool:
+    def create_table(cls, db) -> bool:
         try:
             statement = """
             CREATE TABLE IF NOT EXISTS projects (
@@ -38,7 +37,7 @@ class Project:
             db.execute_query(statement)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False
 
     @classmethod
@@ -50,10 +49,10 @@ class Project:
             """
             query = db.execute_query(statement)
             if query.next():
-                return Project(db, project_id=query.value(0), name=query.value(1))
+                return ProjectModel(db, project_id=query.value(0), name=query.value(1))
             return None
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return None
 
     @classmethod
@@ -66,7 +65,7 @@ class Project:
             projects = []
             while query.next():
                 projects.append(
-                    Project(
+                    ProjectModel(
                         db,
                         project_id=query.value(0),
                         name=query.value(1),
@@ -76,7 +75,7 @@ class Project:
                 )
             return projects
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return []
 
     def insert(self) -> int | None:
@@ -89,7 +88,7 @@ class Project:
             self.project_id = result.lastInsertId()
             return result.lastInsertId()
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return None
 
     def update(self) -> bool:
@@ -105,12 +104,12 @@ class Project:
             self.db.execute_query(statement)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False
 
     def delete(self) -> bool:
         try:
-            Product.delete_products(self.db, self.project_id)
+            ProductModel.delete_products(self.db, self.project_id)
             statement = f"""
             DELETE FROM projects
             WHERE id = {self.project_id}
@@ -118,5 +117,5 @@ class Project:
             self.db.execute_query(statement)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False

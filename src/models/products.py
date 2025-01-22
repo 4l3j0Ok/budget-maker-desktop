@@ -1,7 +1,7 @@
-from traceback import print_exc
+from traceback import print_exception
 
 
-class Product:
+class ProductModel:
     db: object
     name: str
     quantity: int
@@ -16,7 +16,7 @@ class Product:
         name: str = "",
         quantity: int = 0,
         cost: float = 0.0,
-        cost_visible: bool = False,
+        cost_visible: bool = True,
         project_id: int | None = None,
         product_id: int | None = None,
     ) -> None:
@@ -29,7 +29,7 @@ class Product:
         self.product_id = self.insert() if not product_id else product_id
 
     @classmethod
-    def create_table(self, db) -> bool:
+    def create_table(cls, db) -> bool:
         try:
             statement = """
             CREATE TABLE IF NOT EXISTS products (
@@ -45,11 +45,11 @@ class Product:
             db.execute_query(statement)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False
 
     @classmethod
-    def get(self, db, product_id=None, project_id=None) -> list | object:
+    def get(cls, db, product_id=None, project_id=None) -> list | object:
         try:
             statement = f"""
             SELECT * FROM products WHERE id = {product_id};
@@ -62,7 +62,7 @@ class Product:
             products = []
             while query.next():
                 products.append(
-                    Product(
+                    ProductModel(
                         db,
                         product_id=query.value(0),
                         name=query.value(1),
@@ -74,7 +74,7 @@ class Product:
                 )
             return products[0] if not project_id else products
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return []
 
     @classmethod
@@ -87,7 +87,7 @@ class Product:
             products = []
             while query.next():
                 products.append(
-                    Product(
+                    ProductModel(
                         db,
                         name=query.value(1),
                         quantity=query.value(2),
@@ -97,7 +97,7 @@ class Product:
                 )
             return products
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return []
 
     def insert(self) -> int | None:
@@ -110,7 +110,7 @@ class Product:
             self.product_id = result.lastInsertId()
             return result.lastInsertId()
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return None
 
     def update(self) -> bool:
@@ -124,7 +124,7 @@ class Product:
             self.db.execute_query(statement)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False
 
     def delete(self) -> bool:
@@ -136,7 +136,7 @@ class Product:
             self.db.execute_query(statement)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False
 
     @classmethod
@@ -149,5 +149,5 @@ class Product:
             db.execute_query(statement)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False

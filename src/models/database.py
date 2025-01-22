@@ -1,9 +1,9 @@
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from config import Database as cfg
-from models.products import Product
-from models.projects import Project
+from models.products import ProductModel
+from models.projects import ProjectModel
 import sys
-from traceback import print_exc
+from traceback import print_exception
 
 
 class Database(QSqlDatabase):
@@ -16,20 +16,20 @@ class Database(QSqlDatabase):
             self.create_initial_tables()
 
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             sys.exit(1)
 
     def create_initial_tables(self) -> None:
         try:
-            Project.create_table(self)
-            Product.create_table(self)
+            ProjectModel.create_table(self)
+            ProductModel.create_table(self)
             return True
         except Exception as e:
-            print_exc(e)
+            print_exception(e)
             return False
 
     def execute_query(self, statement: str) -> QSqlQuery:
         result = QSqlQuery(statement)
         if result.lastError().isValid():
-            raise Exception(result.lastError().text())
+            raise Exception(result.lastError())
         return result

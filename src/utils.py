@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon, QPainter, QPageLayout, QPageSize
 from PySide6.QtCore import QMarginsF
 from PySide6.QtWebEngineWidgets import QWebEngineView
+from traceback import print_exception
 from views.ui import colors
 from config import Path
 from jinja2 import Template
@@ -110,5 +111,5 @@ def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
 
         return True, output_file
     except Exception as e:
-        print(e)
+        print_exception(e)
         return False, str(e)
