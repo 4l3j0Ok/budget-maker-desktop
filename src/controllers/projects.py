@@ -1,10 +1,11 @@
 from PySide6.QtWidgets import QWidget, QSizePolicy
-from views.ui import Projects_ui, Project_ui
+from views.ui import Projects_ui, Project_ui, Preview_ui
 from controllers import new_project
 from models.projects import ProjectModel
+from models.products import ProductModel
 from views.ui import colors
-from config import Pages
-from utils import modify_button
+from config import Pages, Path
+from utils import modify_button, render_template, save_pdf
 
 
 class Project(QWidget, Project_ui.Ui_Element):
@@ -51,12 +52,36 @@ class Project(QWidget, Project_ui.Ui_Element):
         )
 
 
+class Preview(QWidget, Preview_ui.Ui_Form):
+    def __init__(self, cls, html: str):
+        super().__init__()
+        self.setupUi(self)
+        self.webview.setHtml(html)
+        self.setupPreviewButtons(cls, html)
+
+    def setupPreviewButtons(self, cls, html: str):
+        modify_button(
+            self.btnHome,
+            fg_color="white",
+            bg_color=colors.Light.accent,
+            bg_pressed_color=colors.Light.accent_alt,
+        )
+        modify_button(
+            self.btnSavePDF,
+            fg_color="white",
+            bg_color=colors.Light.accent,
+            bg_pressed_color=colors.Light.accent_alt,
+        )
+        self.btnSavePDF.clicked.connect(lambda: save_pdf(self.btnSavePDF, html))
+        self.btnHome.clicked.connect(lambda: cls.switchPage(setPage(cls)))
+
+
 class ProjectManager(QWidget, Projects_ui.Ui_Form):
     def __init__(self, cls):
         super().__init__()
         self.setupUi(self)
         self.loadProjects(cls)
-        self.btnNew.clicked.connect(lambda: self.NewOrAddProject(cls))
+        self.btnNew.clicked.connect(lambda: self.newOrAddProject(cls))
 
     def loadProjects(self, cls) -> None:
         projects = ProjectModel.get_all(cls.db)
@@ -64,16 +89,31 @@ class ProjectManager(QWidget, Projects_ui.Ui_Form):
             widget = Project(cls.db, project.project_id)
             self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
             widget.btnEdit.clicked.connect(
-                lambda _, p=project: self.NewOrAddProject(cls, p)
+                lambda _, p=project: self.newOrAddProject(cls, p)
             )
             widget.btnDelete.clicked.connect(lambda _, w=widget: self.deleteProject(w))
+            widget.btnPreview.clicked.connect(
+                lambda _, p=project: self.previewProject(cls, p)
+            )
 
-    def NewOrAddProject(self, cls, project: ProjectModel | None = None) -> None:
+    def newOrAddProject(self, cls, project: ProjectModel | None = None) -> None:
         widget = new_project.setPage(cls, project)
         cls.switchPage(widget)
 
-    def previewProject(self, project: ProjectModel) -> None:
-        pass
+    def previewProject(self, cls, project: ProjectModel) -> None:
+        products = ProductModel.get(cls.db, project_id=project.project_id)
+        pretty_total = (
+            project.total
+            if not str(project.total).endswith(".0")
+            else int(project.total)
+        )
+        html = render_template(
+            f"{Path.html_tpls}/{project.template}",
+            project_name=project.name,
+            items=products,
+            total=pretty_total,
+        )
+        cls.switchPage(Preview(cls, html))
 
     def deleteProject(self, widget: Project) -> None:
         widget.db_object.delete()

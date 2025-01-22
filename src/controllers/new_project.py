@@ -5,7 +5,6 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QLabel,
     QVBoxLayout,
-    QFileDialog,
 )
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -17,9 +16,10 @@ from views.ui import (
     colors,
 )
 from config import Pages, Path
-from utils import modify_button, get_template_list, render_template, create_pdf
+from utils import modify_button, get_template_list, render_template, save_pdf
 from models.products import ProductModel
 from models.projects import ProjectModel
+from controllers import projects
 
 
 class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
@@ -291,11 +291,20 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
             if not str(self.db_object.total).endswith(".0")
             else int(self.db_object.total)
         )
+        products = []
+        for product in ProductModel.get(cls.db, project_id=self.db_object.project_id):
+            pretty_cost = (
+                product.cost
+                if not str(product.cost).endswith(".0")
+                else int(product.cost)
+            )
+            product.cost = pretty_cost
+            products.append(product)
         for file_name in get_template_list():
             html = render_template(
                 f"{Path.html_tpls}/{file_name}",
                 project_name=self.db_object.name,
-                items=ProductModel.get(cls.db, project_id=self.db_object.project_id),
+                items=products,
                 total=pretty_total,
             )
             pretty_name = (
@@ -371,21 +380,8 @@ class Success(QWidget, Success_ui.Ui_Form):
             bg_color=colors.Light.accent,
             bg_pressed_color=colors.Light.accent_alt,
         )
-        self.btnSavePDF.clicked.connect(self.save_pdf)
-        self.btnHome.clicked.connect(lambda: cls.switchPage(setPage(cls)))
-
-    def save_pdf(self):
-        file_path, _ = QFileDialog.getSaveFileName(
-            self, "Guardar PDF", "", "PDF Files (*.pdf)"
-        )
-        if file_path:
-            create_pdf(self.html, file_path)
-            modify_button(
-                self.btnSavePDF,
-                fg_color="white",
-                bg_color=colors.Light.selected,
-                bg_pressed_color=colors.Light.selected_alt,
-            )
+        self.btnSavePDF.clicked.connect(lambda: save_pdf(self.btnSavePDF, self.html))
+        self.btnHome.clicked.connect(lambda: cls.switchPage(projects.setPage(cls)))
 
 
 def setPage(cls, project_db=None) -> None:

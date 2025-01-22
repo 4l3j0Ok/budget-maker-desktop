@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QFileDialog
 from PySide6.QtGui import QIcon, QPainter, QPageLayout, QPageSize
 from PySide6.QtCore import QMarginsF
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -113,3 +113,19 @@ def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
     except Exception as e:
         print_exception(e)
         return False, str(e)
+
+
+def save_pdf(btnSave, html: str) -> None:
+    file_path, _ = QFileDialog.getSaveFileName(
+        caption="Guardar PDF",
+        dir="",
+        filter="PDF Files (*.pdf)",
+    )
+    if file_path:
+        create_pdf(html, file_path)
+        modify_button(
+            btnSave,
+            fg_color="white",
+            bg_color=colors.Light.selected,
+            bg_pressed_color=colors.Light.selected_alt,
+        )

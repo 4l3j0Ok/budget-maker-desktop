@@ -1,12 +1,13 @@
 from .products import ProductModel
 from traceback import print_exception
+from config import Project
 
 
 class ProjectModel:
     db: object
     name: str
     total: float
-    template: str | None = None
+    template: str
     project_id: int | None = None
 
     def __init__(
@@ -14,7 +15,7 @@ class ProjectModel:
         db: object,
         name: str = "",
         total: float = 0.0,
-        template: str | None = None,
+        template: str = Project.default_template,
         project_id: int | None = None,
     ) -> None:
         self.db = db
