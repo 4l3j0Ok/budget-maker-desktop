@@ -2,9 +2,8 @@ name: Python application
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    tags:
+      - "*.*.*"
 
 permissions:
   contents: read
@@ -30,8 +29,12 @@ jobs:
           --add-data "./src/views/html:html/" \
           --add-data "./src/views/qss:qss/" \
           "./src/main.py"
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Archive
+        run: |
+          cd dist/main
+          zip -r budget-maker-desktop.zip *
+          mv budget-maker-desktop.zip ..
+      - name: Create release
+        uses: softprops/action-gh-release@v2
         with:
-          name: artifact
-          path: dist
+          files: budget-maker-desktop.zip.zip
