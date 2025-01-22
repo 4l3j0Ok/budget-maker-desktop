@@ -36,7 +36,7 @@ jobs:
         run: |
           cd dist/main
           zip -r budget-maker-desktop.zip *
-          mv budget-maker-desktop.zip ..
+          mv budget-maker-desktop.zip $GITHUB_WORKSPACE
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
