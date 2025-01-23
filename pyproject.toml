@@ -12,6 +12,7 @@ pyside6 = "^6.8.0.2"
 qdarkstyle = "^3.2.3"
 jinja2 = "^3.1.5"
 python-dotenv = "^1.0.1"
+pyinstaller = "^6.11.1"
 
 [tool.poetry.group.dev.dependencies]
 auto-py-to-exe = "^2.45.1"

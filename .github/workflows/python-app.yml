@@ -28,10 +28,7 @@ jobs:
           poetry install
       - name: Build
         run: |
-          poetry run pyinstaller --noconfirm --onedir --console \
-          --add-data "./src/views/html:html/" \
-          --add-data "./src/views/qss:qss/" \
-          "./src/main.py"
+          poetry run pyinstaller build.spec
       - name: Archive
         run: |
           cd dist/main && zip -r budget-maker-desktop.zip * && mv budget-maker-desktop.zip $GITHUB_WORKSPACE
