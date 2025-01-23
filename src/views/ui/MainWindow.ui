@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Budget Maker</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../resources.qrc">
+    <normaloff>:/icons/views/assets/icon.png</normaloff>:/icons/views/assets/icon.png</iconset>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LayoutDirection::LeftToRight</enum>
   </property>
