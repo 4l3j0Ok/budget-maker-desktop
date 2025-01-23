@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QApplication, QFileDialog
 from PySide6.QtGui import QIcon, QPainter, QPageLayout, QPageSize
 from PySide6.QtCore import QMarginsF
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from traceback import print_exception
+from logger import logger
 from views.ui import colors
 from config import Path
 from jinja2 import Template
@@ -22,8 +22,9 @@ def load_stylesheet(
         with open(style_file) as file:
             stylesheet = file.read()
             app.setStyleSheet(stylesheet)
-    except FileNotFoundError:
-        print(f"Archivo no encontrado: {style_file}")
+    except FileNotFoundError as fex:
+        logger.exception(fex)
+        logger.error(f"Archivo no encontrado: {style_file}")
 
 
 def load_stylesheet_tpl(
@@ -42,8 +43,9 @@ def load_stylesheet_tpl(
             for key, color in selected_color.__dict__.items():
                 stylesheet = stylesheet.replace("${" + f"{key}" + "}", f"{color}")
             app.setStyleSheet(stylesheet)
-    except FileNotFoundError:
-        print(f"Archivo no encontrado: {style_file}")
+    except FileNotFoundError as fex:
+        logger.exception(fex)
+        logger.error(f"Archivo no encontrado: {style_file}")
 
 
 def modify_button(
@@ -110,9 +112,9 @@ def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
         webView.setHtml(html)
 
         return True, output_file
-    except Exception as e:
-        print_exception(e)
-        return False, str(e)
+    except Exception as ex:
+        logger.exception(ex)
+        return False, str(ex)
 
 
 def save_pdf(btnSave, html: str) -> None:

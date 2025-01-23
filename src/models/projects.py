@@ -1,4 +1,4 @@
-from traceback import print_exception
+from logger import logger
 from .products import ProductModel
 from config import Project
 
@@ -37,8 +37,8 @@ class ProjectModel:
             """
             db.execute_query(statement)
             return True
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return False
 
     @classmethod
@@ -52,8 +52,8 @@ class ProjectModel:
             if query.next():
                 return ProjectModel(db, project_id=query.value(0), name=query.value(1))
             return None
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return None
 
     @classmethod
@@ -75,8 +75,8 @@ class ProjectModel:
                     )
                 )
             return projects
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return []
 
     def insert(self) -> int | None:
@@ -88,8 +88,8 @@ class ProjectModel:
             result = self.db.execute_query(statement)
             self.project_id = result.lastInsertId()
             return result.lastInsertId()
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return None
 
     def update(self) -> bool:
@@ -103,8 +103,8 @@ class ProjectModel:
             """
             self.db.execute_query(statement)
             return True
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return False
 
     def delete(self) -> bool:
@@ -116,6 +116,6 @@ class ProjectModel:
             """
             self.db.execute_query(statement)
             return True
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return False

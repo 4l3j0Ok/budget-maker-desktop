@@ -1,10 +1,10 @@
-from traceback import print_exception
 from PySide6.QtWidgets import QWidget, QSizePolicy, QMessageBox
 from PySide6.QtGui import QRegularExpressionValidator
 from config import Pages
 from utils import modify_button
 from views.ui import colors, Product_ui, Products_ui
 from models.products import ProductModel
+from logger import logger
 
 
 class Product(QWidget, Product_ui.Ui_Element):
@@ -105,8 +105,8 @@ class Product(QWidget, Product_ui.Ui_Element):
                 self.lePrice.text(),
                 self.pid,
             )
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Icon.Critical)
             msg.setWindowTitle("Error al guardar")
@@ -119,8 +119,8 @@ class Product(QWidget, Product_ui.Ui_Element):
         if self.pid:
             try:
                 ProductModel.delete(self.db, self.pid)
-            except Exception as e:
-                print_exception(e)
+            except Exception as ex:
+                logger.exception(ex)
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Icon.Critical)
                 msg.setWindowTitle("Error al eliminar")

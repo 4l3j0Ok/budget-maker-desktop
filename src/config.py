@@ -12,6 +12,7 @@ class Features:
 
 class Environment:
     dev_mode = os.getenv("DEV_MODE", "False").lower() == "true"
+    log_level = os.getenv("LOG_LEVEL", "DEBUG")
 
 
 class Path:

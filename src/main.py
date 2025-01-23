@@ -8,6 +8,7 @@ from views.ui.colors import Light, Dark
 from models.database import Database
 from utils import load_stylesheet_tpl, modify_button
 from config import Features
+from logger import logger
 
 
 class MainWindow(QMainWindow, MainWindow):
@@ -108,6 +109,7 @@ def init_translator(app: QApplication) -> None:
 
 
 if __name__ == "__main__":
+    logger.info("Iniciando aplicación...")
     app = QApplication(sys.argv)
     init_translator(app)
     app.setStyle("Fusion")
@@ -115,4 +117,5 @@ if __name__ == "__main__":
     load_stylesheet_tpl(app, dark_mode=dark_mode)
     window = MainWindow(dark_mode=dark_mode)
     window.show()
+    logger.info("Aplicación iniciada")
     app.exec()

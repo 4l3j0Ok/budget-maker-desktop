@@ -1,4 +1,4 @@
-from traceback import print_exception
+from logger import logger
 
 
 class ProductModel:
@@ -44,8 +44,8 @@ class ProductModel:
             """
             db.execute_query(statement)
             return True
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return False
 
     @classmethod
@@ -73,8 +73,8 @@ class ProductModel:
                     )
                 )
             return products[0] if not project_id else products
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return []
 
     @classmethod
@@ -96,8 +96,8 @@ class ProductModel:
                     )
                 )
             return products
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return []
 
     def insert(self) -> int | None:
@@ -109,8 +109,8 @@ class ProductModel:
             result = self.db.execute_query(statement)
             self.product_id = result.lastInsertId()
             return result.lastInsertId()
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return None
 
     def update(self) -> bool:
@@ -122,8 +122,8 @@ class ProductModel:
             """
             self.db.execute_query(statement)
             return True
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return False
 
     def delete(self) -> bool:
@@ -134,8 +134,8 @@ class ProductModel:
             """
             self.db.execute_query(statement)
             return True
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return False
 
     @classmethod
@@ -147,6 +147,6 @@ class ProductModel:
             """
             db.execute_query(statement)
             return True
-        except Exception as e:
-            print_exception(e)
+        except Exception as ex:
+            logger.exception(ex)
             return False
