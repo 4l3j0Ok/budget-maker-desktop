@@ -24,8 +24,8 @@ class ProjectModel:
         self.template = template
         self.project_id = self.insert() if not project_id else project_id
 
-    @classmethod
-    def create_table(cls, db) -> bool:
+    @staticmethod
+    def create_table(db) -> bool:
         try:
             statement = """
             CREATE TABLE IF NOT EXISTS projects (
@@ -41,8 +41,8 @@ class ProjectModel:
             logger.exception(ex)
             return False
 
-    @classmethod
-    def get(self, db, project_id: int):
+    @staticmethod
+    def get(db, project_id: int):
         try:
             statement = f"""
             SELECT * FROM projects

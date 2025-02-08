@@ -28,8 +28,8 @@ class ProductModel:
         self.project_id = project_id
         self.product_id = self.insert() if not product_id else product_id
 
-    @classmethod
-    def create_table(cls, db) -> bool:
+    @staticmethod
+    def create_table(db) -> bool:
         try:
             statement = """
             CREATE TABLE IF NOT EXISTS products (
@@ -48,8 +48,8 @@ class ProductModel:
             logger.exception(ex)
             return False
 
-    @classmethod
-    def get(cls, db, product_id=None, project_id=None) -> list | object:
+    @staticmethod
+    def get(db, product_id=None, project_id=None) -> list | object:
         try:
             statement = f"""
             SELECT * FROM products WHERE id = {product_id};
@@ -77,8 +77,8 @@ class ProductModel:
             logger.exception(ex)
             return []
 
-    @classmethod
-    def get_all(self, db) -> list:
+    @staticmethod
+    def get_all(db) -> list:
         try:
             statement = """
             SELECT * FROM products
@@ -138,8 +138,8 @@ class ProductModel:
             logger.exception(ex)
             return False
 
-    @classmethod
-    def delete_products(self, db, project_id: int) -> bool:
+    @staticmethod
+    def delete_products(db, project_id: int) -> bool:
         try:
             statement = f"""
             DELETE FROM products
