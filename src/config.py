@@ -27,6 +27,7 @@ class Path:
         if Environment.dev_mode
         else f"{current}/html/templates"
     )
+    user_config = "user_config.json"
 
 
 class Pages:
