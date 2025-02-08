@@ -45,3 +45,8 @@ QWebEngineView {
 QLineEdit:focus {
     border-color: ${accent};
 }
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+}

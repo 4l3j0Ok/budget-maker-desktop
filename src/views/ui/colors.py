@@ -16,5 +16,15 @@ class Light:
 
 class Dark:
     accent = "#4285F4"
+    accent_alt = "#2d5ba7"
+    selected = "#0c9100"
+    selected_alt = "#085a00"
+    deselected = "#9e9e9e"
+    deselected_alt = "#7c7c7c"
+    text = "#ffffff"
     button_text = "#ffffff"
     button_text_alt = "#ffffff"
+    delete = "#9b2424"
+    delete_alt = "#631717"
+    card_background = "#2c2c2c"
+    card_border = "#3c3c3c"

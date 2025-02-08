@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>views/assets/eva--settings-outline.svg</file>
     <file>views/assets/icon.png</file>
     <file>views/assets/eva--home-outline.svg</file>
     <file>views/assets/eva--save-outline.svg</file>

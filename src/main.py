@@ -1,7 +1,7 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 from PySide6.QtCore import QPropertyAnimation, QEvent, QTranslator, QLibraryInfo
-from controllers import products, projects
+from controllers import products, projects, settings
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
@@ -9,18 +9,16 @@ from models.database import Database
 from utils import load_stylesheet_tpl, modify_button
 from config import Features
 from logger import logger
-from user_config import UserConfig
 
 
 class MainWindow(QMainWindow, MainWindow):
-    def __init__(self, dark_mode: bool = False) -> None:
+    def __init__(self) -> None:
         super().__init__()
         # UI Setup
         self.setupUi(self)
         self.setupNavbar()
-        user_config = UserConfig.load()
-        self.dark_mode = dark_mode
         self.current_page = None
+        self.settings = settings.SettingsModel.load()
         ## Window
         self.setMinimumWidth(Size.app_min_width)
         self.setMinimumHeight(Size.app_min_height)
@@ -29,6 +27,7 @@ class MainWindow(QMainWindow, MainWindow):
         self.btnPage = {
             "btnProjects": projects.setPage,
             "btnProducts": products.setPage,
+            "btnSettings": settings.setPage,
         }
         # Database
         self.db = Database()
@@ -64,7 +63,9 @@ class MainWindow(QMainWindow, MainWindow):
             modify_button(
                 button,
                 fg_color=Dark.button_text,
-            ) if self.dark_mode else modify_button(button, fg_color=Light.button_text)
+            ) if self.settings.dark_mode else modify_button(
+                button, fg_color=Light.button_text
+            )
             button.installEventFilter(self)
             if button.objectName() != "btnMenu":
                 button.clicked.connect(self.switchPage)
@@ -89,7 +90,7 @@ class MainWindow(QMainWindow, MainWindow):
         return
 
     def eventFilter(self, obj, event) -> bool:
-        selected_color = Light if not self.dark_mode else Dark
+        selected_color = Light if not self.settings.dark_mode else Dark
         if event.type() == QEvent.Type.HoverEnter:
             modify_button(
                 obj,
@@ -115,9 +116,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     init_translator(app)
     app.setStyle("Fusion")
-    dark_mode = False
-    load_stylesheet_tpl(app, dark_mode=dark_mode)
-    window = MainWindow(dark_mode=dark_mode)
+    app.settings = settings.SettingsModel.load()
+    load_stylesheet_tpl(app, app.settings.dark_mode)
+    window = MainWindow()
     window.show()
     logger.debug("Aplicación iniciada")
     app.exec()

@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(752, 296)
+        MainWindow.resize(752, 310)
         icon = QIcon()
         icon.addFile(u":/icons/views/assets/icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -79,6 +79,16 @@ class Ui_MainWindow(object):
         self.btnProducts.setIconSize(QSize(32, 32))
 
         self.verticalLayout.addWidget(self.btnProducts)
+
+        self.btnSettings = QPushButton(self.frNavbar)
+        self.btnSettings.setObjectName(u"btnSettings")
+        self.btnSettings.setStyleSheet(u"text-align: left;")
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/views/assets/eva--settings-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnSettings.setIcon(icon4)
+        self.btnSettings.setIconSize(QSize(32, 32))
+
+        self.verticalLayout.addWidget(self.btnSettings)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -152,6 +162,7 @@ class Ui_MainWindow(object):
         self.btnMenu.setText(QCoreApplication.translate("MainWindow", u"Men\u00fa", None))
         self.btnProjects.setText(QCoreApplication.translate("MainWindow", u"Proyectos", None))
         self.btnProducts.setText(QCoreApplication.translate("MainWindow", u"Productos y Servicios", None))
+        self.btnSettings.setText(QCoreApplication.translate("MainWindow", u"Configuraci\u00f3n", None))
         self.lblTitle.setText(QCoreApplication.translate("MainWindow", u"{Titulo}", None))
         self.lblDescription.setText(QCoreApplication.translate("MainWindow", u"{Descripci\u00f3n}", None))
     # retranslateUi

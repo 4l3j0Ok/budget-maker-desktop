@@ -27,7 +27,7 @@ class Path:
         if Environment.dev_mode
         else f"{current}/html/templates"
     )
-    user_config = "user_config.json"
+    settings = "settings.json"
 
 
 class Pages:
@@ -42,6 +42,10 @@ class Pages:
     products = dict(
         title="Productos",
         description="Añade productos a tu proyecto de forma sencilla",
+    )
+    settings = dict(
+        title="Configuración",
+        description="Configura la aplicación a tu gusto",
     )
 
 
