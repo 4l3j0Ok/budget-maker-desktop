@@ -34,19 +34,19 @@ class Project(QWidget, Project_ui.Ui_Element):
     def setupButtons(self):
         modify_button(
             self.btnEdit,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.accent,
             bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnPreview,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.accent,
             bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnDelete,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.delete,
             bg_pressed_color=self.selected_color.delete_alt,
         )
@@ -63,13 +63,13 @@ class Preview(QWidget, Preview_ui.Ui_Form):
     def setupPreviewButtons(self, cls, html: str):
         modify_button(
             self.btnHome,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.accent,
             bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnSavePDF,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.accent,
             bg_pressed_color=self.selected_color.accent_alt,
         )

@@ -1,5 +1,5 @@
 * {
-    background-color: #f0f0f0;
+    background-color: ${background};
     color: ${text};
 }
 
@@ -31,7 +31,7 @@ QLineEdit {
     border-radius: 5px;
     padding: 5px;
     color: ${text};
-    background-color: white;
+    background-color: ${le_enabled};
 }
 
 QWebEngineView {

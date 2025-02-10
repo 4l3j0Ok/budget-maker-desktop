@@ -101,7 +101,7 @@ def save_pdf(cls, btnSave, html: str) -> None:
         create_pdf(html, file_path)
         modify_button(
             btnSave,
-            fg_color="white",
+            fg_color=cls.selected_color.button_text_alt,
             bg_color=cls.selected_color.selected,
             bg_pressed_color=cls.selected_color.selected_alt,
         )

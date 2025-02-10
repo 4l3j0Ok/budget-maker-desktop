@@ -42,15 +42,15 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
     def setupButtons(self):
         modify_button(
             self.btnDelete,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.delete,
             bg_pressed_color=self.selected_color.delete_alt,
         )
         modify_button(
             self.btnHide,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
         )
-        modify_button(self.btnLock, fg_color="white")
+        modify_button(self.btnLock, fg_color=self.selected_color.button_text_alt)
         self.locked = False
         self.costVisible = True
         self.btnLock.clicked.connect(self.toggleLock)
@@ -73,7 +73,7 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
                 if element.objectName() == "btnLock":
                     modify_button(
                         element,
-                        fg_color="white",
+                        fg_color=self.selected_color.button_text_alt,
                         icon=":/icons/views/assets/ic--outline-lock-open.svg"
                         if self.locked
                         else ":/icons/views/assets/ic--outline-lock.svg",
@@ -94,15 +94,15 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
                     )
             elif isinstance(element, QLineEdit):
                 element.setStyleSheet(
-                    "background-color: #f0f0f0"
+                    f"background-color: {self.selected_color.le_disabled}"
                     if self.locked
-                    else "background-color: #ffffff"
+                    else f"background-color: {self.selected_color.le_enabled}"
                 )
 
     def toggleVisibility(self):
         modify_button(
             self.sender(),
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             icon=":/icons/views/assets/eva--eye-off-2-outline.svg"
             if self.costVisible
             else ":/icons/views/assets/eva--eye-outline.svg",
@@ -383,13 +383,13 @@ class Success(QWidget, Success_ui.Ui_Form):
     def setupButtons(self, cls):
         modify_button(
             self.btnHome,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.accent,
             bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnSavePDF,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.accent,
             bg_pressed_color=self.selected_color.accent_alt,
         )

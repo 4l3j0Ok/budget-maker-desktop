@@ -27,14 +27,14 @@ class Product(QWidget, Product_ui.Ui_Element):
     def setupButtons(self):
         modify_button(
             self.btnDelete,
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color=self.selected_color.delete,
             bg_pressed_color=self.selected_color.delete_alt,
         )
         modify_button(
             self.btnEdit,
             icon=":/icons/views/assets/ic--baseline-done.svg",
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color="green",
         )
         self.btnEdit.clicked.connect(self.toggleEdit)
@@ -87,7 +87,7 @@ class Product(QWidget, Product_ui.Ui_Element):
             icon=":/icons/views/assets/ic--baseline-done.svg"
             if self.leName.isEnabled()
             else ":/icons/views/assets/ic--outline-edit.svg",
-            fg_color="white",
+            fg_color=self.selected_color.button_text_alt,
             bg_color="green" if self.leName.isEnabled() else self.selected_color.accent,
         )
 
