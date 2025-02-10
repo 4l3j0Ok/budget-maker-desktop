@@ -2,15 +2,16 @@ from PySide6.QtWidgets import QWidget, QSizePolicy, QMessageBox
 from PySide6.QtGui import QRegularExpressionValidator
 from config import Pages
 from utils import modify_button
-from views.ui import colors, Product_ui, Products_ui
+from views.ui import Product_ui, Products_ui
 from models.products import ProductModel
 from logger import logger
 
 
 class Product(QWidget, Product_ui.Ui_Element):
-    def __init__(self, db, new=False, pid=None, name="", cost=""):
+    def __init__(self, db, selected_color, new=False, pid=None, name="", cost=""):
         super().__init__()
         self.db = db
+        self.selected_color = selected_color
         self.setupUi(self)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self.setMinimumHeight(42)
@@ -27,8 +28,8 @@ class Product(QWidget, Product_ui.Ui_Element):
         modify_button(
             self.btnDelete,
             fg_color="white",
-            bg_color=colors.Light.delete,
-            bg_pressed_color=colors.Light.delete_alt,
+            bg_color=self.selected_color.delete,
+            bg_pressed_color=self.selected_color.delete_alt,
         )
         modify_button(
             self.btnEdit,
@@ -42,9 +43,9 @@ class Product(QWidget, Product_ui.Ui_Element):
     def setupProjectBox(self):
         style_sheet = f"""
             QFrame {{
-                background-color: {colors.Light.card_background};
+                background-color: {self.selected_color.card_background};
                 border-radius: 5px;
-                border: 1px solid {colors.Light.card_border};
+                border: 1px solid {self.selected_color.card_border};
             }}
             QLabel {{
                 border: none;
@@ -87,7 +88,7 @@ class Product(QWidget, Product_ui.Ui_Element):
             if self.leName.isEnabled()
             else ":/icons/views/assets/ic--outline-edit.svg",
             fg_color="white",
-            bg_color="green" if self.leName.isEnabled() else colors.Light.accent,
+            bg_color="green" if self.leName.isEnabled() else self.selected_color.accent,
         )
 
     def save(self):
@@ -136,17 +137,20 @@ class Products(QWidget, Products_ui.Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.db = cls.db
+        self.selected_color = cls.selected_color
         self.btnNew.clicked.connect(self.onBtnNewClicked)
         self.loadProducts()
 
     def loadProducts(self):
         products = ProductModel.get_all(self.db)
         for product in products:
-            widget = Product(self.db, name=product.name, cost=product.cost)
+            widget = Product(
+                self.db, self.selected_color, name=product.name, cost=product.cost
+            )
             self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
 
     def onBtnNewClicked(self) -> None:
-        widget = Product(self.db, new=True)
+        widget = Product(self.db, self.selected_color, new=True)
         self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
 
 

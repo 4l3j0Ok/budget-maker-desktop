@@ -3,49 +3,23 @@ from PySide6.QtGui import QIcon, QPainter, QPageLayout, QPageSize
 from PySide6.QtCore import QMarginsF
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from logger import logger
-from views.ui import colors
 from config import Path
 from jinja2 import Template
 import os
 
 
-def load_stylesheet(
-    app: QApplication,
-    dark_mode: bool = False,
-) -> None:
-    style_file = (
-        f"{Path.qss_tpls}/dark.qss.tpl"
-        if dark_mode
-        else f"{Path.qss_tpls}/light.qss.tpl"
-    )
-    try:
-        with open(style_file) as file:
-            stylesheet = file.read()
-            app.setStyleSheet(stylesheet)
-    except FileNotFoundError as fex:
-        logger.exception(fex)
-        logger.error(f"Archivo no encontrado: {style_file}")
-
-
 def load_stylesheet_tpl(
-    app: QApplication,
-    dark_mode: bool = False,
+    cls,
 ) -> None:
-    style_file = (
-        f"{Path.qss_tpls}/light.qss.tpl"
-        if not dark_mode
-        else f"{Path.qss_tpls}/dark.qss.tpl"
-    )
     try:
-        with open(style_file) as file:
+        with open(cls.selected_color.template_file) as file:
             stylesheet = file.read()
-            selected_color = colors.Light if not dark_mode else colors.Dark
-            for key, color in selected_color.__dict__.items():
+            for key, color in cls.selected_color.__dict__.items():
                 stylesheet = stylesheet.replace("${" + f"{key}" + "}", f"{color}")
-            app.setStyleSheet(stylesheet)
+            cls.setStyleSheet(stylesheet)
     except FileNotFoundError as fex:
         logger.exception(fex)
-        logger.error(f"Archivo no encontrado: {style_file}")
+        logger.error(f"Archivo no encontrado: {cls.selected_color.template_file}")
 
 
 def modify_button(
@@ -117,7 +91,7 @@ def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
         return False, str(ex)
 
 
-def save_pdf(btnSave, html: str) -> None:
+def save_pdf(cls, btnSave, html: str) -> None:
     file_path, _ = QFileDialog.getSaveFileName(
         caption="Guardar PDF",
         dir="",
@@ -128,6 +102,6 @@ def save_pdf(btnSave, html: str) -> None:
         modify_button(
             btnSave,
             fg_color="white",
-            bg_color=colors.Light.selected,
-            bg_pressed_color=colors.Light.selected_alt,
+            bg_color=cls.selected_color.selected,
+            bg_pressed_color=cls.selected_color.selected_alt,
         )

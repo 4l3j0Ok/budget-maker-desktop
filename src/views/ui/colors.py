@@ -1,4 +1,8 @@
+from config import Path
+
+
 class Light:
+    template_file = f"{Path.qss_tpls}/light.qss.tpl"
     accent = "#4285F4"
     accent_alt = "#2d5ba7"
     selected = "#0c9100"
@@ -15,6 +19,7 @@ class Light:
 
 
 class Dark:
+    template_file = f"{Path.qss_tpls}/dark.qss.tpl"
     accent = "#4285F4"
     accent_alt = "#2d5ba7"
     selected = "#0c9100"

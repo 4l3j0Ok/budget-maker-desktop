@@ -3,15 +3,15 @@ from views.ui import Projects_ui, Project_ui, Preview_ui
 from controllers import new_project
 from models.projects import ProjectModel
 from models.products import ProductModel
-from views.ui import colors
 from config import Pages, Path
 from utils import modify_button, render_template, save_pdf
 
 
 class Project(QWidget, Project_ui.Ui_Element):
-    def __init__(self, db, project_id: int):
+    def __init__(self, db, selected_color, project_id: int):
         super().__init__()
         self.setupUi(self)
+        self.selected_color = selected_color
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self.setupProjectBox()
         self.setupButtons()
@@ -21,9 +21,9 @@ class Project(QWidget, Project_ui.Ui_Element):
     def setupProjectBox(self):
         style_sheet = f"""
             QFrame {{
-                background-color: {colors.Light.card_background};
+                background-color: {self.selected_color.card_background};
                 border-radius: 5px;
-                border: 1px solid {colors.Light.card_border};
+                border: 1px solid {self.selected_color.card_border};
             }}
             QLabel {{
                 border: none;
@@ -35,20 +35,20 @@ class Project(QWidget, Project_ui.Ui_Element):
         modify_button(
             self.btnEdit,
             fg_color="white",
-            bg_color=colors.Light.accent,
-            bg_pressed_color=colors.Light.accent_alt,
+            bg_color=self.selected_color.accent,
+            bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnPreview,
             fg_color="white",
-            bg_color=colors.Light.accent,
-            bg_pressed_color=colors.Light.accent_alt,
+            bg_color=self.selected_color.accent,
+            bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnDelete,
             fg_color="white",
-            bg_color=colors.Light.delete,
-            bg_pressed_color=colors.Light.delete_alt,
+            bg_color=self.selected_color.delete,
+            bg_pressed_color=self.selected_color.delete_alt,
         )
 
 
@@ -56,6 +56,7 @@ class Preview(QWidget, Preview_ui.Ui_Form):
     def __init__(self, cls, html: str):
         super().__init__()
         self.setupUi(self)
+        self.selected_color = cls.selected_color
         self.webview.setHtml(html)
         self.setupPreviewButtons(cls, html)
 
@@ -63,16 +64,16 @@ class Preview(QWidget, Preview_ui.Ui_Form):
         modify_button(
             self.btnHome,
             fg_color="white",
-            bg_color=colors.Light.accent,
-            bg_pressed_color=colors.Light.accent_alt,
+            bg_color=self.selected_color.accent,
+            bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnSavePDF,
             fg_color="white",
-            bg_color=colors.Light.accent,
-            bg_pressed_color=colors.Light.accent_alt,
+            bg_color=self.selected_color.accent,
+            bg_pressed_color=self.selected_color.accent_alt,
         )
-        self.btnSavePDF.clicked.connect(lambda: save_pdf(self.btnSavePDF, html))
+        self.btnSavePDF.clicked.connect(lambda: save_pdf(cls, self.btnSavePDF, html))
         self.btnHome.clicked.connect(lambda: cls.switchPage(setPage(cls)))
 
 
@@ -80,13 +81,14 @@ class ProjectManager(QWidget, Projects_ui.Ui_Form):
     def __init__(self, cls):
         super().__init__()
         self.setupUi(self)
+        self.selected_color = cls.selected_color
         self.loadProjects(cls)
         self.btnNew.clicked.connect(lambda: self.newOrAddProject(cls))
 
     def loadProjects(self, cls) -> None:
         projects = ProjectModel.get_all(cls.db)
         for project in projects:
-            widget = Project(cls.db, project.project_id)
+            widget = Project(cls.db, self.selected_color, project.project_id)
             self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
             widget.btnEdit.clicked.connect(
                 lambda _, p=project: self.newOrAddProject(cls, p)

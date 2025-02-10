@@ -16,9 +16,11 @@ class MainWindow(QMainWindow, MainWindow):
         super().__init__()
         # UI Setup
         self.setupUi(self)
-        self.setupNavbar()
-        self.current_page = None
         self.settings = settings.SettingsModel.load()
+        self.selected_color = Light if not self.settings.dark_mode else Dark
+        self.setupNavbar()
+        load_stylesheet_tpl(self)
+        self.current_page = None
         ## Window
         self.setMinimumWidth(Size.app_min_width)
         self.setMinimumHeight(Size.app_min_height)
@@ -64,7 +66,7 @@ class MainWindow(QMainWindow, MainWindow):
                 button,
                 fg_color=Dark.button_text,
             ) if self.settings.dark_mode else modify_button(
-                button, fg_color=Light.button_text
+                button, fg_color=self.selected_color.button_text
             )
             button.installEventFilter(self)
             if button.objectName() != "btnMenu":
@@ -90,16 +92,15 @@ class MainWindow(QMainWindow, MainWindow):
         return
 
     def eventFilter(self, obj, event) -> bool:
-        selected_color = Light if not self.settings.dark_mode else Dark
         if event.type() == QEvent.Type.HoverEnter:
             modify_button(
                 obj,
-                fg_color=selected_color.button_text_alt,
+                fg_color=self.selected_color.button_text_alt,
             )
         elif event.type() == QEvent.Type.HoverLeave:
             modify_button(
                 obj,
-                fg_color=selected_color.button_text,
+                fg_color=self.selected_color.button_text,
             )
         return super().eventFilter(obj, event)
 
@@ -116,8 +117,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     init_translator(app)
     app.setStyle("Fusion")
-    app.settings = settings.SettingsModel.load()
-    load_stylesheet_tpl(app, app.settings.dark_mode)
     window = MainWindow()
     window.show()
     logger.debug("Aplicación iniciada")

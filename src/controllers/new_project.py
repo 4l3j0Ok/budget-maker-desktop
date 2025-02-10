@@ -13,7 +13,6 @@ from views.ui import (
     ProjectProduct_ui,
     NewProjectTemplate_ui,
     Success_ui,
-    colors,
 )
 from config import Pages, Path
 from utils import modify_button, get_template_list, render_template, save_pdf
@@ -23,9 +22,12 @@ from controllers import projects
 
 
 class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
-    def __init__(self, db, project_id: int, product_id: int | None = None):
+    def __init__(
+        self, db, selected_color, project_id: int, product_id: int | None = None
+    ):
         super().__init__()
         self.setupUi(self)
+        self.selected_color = selected_color
         self.setupButtons()
         self.setupLineEdit()
         self.db_object = (
@@ -41,8 +43,8 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
         modify_button(
             self.btnDelete,
             fg_color="white",
-            bg_color=colors.Light.delete,
-            bg_pressed_color=colors.Light.delete_alt,
+            bg_color=self.selected_color.delete,
+            bg_pressed_color=self.selected_color.delete_alt,
         )
         modify_button(
             self.btnHide,
@@ -79,16 +81,16 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
                 elif element.objectName() == "btnDelete":
                     modify_button(
                         element,
-                        bg_color=colors.Light.delete_alt
+                        bg_color=self.selected_color.delete_alt
                         if self.locked
-                        else colors.Light.delete,
+                        else self.selected_color.delete,
                     )
                 else:
                     modify_button(
                         element,
-                        bg_color=colors.Light.accent_alt
+                        bg_color=self.selected_color.accent_alt
                         if self.locked
-                        else colors.Light.accent,
+                        else self.selected_color.accent,
                     )
             elif isinstance(element, QLineEdit):
                 element.setStyleSheet(
@@ -117,6 +119,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
     def __init__(self, cls, db_object: ProjectModel | None = None):
         super().__init__()
         self.setupUi(self)
+        self.selected_color = cls.selected_color
         self.setupButtons(cls)
         self.db_object = ProjectModel(cls.db) if not db_object else db_object
         self.leTotal.setValidator(QRegularExpressionValidator(r"^[0-9]*$", self))
@@ -148,7 +151,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         self.btnAdd.clicked.connect(lambda: self.addProduct(cls.db))
         self.btnClear.clicked.connect(lambda: self.reloadWidget(cls))
         self.btnNext.setEnabled(False)
-        modify_button(self.btnNext, bg_color=colors.Light.deselected)
+        modify_button(self.btnNext, bg_color=self.selected_color.deselected)
         self.btnNext.clicked.connect(
             lambda: cls.switchPage(
                 NewProjectTemplate(cls, parent_widget=self, db_object=self.db_object),
@@ -165,7 +168,10 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         product_id: int = None,
     ):
         widget = ProjectProduct(
-            db, project_id=self.db_object.project_id, product_id=product_id
+            db,
+            self.selected_color,
+            project_id=self.db_object.project_id,
+            product_id=product_id,
         )
         self.toggleNextButton(False)
         self.verticalLayout.insertWidget(self.verticalLayout.count() - 1, widget)
@@ -242,16 +248,19 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         self.btnNext.setEnabled(enabled)
         modify_button(
             self.btnNext,
-            bg_color=colors.Light.accent if enabled else colors.Light.deselected,
-            bg_pressed_color=colors.Light.accent_alt
+            bg_color=self.selected_color.accent
             if enabled
-            else colors.Light.deselected_alt,
+            else self.selected_color.deselected,
+            bg_pressed_color=self.selected_color.accent_alt
+            if enabled
+            else self.selected_color.deselected_alt,
         )
 
 
 class Template(QWidget):
-    def __init__(self, html, name, file_name):
+    def __init__(self, html, name, file_name, selected_color):
         super(Template, self).__init__()
+        self.selected_color = selected_color
         self.file_name = file_name
         self.selected = False
         self.verticalLayout = QVBoxLayout(self)
@@ -264,8 +273,8 @@ class Template(QWidget):
         self.btnSelect.setText("Seleccionar")
         modify_button(
             self.btnSelect,
-            bg_color=colors.Light.deselected,
-            bg_pressed_color=colors.Light.deselected_alt,
+            bg_color=self.selected_color.deselected,
+            bg_pressed_color=self.selected_color.deselected_alt,
         )
         self.verticalLayout.addWidget(self.webView)
         self.verticalLayout.addWidget(self.lblProjectName)
@@ -278,8 +287,9 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
     def __init__(self, cls, parent_widget, db_object: ProjectModel):
         super().__init__()
         self.setupUi(self)
+        self.selected_color = cls.selected_color
         self.db_object = db_object
-        modify_button(self.btnNext, bg_color=colors.Light.deselected)
+        modify_button(self.btnNext, bg_color=self.selected_color.deselected)
         self.btnNext.setEnabled(False)
         self.btnBack.clicked.connect(lambda: cls.switchPage(parent_widget, hidden=True))
         self.btnNext.clicked.connect(lambda: self.onButtonNextClicked(cls))
@@ -314,7 +324,7 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
                 .replace("-", " ")
                 .title()
             )
-            template = Template(html, pretty_name, file_name)
+            template = Template(html, pretty_name, file_name, self.selected_color)
             template.btnSelect.clicked.connect(self.onButtonSelectClicked)
             self.templates.append(template)
             self.gridLayout.addWidget(template, 0, self.gridLayout.columnCount())
@@ -329,12 +339,12 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
             template.btnSelect.setText("Seleccionado" if is_selected else "Seleccionar")
             modify_button(
                 template.btnSelect,
-                bg_color=colors.Light.selected
+                bg_color=self.selected_color.selected
                 if is_selected
-                else colors.Light.deselected,
-                bg_pressed_color=colors.Light.selected_alt
+                else self.selected_color.deselected,
+                bg_pressed_color=self.selected_color.selected_alt
                 if is_selected
-                else colors.Light.deselected_alt,
+                else self.selected_color.deselected_alt,
             )
             if is_selected:
                 is_any_selected = True
@@ -353,10 +363,12 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
         self.btnNext.setEnabled(enabled)
         modify_button(
             self.btnNext,
-            bg_color=colors.Light.accent if enabled else colors.Light.deselected,
-            bg_pressed_color=colors.Light.accent_alt
+            bg_color=self.selected_color.accent
             if enabled
-            else colors.Light.deselected_alt,
+            else self.selected_color.deselected,
+            bg_pressed_color=self.selected_color.accent_alt
+            if enabled
+            else self.selected_color.deselected_alt,
         )
 
 
@@ -364,6 +376,7 @@ class Success(QWidget, Success_ui.Ui_Form):
     def __init__(self, cls, html):
         super().__init__()
         self.setupUi(self)
+        self.selected_color = cls.selected_color
         self.setupButtons(cls)
         self.html = html
 
@@ -371,16 +384,18 @@ class Success(QWidget, Success_ui.Ui_Form):
         modify_button(
             self.btnHome,
             fg_color="white",
-            bg_color=colors.Light.accent,
-            bg_pressed_color=colors.Light.accent_alt,
+            bg_color=self.selected_color.accent,
+            bg_pressed_color=self.selected_color.accent_alt,
         )
         modify_button(
             self.btnSavePDF,
             fg_color="white",
-            bg_color=colors.Light.accent,
-            bg_pressed_color=colors.Light.accent_alt,
+            bg_color=self.selected_color.accent,
+            bg_pressed_color=self.selected_color.accent_alt,
         )
-        self.btnSavePDF.clicked.connect(lambda: save_pdf(self.btnSavePDF, self.html))
+        self.btnSavePDF.clicked.connect(
+            lambda: save_pdf(cls, self.btnSavePDF, self.html)
+        )
         self.btnHome.clicked.connect(lambda: cls.switchPage(projects.setPage(cls)))
 
 

@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QFileDialog
 from views.ui import Settings_ui
 from config import Path, Pages
 from logger import logger
+from views.ui import colors
 from utils import load_stylesheet_tpl
 
 
@@ -46,9 +47,13 @@ class Settings(QWidget, Settings_ui.Ui_Form):
         self.lePDFExportPath.textChanged.connect(self.updatePath)
 
     def toggleDarkMode(self, cls):
-        load_stylesheet_tpl(cls, self.cbDarkMode.isChecked())
+        cls.selected_color = (
+            colors.Dark if self.cbDarkMode.isChecked() else colors.Light
+        )
+        load_stylesheet_tpl(cls)
         self.settings.dark_mode = self.cbDarkMode.isChecked()
         self.settings.save()
+        cls.setupButtons()
 
     def selectPath(self):
         path = QFileDialog.getExistingDirectory(
