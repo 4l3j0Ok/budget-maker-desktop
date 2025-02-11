@@ -1,5 +1,6 @@
 import os
 import dotenv
+import environment
 
 dotenv.load_dotenv()
 
@@ -10,21 +11,16 @@ class Features:
     config = False
 
 
-class Environment:
-    dev_mode = os.getenv("DEV_MODE", "False").lower() == "true"
-    log_level = os.getenv("LOG_LEVEL", "DEBUG")
-
-
 class Path:
     current = os.path.dirname(os.path.realpath(__file__))
     qss_tpls = (
         f"{current}/views/qss/templates"
-        if Environment.dev_mode
+        if environment.DEV_MODE
         else f"{current}/qss/templates"
     )
     html_tpls = (
         f"{current}/views/html/templates"
-        if Environment.dev_mode
+        if environment.DEV_MODE
         else f"{current}/html/templates"
     )
     settings = "settings.json"

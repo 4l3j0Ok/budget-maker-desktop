@@ -26,9 +26,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install
-      - name: Set environment variables
+      - name: Set environment
         run: |
-          echo "APP_VERSION=${{ github.ref_name }}" >> "$env:GITHUB_ENV"
+          $env:DEV_MODE = "False"
+          $env:LOG_LEVEL = "INFO"
+          $env:APP_VERSION = "${{ github.ref_name }}"
+          $envFile = "src/environment.py"
+          (Get-Content $envFile) -replace 'os.getenv\("DEV_MODE", ".*?"\)', "`"$env:DEV_MODE`"" `
+            -replace 'os.getenv\("LOG_LEVEL", ".*?"\)', "`"$env:LOG_LEVEL`"" `
+            -replace 'os.getenv\("APP_VERSION", ".*?"\)', "`"$env:APP_VERSION`"" |
+          Set-Content $envFile
       - name: Build
         run: |
           poetry run pyinstaller budget-maker-desktop.spec
