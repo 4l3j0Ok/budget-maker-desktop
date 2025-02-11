@@ -162,7 +162,7 @@
           <string notr="true">text-align: left;</string>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string>Acerca de</string>
          </property>
          <property name="icon">
           <iconset resource="../../resources.qrc">

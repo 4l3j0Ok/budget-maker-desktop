@@ -173,7 +173,7 @@ class Ui_MainWindow(object):
         self.btnProjects.setText(QCoreApplication.translate("MainWindow", u"Proyectos", None))
         self.btnProducts.setText(QCoreApplication.translate("MainWindow", u"Productos y Servicios", None))
         self.btnSettings.setText(QCoreApplication.translate("MainWindow", u"Configuraci\u00f3n", None))
-        self.btnAbout.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.btnAbout.setText(QCoreApplication.translate("MainWindow", u"Acerca de", None))
         self.lblTitle.setText(QCoreApplication.translate("MainWindow", u"{Titulo}", None))
         self.lblDescription.setText(QCoreApplication.translate("MainWindow", u"{Descripci\u00f3n}", None))
     # retranslateUi
