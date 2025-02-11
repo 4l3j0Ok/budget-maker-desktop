@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget
 from views.ui import About_ui
 from config import Pages
-import os
+import environment
 
 
 class About(QWidget, About_ui.Ui_Form):
@@ -9,7 +9,7 @@ class About(QWidget, About_ui.Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.lblTitle.setText(
-            self.lblTitle.text().format(version=os.getenv("APP_VERSION"))
+            self.lblTitle.text().format(version=environment.APP_VERSION)
         )
 
 

@@ -36,11 +36,9 @@ jobs:
             -replace 'os.getenv\("LOG_LEVEL", ".*?"\)', "`"$env:LOG_LEVEL`"" `
             -replace 'os.getenv\("APP_VERSION", ".*?"\)', "`"$env:APP_VERSION`"" |
           Set-Content $envFile
-          Get-Content $envFile
       - name: Build
         run: |
           $envFile = "src/environment.py"
-          Get-Content $envFile
           poetry run pyinstaller budget-maker-desktop.spec
       - name: Archive
         run: |
