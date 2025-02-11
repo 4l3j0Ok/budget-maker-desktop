@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
         self.btnProducts.setObjectName(u"btnProducts")
         self.btnProducts.setStyleSheet(u"text-align: left;")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/views/assets/ic--baseline-lightbulb.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon3.addFile(u":/icons/views/assets/ant-design--product-outlined.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnProducts.setIcon(icon3)
         self.btnProducts.setIconSize(QSize(32, 32))
 
@@ -89,6 +89,16 @@ class Ui_MainWindow(object):
         self.btnSettings.setIconSize(QSize(32, 32))
 
         self.verticalLayout.addWidget(self.btnSettings)
+
+        self.btnAbout = QPushButton(self.frNavbar)
+        self.btnAbout.setObjectName(u"btnAbout")
+        self.btnAbout.setStyleSheet(u"text-align: left;")
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/views/assets/ix--about.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnAbout.setIcon(icon5)
+        self.btnAbout.setIconSize(QSize(32, 32))
+
+        self.verticalLayout.addWidget(self.btnAbout)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -163,6 +173,7 @@ class Ui_MainWindow(object):
         self.btnProjects.setText(QCoreApplication.translate("MainWindow", u"Proyectos", None))
         self.btnProducts.setText(QCoreApplication.translate("MainWindow", u"Productos y Servicios", None))
         self.btnSettings.setText(QCoreApplication.translate("MainWindow", u"Configuraci\u00f3n", None))
+        self.btnAbout.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.lblTitle.setText(QCoreApplication.translate("MainWindow", u"{Titulo}", None))
         self.lblDescription.setText(QCoreApplication.translate("MainWindow", u"{Descripci\u00f3n}", None))
     # retranslateUi

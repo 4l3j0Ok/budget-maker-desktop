@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>views/assets/ix--about.svg</file>
+    <file>views/assets/ant-design--product-outlined.svg</file>
     <file>views/assets/eva--settings-outline.svg</file>
     <file>views/assets/icon.png</file>
     <file>views/assets/eva--home-outline.svg</file>

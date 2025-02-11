@@ -27,6 +27,8 @@ jobs:
           pip install poetry
           poetry install
       - name: Build
+        env:
+          APP_VERSION: ${{ github.ref }}
         run: |
           poetry run pyinstaller budget-maker-desktop.spec
       - name: Archive

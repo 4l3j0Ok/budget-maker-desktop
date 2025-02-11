@@ -47,6 +47,10 @@ class Pages:
         title="Configuración",
         description="Configura la aplicación a tu gusto",
     )
+    about = dict(
+        title="Acerca de",
+        description="Información sobre la aplicación",
+    )
 
 
 class Database:

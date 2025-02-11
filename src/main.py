@@ -1,7 +1,7 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 from PySide6.QtCore import QPropertyAnimation, QEvent, QTranslator, QLibraryInfo
-from controllers import products, projects, settings
+from controllers import products, projects, settings, about
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
@@ -30,6 +30,7 @@ class MainWindow(QMainWindow, MainWindow):
             "btnProjects": projects.setPage,
             "btnProducts": products.setPage,
             "btnSettings": settings.setPage,
+            "btnAbout": about.setPage,
         }
         # Database
         self.db = Database()
