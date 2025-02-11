@@ -28,10 +28,9 @@ jobs:
           poetry install
       - name: Set environment variables
         run: |
-          echo "APP_VERSION=${{ github.ref_name }}" >> "$GITHUB_ENV"
+          echo "APP_VERSION=${{ github.ref_name }}" >> "$env:GITHUB_ENV"
       - name: Build
         run: |
-          pwsh -c "Get-ChildItem Env:*"
           poetry run pyinstaller budget-maker-desktop.spec
       - name: Archive
         run: |
