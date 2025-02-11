@@ -33,7 +33,7 @@ jobs:
           poetry run pyinstaller budget-maker-desktop.spec
       - name: Archive
         run: |
-          pwsh -c "cd dist/main; Compress-Archive -Path * -DestinationPath budget-maker-desktop.zip; Move-Item -Path budget-maker-desktop.zip -Destination $env:GITHUB_WORKSPACE"
+          pwsh -c "cd dist/budget-maker-desktop; Compress-Archive -Path * -DestinationPath budget-maker-desktop.zip; Move-Item -Path budget-maker-desktop.zip -Destination $env:GITHUB_WORKSPACE"
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
