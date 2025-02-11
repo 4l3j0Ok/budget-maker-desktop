@@ -15,6 +15,8 @@ jobs:
     permissions:
       contents: write
       packages: write
+    env:
+      APP_VERSION: ${{ github.ref_name }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.12
@@ -26,8 +28,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install
-      - name: Set APP_VERSION
-        run: echo "APP_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
       - name: Build
         env:
           APP_VERSION: ${{ env.APP_VERSION }}
