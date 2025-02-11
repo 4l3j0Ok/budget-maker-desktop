@@ -1,8 +1,5 @@
 import os
-import dotenv
 import environment
-
-dotenv.load_dotenv()
 
 
 class Features:
