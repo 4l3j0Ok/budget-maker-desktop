@@ -53,9 +53,10 @@ class Project(QWidget, Project_ui.Ui_Element):
 
 
 class Preview(QWidget, Preview_ui.Ui_Form):
-    def __init__(self, cls, html: str):
+    def __init__(self, cls, html: str, project_name: str):
         super().__init__()
         self.setupUi(self)
+        self.project_name = project_name
         self.selected_color = cls.selected_color
         self.webview.setHtml(html)
         self.setupPreviewButtons(cls, html)
@@ -73,7 +74,10 @@ class Preview(QWidget, Preview_ui.Ui_Form):
             bg_color=self.selected_color.accent,
             bg_pressed_color=self.selected_color.accent_alt,
         )
-        self.btnSavePDF.clicked.connect(lambda: save_pdf(cls, self.btnSavePDF, html))
+
+        self.btnSavePDF.clicked.connect(
+            lambda: save_pdf(cls, self.btnSavePDF, html, self.project_name)
+        )
         self.btnHome.clicked.connect(lambda: cls.switchPage(setPage(cls)))
 
 
@@ -115,7 +119,7 @@ class ProjectManager(QWidget, Projects_ui.Ui_Form):
             items=products,
             total=pretty_total,
         )
-        cls.switchPage(Preview(cls, html))
+        cls.switchPage(Preview(cls, html, project.name))
 
     def deleteProject(self, widget: Project) -> None:
         widget.db_object.delete()

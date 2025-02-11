@@ -91,10 +91,10 @@ def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
         return False, str(ex)
 
 
-def save_pdf(cls, btnSave, html: str) -> None:
+def save_pdf(cls, btnSave, html: str, default_filename: str = "") -> None:
     file_path, _ = QFileDialog.getSaveFileName(
         caption="Guardar PDF",
-        dir="",
+        dir=cls.settings.default_export_path + f"/{default_filename}.pdf",
         filter="PDF Files (*.pdf)",
     )
     if file_path:

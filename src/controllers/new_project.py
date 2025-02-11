@@ -357,7 +357,7 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
             (template.file_name for template in self.templates if template.selected)
         )
         self.db_object.update()
-        cls.switchPage(Success(cls, html=html))
+        cls.switchPage(Success(cls, html=html, project_name=self.db_object.name))
 
     def toggleNextButton(self, enabled: bool) -> None:
         self.btnNext.setEnabled(enabled)
@@ -373,9 +373,10 @@ class NewProjectTemplate(QWidget, NewProjectTemplate_ui.Ui_Form):
 
 
 class Success(QWidget, Success_ui.Ui_Form):
-    def __init__(self, cls, html):
+    def __init__(self, cls, html, project_name: str):
         super().__init__()
         self.setupUi(self)
+        self.project_name = project_name
         self.selected_color = cls.selected_color
         self.setupButtons(cls)
         self.html = html
@@ -394,7 +395,7 @@ class Success(QWidget, Success_ui.Ui_Form):
             bg_pressed_color=self.selected_color.accent_alt,
         )
         self.btnSavePDF.clicked.connect(
-            lambda: save_pdf(cls, self.btnSavePDF, self.html)
+            lambda: save_pdf(cls, self.btnSavePDF, self.html, self.project_name)
         )
         self.btnHome.clicked.connect(lambda: cls.switchPage(projects.setPage(cls)))
 
