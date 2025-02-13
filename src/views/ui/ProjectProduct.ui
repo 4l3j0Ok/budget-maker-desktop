@@ -64,6 +64,9 @@
    </item>
    <item>
     <widget class="QPushButton" name="btnHide">
+     <property name="toolTip">
+      <string>Ocultar precio del PDF final.</string>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -75,6 +78,9 @@
    </item>
    <item>
     <widget class="QPushButton" name="btnLock">
+     <property name="toolTip">
+      <string>Bloquear producto</string>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -86,6 +92,9 @@
    </item>
    <item>
     <widget class="QPushButton" name="btnDelete">
+     <property name="toolTip">
+      <string>Eliminar producto</string>
+     </property>
      <property name="text">
       <string/>
      </property>

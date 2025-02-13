@@ -88,8 +88,17 @@ class Ui_Element(object):
         self.leProduct.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese el nombre del producto", None))
         self.leQuantity.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese la cantidad", None))
         self.leCost.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese el costo", None))
+#if QT_CONFIG(tooltip)
+        self.btnHide.setToolTip(QCoreApplication.translate("Element", u"Ocultar precio del PDF final.", None))
+#endif // QT_CONFIG(tooltip)
         self.btnHide.setText("")
+#if QT_CONFIG(tooltip)
+        self.btnLock.setToolTip(QCoreApplication.translate("Element", u"Bloquear producto", None))
+#endif // QT_CONFIG(tooltip)
         self.btnLock.setText("")
+#if QT_CONFIG(tooltip)
+        self.btnDelete.setToolTip(QCoreApplication.translate("Element", u"Eliminar producto", None))
+#endif // QT_CONFIG(tooltip)
         self.btnDelete.setText("")
     # retranslateUi
 

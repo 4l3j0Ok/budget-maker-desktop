@@ -46,6 +46,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Volver a la pantalla principal</string>
+        </property>
         <property name="text">
          <string>Volver al inicio</string>
         </property>
@@ -57,6 +60,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnSavePDF">
+        <property name="toolTip">
+         <string>Guardar el PDF generado</string>
+        </property>
         <property name="text">
          <string>Guardar PDF</string>
         </property>

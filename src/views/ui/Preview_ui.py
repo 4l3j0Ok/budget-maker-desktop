@@ -76,7 +76,13 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Preview", None))
+#if QT_CONFIG(tooltip)
+        self.btnHome.setToolTip(QCoreApplication.translate("Form", u"Volver a la pantalla principal", None))
+#endif // QT_CONFIG(tooltip)
         self.btnHome.setText(QCoreApplication.translate("Form", u"Volver al inicio", None))
+#if QT_CONFIG(tooltip)
+        self.btnSavePDF.setToolTip(QCoreApplication.translate("Form", u"Guardar el PDF generado", None))
+#endif // QT_CONFIG(tooltip)
         self.btnSavePDF.setText(QCoreApplication.translate("Form", u"Guardar PDF", None))
     # retranslateUi
 
