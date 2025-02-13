@@ -53,20 +53,25 @@ class Ui_Form(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setHorizontalSpacing(6)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.btnSearch = QPushButton(self.frPDFExport)
-        self.btnSearch.setObjectName(u"btnSearch")
-
-        self.gridLayout.addWidget(self.btnSearch, 1, 1, 1, 1)
-
         self.lePDFExportPath = QLineEdit(self.frPDFExport)
         self.lePDFExportPath.setObjectName(u"lePDFExportPath")
 
         self.gridLayout.addWidget(self.lePDFExportPath, 1, 0, 1, 1)
 
+        self.btnSearch = QPushButton(self.frPDFExport)
+        self.btnSearch.setObjectName(u"btnSearch")
+
+        self.gridLayout.addWidget(self.btnSearch, 1, 1, 1, 1)
+
         self.label = QLabel(self.frPDFExport)
         self.label.setObjectName(u"label")
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.cbSaveWithoutAsk = QCheckBox(self.frPDFExport)
+        self.cbSaveWithoutAsk.setObjectName(u"cbSaveWithoutAsk")
+
+        self.gridLayout.addWidget(self.cbSaveWithoutAsk, 2, 0, 1, 2)
 
 
         self.horizontalLayout.addWidget(self.frPDFExport)
@@ -89,7 +94,14 @@ class Ui_Form(object):
         self.gbAppearance.setTitle(QCoreApplication.translate("Form", u"Apariencia", None))
         self.cbDarkMode.setText(QCoreApplication.translate("Form", u"Modo oscuro", None))
         self.gbFunctions.setTitle(QCoreApplication.translate("Form", u"Funcionalidad", None))
+#if QT_CONFIG(tooltip)
+        self.btnSearch.setToolTip(QCoreApplication.translate("Form", u"Elegir una carpeta del PC.", None))
+#endif // QT_CONFIG(tooltip)
         self.btnSearch.setText(QCoreApplication.translate("Form", u"Examinar...", None))
         self.label.setText(QCoreApplication.translate("Form", u"Ruta de exportaci\u00f3n por defecto para PDFs", None))
+#if QT_CONFIG(tooltip)
+        self.cbSaveWithoutAsk.setToolTip(QCoreApplication.translate("Form", u"Si est\u00e1 marcado, al guardar un PDF, se guardar\u00e1 en la ruta de exportaci\u00f3n por defecto sin preguntar si se desea guardar, estableciendo un nombre por defecto.", None))
+#endif // QT_CONFIG(tooltip)
+        self.cbSaveWithoutAsk.setText(QCoreApplication.translate("Form", u"Guardar en esta ruta sin preguntar", None))
     # retranslateUi
 

@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>464</width>
+    <height>574</height>
+   </rect>
+  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
@@ -147,6 +155,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>Volver a la pantalla principal</string>
+           </property>
            <property name="text">
             <string>Volver al inicio</string>
            </property>
@@ -158,6 +169,9 @@
          </item>
          <item>
           <widget class="QPushButton" name="btnSavePDF">
+           <property name="toolTip">
+            <string>Guardar el PDF generado</string>
+           </property>
            <property name="text">
             <string>Guardar PDF</string>
            </property>

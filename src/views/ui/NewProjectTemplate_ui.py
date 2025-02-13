@@ -100,7 +100,13 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Nuevo Proyecto", None))
         self.lblProject.setText(QCoreApplication.translate("Form", u"Proyecto", None))
         self.leProjectName.setPlaceholderText(QCoreApplication.translate("Form", u"Nombre no establecido", None))
+#if QT_CONFIG(tooltip)
+        self.btnBack.setToolTip(QCoreApplication.translate("Form", u"Volver para modificar el proyecto", None))
+#endif // QT_CONFIG(tooltip)
         self.btnBack.setText(QCoreApplication.translate("Form", u"Atr\u00e1s", None))
+#if QT_CONFIG(tooltip)
+        self.btnNext.setToolTip(QCoreApplication.translate("Form", u"Finalizar la edici\u00f3n del proyecto", None))
+#endif // QT_CONFIG(tooltip)
         self.btnNext.setText(QCoreApplication.translate("Form", u"Finalizar", None))
     # retranslateUi
 

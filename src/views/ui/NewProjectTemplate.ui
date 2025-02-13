@@ -100,6 +100,9 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="btnBack">
+        <property name="toolTip">
+         <string>Volver para modificar el proyecto</string>
+        </property>
         <property name="text">
          <string>Atrás</string>
         </property>
@@ -107,6 +110,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnNext">
+        <property name="toolTip">
+         <string>Finalizar la edición del proyecto</string>
+        </property>
         <property name="text">
          <string>Finalizar</string>
         </property>

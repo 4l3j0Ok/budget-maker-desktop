@@ -78,6 +78,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnEdit">
+        <property name="toolTip">
+         <string>Editar</string>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -92,6 +95,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnPreview">
+        <property name="toolTip">
+         <string>Previsualizar</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -103,6 +109,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnDelete">
+        <property name="toolTip">
+         <string>Eliminar</string>
+        </property>
         <property name="text">
          <string/>
         </property>

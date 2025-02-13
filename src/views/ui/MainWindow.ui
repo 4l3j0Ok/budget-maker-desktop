@@ -17,6 +17,9 @@
    <iconset resource="../../resources.qrc">
     <normaloff>:/icons/views/assets/icon.png</normaloff>:/icons/views/assets/icon.png</iconset>
   </property>
+  <property name="toolTip">
+   <string/>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LayoutDirection::LeftToRight</enum>
   </property>
@@ -78,6 +81,9 @@
        </property>
        <item>
         <widget class="QPushButton" name="btnMenu">
+         <property name="toolTip">
+          <string>Expandir menú</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align: left;</string>
          </property>
@@ -98,6 +104,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="btnProjects">
+         <property name="toolTip">
+          <string>Proyectos</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align: left;</string>
          </property>
@@ -118,6 +127,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="btnProducts">
+         <property name="toolTip">
+          <string>Productos</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align: left;</string>
          </property>
@@ -138,6 +150,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="btnSettings">
+         <property name="toolTip">
+          <string>Configuración</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align: left;</string>
          </property>
@@ -158,6 +173,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="btnAbout">
+         <property name="toolTip">
+          <string>Acerca de</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align: left;</string>
          </property>

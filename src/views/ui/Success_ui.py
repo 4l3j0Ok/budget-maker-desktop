@@ -24,6 +24,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
+        Form.resize(464, 574)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -132,7 +133,13 @@ class Ui_Form(object):
         self.lblImage.setText("")
         self.label.setText(QCoreApplication.translate("Form", u"\u00a1Proyecto guardado con \u00e9xito!", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"Tu proyecto ha sido creado correctamente. Puedes descargar el PDF o volver a la p\u00e1gina de proyectos y guardarlo m\u00e1s tarde.", None))
+#if QT_CONFIG(tooltip)
+        self.btnHome.setToolTip(QCoreApplication.translate("Form", u"Volver a la pantalla principal", None))
+#endif // QT_CONFIG(tooltip)
         self.btnHome.setText(QCoreApplication.translate("Form", u"Volver al inicio", None))
+#if QT_CONFIG(tooltip)
+        self.btnSavePDF.setToolTip(QCoreApplication.translate("Form", u"Guardar el PDF generado", None))
+#endif // QT_CONFIG(tooltip)
         self.btnSavePDF.setText(QCoreApplication.translate("Form", u"Guardar PDF", None))
     # retranslateUi
 

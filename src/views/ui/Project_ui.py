@@ -93,8 +93,17 @@ class Ui_Element(object):
     def retranslateUi(self, Element):
         Element.setWindowTitle(QCoreApplication.translate("Element", u"Proyecto", None))
         self.lblProjectName.setText(QCoreApplication.translate("Element", u"Nombre de proyecto", None))
+#if QT_CONFIG(tooltip)
+        self.btnEdit.setToolTip(QCoreApplication.translate("Element", u"Editar", None))
+#endif // QT_CONFIG(tooltip)
         self.btnEdit.setText("")
+#if QT_CONFIG(tooltip)
+        self.btnPreview.setToolTip(QCoreApplication.translate("Element", u"Previsualizar", None))
+#endif // QT_CONFIG(tooltip)
         self.btnPreview.setText("")
+#if QT_CONFIG(tooltip)
+        self.btnDelete.setToolTip(QCoreApplication.translate("Element", u"Eliminar", None))
+#endif // QT_CONFIG(tooltip)
         self.btnDelete.setText("")
     # retranslateUi
 
