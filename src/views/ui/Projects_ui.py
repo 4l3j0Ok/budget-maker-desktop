@@ -58,6 +58,9 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Proyectos", None))
+#if QT_CONFIG(tooltip)
+        self.btnNew.setToolTip(QCoreApplication.translate("Form", u"Agregar proyecto", None))
+#endif // QT_CONFIG(tooltip)
         self.btnNew.setText(QCoreApplication.translate("Form", u"+", None))
     # retranslateUi
 

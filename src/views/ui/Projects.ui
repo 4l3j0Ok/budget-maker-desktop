@@ -56,6 +56,9 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Agregar proyecto</string>
+     </property>
      <property name="text">
       <string>+</string>
      </property>
