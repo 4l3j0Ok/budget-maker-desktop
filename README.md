@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Budget Maker Desktop](./src/views/assets/icon.png)
+<img src="./src/views/assets/icon.png" alt="Budget Maker Desktop" width="350">
 
 ---
 
