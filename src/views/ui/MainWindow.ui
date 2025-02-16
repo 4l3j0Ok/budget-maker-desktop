@@ -54,11 +54,11 @@
     </property>
     <item>
      <widget class="QFrame" name="frNavbar">
-      <property name="maximumSize">
-       <size>
-        <width>42</width>
-        <height>16777215</height>
-       </size>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::StyledPanel</enum>
@@ -93,6 +93,26 @@
          <property name="icon">
           <iconset resource="../../resources.qrc">
            <normaloff>:/icons/views/assets/ic--baseline-menu.svg</normaloff>:/icons/views/assets/ic--baseline-menu.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnHome">
+         <property name="styleSheet">
+          <string notr="true">text-align: left;</string>
+         </property>
+         <property name="text">
+          <string>Inicio</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/views/assets/eva--home-outline.svg</normaloff>:/icons/views/assets/eva--home-outline.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
