@@ -12,10 +12,17 @@ from utils import load_stylesheet_tpl
 class SettingsModel:
     dark_mode: bool
     default_export_path: str
+    save_without_ask: bool
 
-    def __init__(self, dark_mode: bool = False, default_export_path: str = ""):
+    def __init__(
+        self,
+        dark_mode: bool = False,
+        default_export_path: str = "",
+        save_without_ask: bool = False,
+    ):
         self.dark_mode = dark_mode
         self.default_export_path = default_export_path
+        self.save_without_ask = save_without_ask
 
     def save(self):
         with open(Path.settings, "w") as f:
@@ -43,8 +50,10 @@ class Settings(QWidget, Settings_ui.Ui_Form):
         self.cbDarkMode.setChecked(self.settings.dark_mode)
         self.lePDFExportPath.setText(self.settings.default_export_path)
         self.btnSearch.clicked.connect(self.selectPath)
+        self.cbSaveWithoutAsk.setChecked(self.settings.save_without_ask)
         self.cbDarkMode.checkStateChanged.connect(lambda: self.toggleDarkMode(cls))
         self.lePDFExportPath.textChanged.connect(self.updatePath)
+        self.cbSaveWithoutAsk.stateChanged.connect(self.updateSaveWithoutAsk)
 
     def toggleDarkMode(self, cls):
         cls.selected_color = (
@@ -66,6 +75,10 @@ class Settings(QWidget, Settings_ui.Ui_Form):
 
     def updatePath(self):
         self.settings.default_export_path = self.lePDFExportPath.text()
+        self.settings.save()
+
+    def updateSaveWithoutAsk(self):
+        self.settings.save_without_ask = self.cbSaveWithoutAsk.isChecked()
         self.settings.save()
 
 

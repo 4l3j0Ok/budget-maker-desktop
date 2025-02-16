@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QFileDialog
+from PySide6.QtWidgets import QApplication, QFileDialog, QMessageBox
 from PySide6.QtGui import QIcon, QPainter, QPageLayout, QPageSize
 from PySide6.QtCore import QMarginsF
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -80,7 +80,7 @@ def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
             if success:
                 webView.page().printToPdf(output_file, layout)
             else:
-                raise Exception("Failed to load HTML content")
+                raise Exception("Error al cargar la página.")
 
         webView.loadFinished.connect(on_load_finished)
         webView.setHtml(html)
@@ -92,16 +92,31 @@ def create_pdf(html: str, output_file: str) -> tuple[bool, str]:
 
 
 def save_pdf(cls, btnSave, html: str, default_filename: str = "") -> None:
-    file_path, _ = QFileDialog.getSaveFileName(
-        caption="Guardar PDF",
-        dir=cls.settings.default_export_path + f"/{default_filename}.pdf",
-        filter="PDF Files (*.pdf)",
+    file_path = (
+        cls.settings.default_export_path + f"/{default_filename}.pdf"
+        if cls.settings.save_without_ask
+        and os.path.exists(cls.settings.default_export_path)
+        else QFileDialog.getSaveFileName(
+            caption="Guardar PDF",
+            dir=cls.settings.default_export_path + f"/{default_filename}.pdf",
+            filter="PDF Files (*.pdf)",
+        )[0]
     )
     if file_path:
-        create_pdf(html, file_path)
+        success, result = create_pdf(html, file_path)
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information if success else QMessageBox.Critical)
+        msg_box.setWindowTitle("Exportar PDF")
+        msg_box.setText(f"PDF exportado con éxito en {result}" if success else result)
+        msg_box.setWindowIcon(cls.windowIcon())
+        msg_box.exec_()
         modify_button(
             btnSave,
             fg_color=cls.selected_color.button_text_alt,
-            bg_color=cls.selected_color.selected,
-            bg_pressed_color=cls.selected_color.selected_alt,
+            bg_color=cls.selected_color.selected
+            if success
+            else cls.selected_color.delete,
+            bg_pressed_color=cls.selected_color.selected_alt
+            if success
+            else cls.selected_color.delete_alt,
         )
