@@ -24,6 +24,10 @@ class Path:
 
 
 class Pages:
+    home = dict(
+        title="Inicio",
+        description="Página de inicio",
+    )
     projects = dict(
         title="Proyectos",
         description="Todos tus proyectos creados",

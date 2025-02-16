@@ -1,7 +1,7 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 from PySide6.QtCore import QPropertyAnimation, QEvent, QTranslator, QLibraryInfo
-from controllers import products, projects, settings, about
+from controllers import home, products, projects, settings, about
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
@@ -27,6 +27,7 @@ class MainWindow(QMainWindow, MainWindow):
         ## Navbar
         self.setupButtons()
         self.btnPage = {
+            "btnHome": home.setPage,
             "btnProjects": projects.setPage,
             "btnProducts": products.setPage,
             "btnSettings": settings.setPage,
@@ -34,7 +35,7 @@ class MainWindow(QMainWindow, MainWindow):
         }
         # Database
         self.db = Database()
-        self.switchPage(self.btnPage["btnProjects"](self))
+        self.switchPage(self.btnPage["btnHome"](self))
         return
 
     def setupNavbar(self) -> None:
