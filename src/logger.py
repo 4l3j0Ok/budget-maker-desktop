@@ -1,10 +1,10 @@
 import logging
-import environment
+import config
 
 
 def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
-    level = environment.LOG_LEVEL
+    level = config.Application.log_level
     logger.setLevel(level)
     formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 
@@ -20,4 +20,4 @@ def get_logger(name: str) -> logging.Logger:
     return logger
 
 
-logger = get_logger("application")
+logger = get_logger(config.Application.log_name)

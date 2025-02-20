@@ -2,6 +2,14 @@ import os
 import environment
 
 
+class Application:
+    name = "Proyectos y Productos"
+    version = environment.APP_VERSION
+    dev_mode = environment.DEV_MODE
+    log_level = environment.LOG_LEVEL
+    log_name = "application"
+
+
 class Features:
     projects = True
     products = False
