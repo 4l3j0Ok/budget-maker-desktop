@@ -36,11 +36,12 @@ jobs:
             -replace 'os.getenv\("LOG_LEVEL", ".*?"\)', "`"$env:LOG_LEVEL`"" `
             -replace 'os.getenv\("APP_VERSION", ".*?"\)', "`"$env:APP_VERSION`"" |
           Set-Content $envFile
+      - name: Build Updater
+        run: |
+          poetry run pyinstaller updater.spec;
+          pwsh -c "mv dist/updater.exe $env:GITHUB_WORKSPACE"
       - name: Build
         run: |
-          $envFile = "src/environment.py"
-          poetry run pyinstaller updater.spec
-          pwsh -c "mv dist/updater.exe ./"
           poetry run pyinstaller budget-maker-desktop.spec
       - name: Archive
         run: |
