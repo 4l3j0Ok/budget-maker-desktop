@@ -39,6 +39,8 @@ jobs:
       - name: Build
         run: |
           $envFile = "src/environment.py"
+          poetry run pyinstaller updater.spec
+          pwsh -c "mv dist/updater.exe ./"
           poetry run pyinstaller budget-maker-desktop.spec
       - name: Archive
         run: |

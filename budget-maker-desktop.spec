@@ -5,7 +5,7 @@ a = Analysis(
     ['src\\main.py'],
     pathex=[],
     binaries=[],
-    datas=[('D:\\alejo\\projects\\budget-maker-desktop\\updater.exe', '.')],
+    datas=[('updater.exe', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
