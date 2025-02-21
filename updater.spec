@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['D:\\alejo\\projects\\budget-maker-desktop\\src\\updater.py'],
+    ['src\\updater.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['D:\\alejo\\projects\\budget-maker-desktop\\src\\views\\assets\\icon.ico'],
+    icon=['\\src\\views\\assets\\icon.ico'],
 )
