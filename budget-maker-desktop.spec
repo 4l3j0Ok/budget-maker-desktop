@@ -5,7 +5,7 @@ a = Analysis(
     ['src\\main.py'],
     pathex=[],
     binaries=[],
-    datas=[('updater.exe', '.')],
+    datas=[('./src/views/html', 'html/'), ('./src/views/qss', 'qss/'), ('updater.exe', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -41,5 +41,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='main',
+    name='budget-maker-desktop',
 )
