@@ -1,4 +1,5 @@
 import os
+import shutil
 import sys
 import zipfile
 import requests
@@ -24,14 +25,13 @@ class Updater(QWidget):
         self.initUI()
         self.unzipped = 0
         self.downloaded = 0
-        self.url = config.Application.release_download_url.format(
-            version=self.getLatestVersion()
-        )
+        self.url = self.getReleaseDownloadUrl()
         self.response = requests.get(self.url, stream=True)
         self.dest_dir = self.getDestinationDirectory()
         self.zip_file = os.path.join(self.dest_dir, config.Application.artifact_name)
         self.total_length = int(self.response.headers.get("content-length", 0))
         self.block_size = 1024
+        self.startUpdate()
 
     def initUI(self):
         self.setWindowTitle(f"Actualizando {config.Application.name}")
@@ -62,7 +62,8 @@ class Updater(QWidget):
         try:
             if clear_dest:
                 self.clearDestinationDirectory()
-            logger.debug(f"Descargando actualización desde {self.url}")
+            logger.info(f"Descargando actualización desde {self.url}")
+            logger.info(f"Guardando archivo en {self.zip_file}")
             self.saveZipFile()
             return True, config.Application.artifact_name
         except Exception as ex:
@@ -73,7 +74,7 @@ class Updater(QWidget):
         exclude = [config.Path.settings, config.Path.database, config.Path.log]
         for file in os.listdir(self.dest_dir):
             if file not in exclude:
-                os.remove(os.path.join(self.dest_dir, file))
+                shutil.rmtree(os.path.join(self.dest_dir, file), ignore_errors=True)
         os.makedirs(self.dest_dir, exist_ok=True)
 
     def saveZipFile(self):
@@ -115,6 +116,11 @@ class Updater(QWidget):
         except requests.exceptions.RequestException as e:
             logger.exception(e)
             return ""
+
+    def getReleaseDownloadUrl(self):
+        return config.Application.release_download_url.format(
+            version=self.getLatestVersion()
+        )
 
     def getDestinationDirectory(self):
         return config.Path.current if not config.Application.dev_mode else "./tests"
