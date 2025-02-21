@@ -1,14 +1,40 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
-from PySide6.QtCore import QPropertyAnimation, QEvent, QTranslator, QLibraryInfo
+import subprocess
+from PySide6.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QPushButton,
+    QWidget,
+    QMessageBox,
+)
+from PySide6.QtCore import (
+    QPropertyAnimation,
+    QEvent,
+    QTranslator,
+    QLibraryInfo,
+    QThread,
+    Signal,
+)
 from controllers import home, products, projects, settings, about
 from views.ui.MainWindow_ui import Ui_MainWindow as MainWindow
 from views.ui.sizes import Size
 from views.ui.colors import Light, Dark
 from models.database import Database
 from utils import load_stylesheet_tpl, modify_button
-from config import Features
+from config import Features, Application, Path
 from logger import logger
+from updater import Updater
+
+
+class UpdateChecker(QThread):
+    update_available = Signal()
+
+    def run(self):
+        actual_version = Application.version
+        int_actual_version = int(actual_version.replace(".", ""))
+        int_latest_version = int(Updater.getLatestVersion().replace(".", ""))
+        if int_latest_version > int_actual_version:
+            self.update_available.emit()
 
 
 class MainWindow(QMainWindow, MainWindow):
@@ -36,6 +62,7 @@ class MainWindow(QMainWindow, MainWindow):
         # Database
         self.db = Database()
         self.switchPage(self.btnPage["btnHome"](self))
+        self.checkUpdates()
         return
 
     def setupNavbar(self) -> None:
@@ -105,6 +132,38 @@ class MainWindow(QMainWindow, MainWindow):
                 fg_color=self.selected_color.button_text,
             )
         return super().eventFilter(obj, event)
+
+    def checkUpdates(self) -> None:
+        self.update_checker = UpdateChecker()
+        self.update_checker.update_available.connect(self.showUpdateDialog)
+        self.update_checker.start()
+
+    def showUpdateDialog(self) -> None:
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Icon.Question)
+        msg.setWindowTitle("Actualización disponible")
+        msg.setText("Hay una nueva versión disponible. ¿Deseas actualizar?")
+        msg.setStandardButtons(
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        msg.setDefaultButton(QMessageBox.StandardButton.Yes)
+        msg.setWindowIcon(self.windowIcon())
+        response = msg.exec()
+        if response == QMessageBox.StandardButton.Yes:
+            self.callUpdater()
+        return
+
+    def callUpdater(self) -> None:
+        # Start updater.exe and close this app instance
+        updater_exe = Path.updater_exe
+        print(updater_exe)
+        subprocess.Popen(updater_exe)
+        self.closeApp()
+        return
+
+    def closeApp(self) -> None:
+        self.close()
+        return
 
 
 def init_translator(app: QApplication) -> None:

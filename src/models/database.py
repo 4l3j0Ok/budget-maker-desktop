@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
-from config import Database as cfg
+from config import Path
 from models.products import ProductModel
 from models.projects import ProjectModel
 from logger import logger
@@ -10,7 +10,7 @@ class Database(QSqlDatabase):
     def __init__(self):
         super().__init__()
         self.connection = self.addDatabase("QSQLITE")
-        self.connection.setDatabaseName(cfg.name)
+        self.connection.setDatabaseName(Path.database)
         try:
             self.connection.open()
             self.create_initial_tables()

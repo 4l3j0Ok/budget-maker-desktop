@@ -3,11 +3,16 @@ import environment
 
 
 class Application:
-    name = "Proyectos y Productos"
+    name = "Budget Maker Desktop"
     version = environment.APP_VERSION
     dev_mode = environment.DEV_MODE
     log_level = environment.LOG_LEVEL
     log_name = "application"
+    artifact_name = "budget-maker-desktop.zip"
+    release_api = (
+        "https://api.github.com/repos/4l3j0Ok/budget-maker-desktop/releases/latest"
+    )
+    release_download_url = f"https://github.com/4l3j0Ok/budget-maker-desktop/releases/download/{{version}}/{artifact_name}"
 
 
 class Features:
@@ -17,11 +22,15 @@ class Features:
 
 
 class Path:
-    current = os.path.dirname(os.path.realpath(__file__))
+    current = (
+        os.path.dirname(os.path.realpath(__file__))
+        if environment.DEV_MODE
+        else os.getcwd()
+    )
     qss_tpls = (
         f"{current}/views/qss/templates"
         if environment.DEV_MODE
-        else f"{current}/qss/templates"
+        else f"{current}/_internal/qss/templates"
     )
     html_tpls = (
         f"{current}/views/html/templates"
@@ -29,6 +38,9 @@ class Path:
         else f"{current}/html/templates"
     )
     settings = "settings.json"
+    database = "data.db"
+    log = f"{current}/logs/{Application.log_name}.log"
+    updater_exe = f"{current}/updater.exe"
 
 
 class Pages:
@@ -56,10 +68,6 @@ class Pages:
         title="Acerca de",
         description="Información sobre la aplicación",
     )
-
-
-class Database:
-    name = "data.db"
 
 
 class Project:
