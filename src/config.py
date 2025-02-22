@@ -22,20 +22,16 @@ class Features:
 
 
 class Path:
-    current = (
-        os.path.dirname(os.path.realpath(__file__))
-        if environment.DEV_MODE
-        else os.getcwd()
-    )
+    current = os.path.dirname(os.path.realpath(__file__))
     qss_tpls = (
         f"{current}/views/qss/templates"
-        if environment.DEV_MODE
+        if Application.dev_mode
         else f"{current}/_internal/qss/templates"
     )
     html_tpls = (
         f"{current}/views/html/templates"
-        if environment.DEV_MODE
-        else f"{current}/html/templates"
+        if Application.dev_mode
+        else f"{current}/_internal/html/templates"
     )
     settings = "settings.json"
     database = "data.db"
