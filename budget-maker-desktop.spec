@@ -2,10 +2,14 @@
 
 
 a = Analysis(
-    ['src\\main.py'],
+    ["src\\main.py"],
     pathex=[],
     binaries=[],
-    datas=[('./src/views/html', 'html/'), ('./src/views/qss', 'qss/'), ('updater.exe', '.')],
+    datas=[
+        ("./src/views/html", "html/"),
+        ("./src/views/qss", "qss/"),
+        ("updater.exe", "."),
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -21,7 +25,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='budget-maker-desktop',
+    name="budget-maker-desktop",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -32,7 +36,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['src\\views\\assets\\icon.ico'],
+    icon=["src\\views\\assets\\icon.ico"],
 )
 coll = COLLECT(
     exe,
@@ -41,5 +45,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='budget-maker-desktop',
+    name="budget-maker-desktop",
 )

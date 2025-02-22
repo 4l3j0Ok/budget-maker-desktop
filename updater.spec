@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['src\\updater.py'],
+    ["src\\updater.py"],
     pathex=[],
     binaries=[],
     datas=[],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='updater',
+    name="updater",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['src\\views\\assets\\icon.ico'],
+    icon=["src\\views\\assets\\icon.ico"],
 )
