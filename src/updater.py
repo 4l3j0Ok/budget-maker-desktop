@@ -1,5 +1,7 @@
 import os
 import shutil
+import tempfile
+import subprocess
 import sys
 import zipfile
 import requests
@@ -141,8 +143,12 @@ class Updater(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    default_app_path = (
-        config.Path.current() if not config.environment.DEV_MODE else "./tests"
-    )
-    updater = Updater(sys.argv[1]) if len(sys.argv) > 1 else Updater(default_app_path)
+    app_path = sys.argv[1] if len(sys.argv) > 1 else config.Path.current
+    app_path = app_path if config.Path.is_exe else "./tests"
+    if config.Path.is_exe and "--temp" not in sys.argv:
+        temp_path = os.path.join(tempfile.mkdtemp(), "updater_temp.exe")
+        shutil.copy(sys.executable, temp_path)
+        subprocess.Popen([temp_path, app_path, "--temp"])
+        sys.exit()
+    updater = Updater(app_path)
     sys.exit(app.exec())

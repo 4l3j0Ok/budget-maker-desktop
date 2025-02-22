@@ -1,4 +1,5 @@
 import os
+import sys
 import environment
 
 
@@ -22,21 +23,31 @@ class Features:
 
 
 class Path:
-    current = os.path.dirname(os.path.realpath(__file__))
+    is_exe = getattr(sys, "frozen", False)
+    current = (
+        os.path.dirname(os.path.realpath(sys.argv[0]))
+        if not is_exe
+        else os.path.dirname(os.path.realpath(sys.executable))
+    )
     qss_tpls = (
         f"{current}/views/qss/templates"
-        if Application.dev_mode
+        if not is_exe
         else f"{current}/_internal/qss/templates"
     )
     html_tpls = (
         f"{current}/views/html/templates"
-        if Application.dev_mode
+        if not is_exe
         else f"{current}/_internal/html/templates"
     )
-    settings = "settings.json"
-    database = "data.db"
-    log = f"{current}/logs/{Application.log_name}.log"
-    updater_exe = f"{current}/updater.exe"
+    settings = f"{current}/settings.json"
+    database = f"{current}/data.db"
+    log = f"{current}/{Application.log_name}.log"
+    updater_exe = (
+        f"{current}/updater.exe" if not is_exe else f"{current}/_internal/updater.exe"
+    )
+
+    def is_exe():
+        return getattr(sys, "frozen", False)
 
 
 class Pages:
