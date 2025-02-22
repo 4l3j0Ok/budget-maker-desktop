@@ -10,5 +10,5 @@ Para más info acerca de este funcionamiento, revisa el archivo python-app.yml e
 """
 
 DEV_MODE = os.getenv("DEV_MODE", "False").lower() == "true"
-LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 APP_VERSION = os.getenv("APP_VERSION", "0.0.1")
