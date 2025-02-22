@@ -16,19 +16,19 @@ from logger import get_logger
 import config
 import resources_rc
 
-logger = get_logger("updater")
-
 
 class Updater(QWidget):
-    def __init__(self):
+    def __init__(self, app_path: str):
         super().__init__()
         self.initUI()
+        self.logger = get_logger("updater")
+        self.logger.info("Iniciando actualización")
         self.unzipped = 0
         self.downloaded = 0
         self.url = self.getReleaseDownloadUrl()
         self.response = requests.get(self.url, stream=True)
-        self.dest_dir = self.getDestinationDirectory()
-        self.zip_file = os.path.join(self.dest_dir, config.Application.artifact_name)
+        self.app_path = app_path
+        self.zip_file = os.path.join(self.app_path, config.Application.artifact_name)
         self.total_length = int(self.response.headers.get("content-length", 0))
         self.block_size = 1024
         self.startUpdate()
@@ -62,20 +62,20 @@ class Updater(QWidget):
         try:
             if clear_dest:
                 self.clearDestinationDirectory()
-            logger.info(f"Descargando actualización desde {self.url}")
-            logger.info(f"Guardando archivo en {self.zip_file}")
+            self.logger.info(f"Descargando actualización desde {self.url}")
+            self.logger.info(f"Guardando archivo en {self.zip_file}")
             self.saveZipFile()
             return True, config.Application.artifact_name
         except Exception as ex:
-            logger.exception(ex)
+            self.logger.exception(ex)
             return False, f"Error al descargar la actualización: {ex}"
 
     def clearDestinationDirectory(self):
         exclude = [config.Path.settings, config.Path.database, config.Path.log]
-        for file in os.listdir(self.dest_dir):
+        for file in os.listdir(self.app_path):
             if file not in exclude:
-                shutil.rmtree(os.path.join(self.dest_dir, file), ignore_errors=True)
-        os.makedirs(self.dest_dir, exist_ok=True)
+                shutil.rmtree(os.path.join(self.app_path, file), ignore_errors=True)
+        os.makedirs(self.app_path, exist_ok=True)
 
     def saveZipFile(self):
         with open(self.zip_file, "wb") as file:
@@ -94,11 +94,11 @@ class Updater(QWidget):
             with zipfile.ZipFile(self.zip_file, "r") as zip_ref:
                 total_files = len(zip_ref.infolist())
                 for i, file in enumerate(zip_ref.infolist(), 1):
-                    zip_ref.extract(file, self.dest_dir)
+                    zip_ref.extract(file, self.app_path)
                     self.updateUnzipProgress(total_files)
             return True, "Descompresión completada"
         except Exception as ex:
-            logger.exception(ex)
+            self.logger.exception(ex)
             return False, f"Error al descomprimir el archivo: {ex}"
 
     def updateUnzipProgress(self, total_files):
@@ -108,7 +108,7 @@ class Updater(QWidget):
         QApplication.processEvents()
 
     @staticmethod
-    def getLatestVersion():
+    def getLatestVersion(logger):
         try:
             response = requests.get(config.Application.release_api).json()
             logger.debug(f"Última versión: {response['tag_name']}")
@@ -119,20 +119,17 @@ class Updater(QWidget):
 
     def getReleaseDownloadUrl(self):
         return config.Application.release_download_url.format(
-            version=self.getLatestVersion()
+            version=self.getLatestVersion(self.logger)
         )
 
-    def getDestinationDirectory(self):
-        return config.Path.current if not config.Application.dev_mode else "./tests"
-
     def handleError(self, message):
-        logger.error(message)
+        self.logger.error(message)
         QMessageBox.critical(self, "Error", message)
         QApplication.processEvents()
         self.closeApp()
 
     def handleSuccess(self):
-        logger.info("Actualización descargada y descomprimida correctamente")
+        self.logger.info("Actualización descargada y descomprimida correctamente")
         QMessageBox.information(self, "Éxito", "Actualización completada correctamente")
         self.closeApp()
 
@@ -143,7 +140,9 @@ class Updater(QWidget):
 
 
 if __name__ == "__main__":
-    logger.debug("Iniciando actualizador...")
     app = QApplication(sys.argv)
-    updater = Updater()
+    default_app_path = (
+        config.Path.current() if not config.environment.DEV_MODE else "./tests"
+    )
+    updater = Updater(sys.argv[1]) if len(sys.argv) > 1 else Updater(default_app_path)
     sys.exit(app.exec())

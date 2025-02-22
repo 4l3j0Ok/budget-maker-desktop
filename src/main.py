@@ -32,7 +32,7 @@ class UpdateChecker(QThread):
     def run(self):
         actual_version = Application.version
         int_actual_version = int(actual_version.replace(".", ""))
-        int_latest_version = int(Updater.getLatestVersion().replace(".", ""))
+        int_latest_version = int(Updater.getLatestVersion(logger).replace(".", ""))
         if int_latest_version > int_actual_version:
             self.update_available.emit()
 
@@ -156,7 +156,7 @@ class MainWindow(QMainWindow, MainWindow):
     def callUpdater(self) -> None:
         # Start updater.exe and close this app instance
         updater_exe = Path.updater_exe
-        subprocess.Popen(updater_exe)
+        subprocess.Popen([updater_exe, f"{Path.current}"])
         self.closeApp()
         return
 
