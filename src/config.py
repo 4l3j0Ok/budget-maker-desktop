@@ -5,6 +5,7 @@ import environment
 
 class Application:
     name = "Budget Maker Desktop"
+    executable = "budget-maker-desktop.exe"
     version = environment.APP_VERSION
     dev_mode = environment.DEV_MODE
     log_level = environment.LOG_LEVEL
@@ -45,9 +46,6 @@ class Path:
     updater_exe = (
         f"{current}/updater.exe" if not is_exe else f"{current}/_internal/updater.exe"
     )
-
-    def is_exe():
-        return getattr(sys, "frozen", False)
 
 
 class Pages:

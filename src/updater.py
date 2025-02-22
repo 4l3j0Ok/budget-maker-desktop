@@ -58,6 +58,7 @@ class Updater(QWidget):
         if not success:
             self.handleError(result)
             return
+        self.deleteZipFile()
         self.handleSuccess()
 
     def downloadZip(self, clear_dest=True):
@@ -84,6 +85,9 @@ class Updater(QWidget):
             for data in self.response.iter_content(self.block_size):
                 file.write(data)
                 self.updateProgress(len(data))
+
+    def deleteZipFile(self):
+        os.remove(self.zip_file)
 
     def updateProgress(self, data_length):
         self.downloaded += data_length
@@ -133,6 +137,7 @@ class Updater(QWidget):
     def handleSuccess(self):
         self.logger.info("Actualización descargada y descomprimida correctamente")
         QMessageBox.information(self, "Éxito", "Actualización completada correctamente")
+        subprocess.Popen([os.path.join(self.app_path, config.Application.executable)])
         self.closeApp()
 
     def closeApp(self):
@@ -144,7 +149,6 @@ class Updater(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app_path = sys.argv[1] if len(sys.argv) > 1 else config.Path.current
-    app_path = app_path if config.Path.is_exe else "./tests"
     if config.Path.is_exe and "--temp" not in sys.argv:
         temp_path = os.path.join(tempfile.mkdtemp(), "updater_temp.exe")
         shutil.copy(sys.executable, temp_path)

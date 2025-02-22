@@ -155,7 +155,10 @@ class MainWindow(QMainWindow, MainWindow):
 
     def callUpdater(self) -> None:
         updater_exe = Path.updater_exe
-        subprocess.Popen([updater_exe, f"{Path.current}"])
+        app_path = Path.current if Path.is_exe else Path.current + "/tests"
+        subprocess.Popen(
+            [updater_exe, app_path],
+        )
         self.closeApp()
         return
 
