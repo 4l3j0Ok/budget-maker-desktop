@@ -104,6 +104,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="btnHome">
+         <property name="toolTip">
+          <string>Página de inicio</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align: left;</string>
          </property>

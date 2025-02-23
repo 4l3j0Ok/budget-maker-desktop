@@ -23,10 +23,25 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(640, 480)
-        self.verticalLayout = QVBoxLayout(Form)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.frIcon = QFrame(Form)
+        Form.resize(424, 440)
+        self.horizontalLayout_2 = QHBoxLayout(Form)
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.frContent = QFrame(Form)
+        self.frContent.setObjectName(u"frContent")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frContent.sizePolicy().hasHeightForWidth())
+        self.frContent.setSizePolicy(sizePolicy)
+        self.frContent.setFrameShape(QFrame.Shape.NoFrame)
+        self.frContent.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_2 = QVBoxLayout(self.frContent)
+        self.verticalLayout_2.setSpacing(6)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.frIcon = QFrame(self.frContent)
         self.frIcon.setObjectName(u"frIcon")
         self.frIcon.setFrameShape(QFrame.Shape.NoFrame)
         self.frIcon.setFrameShadow(QFrame.Shadow.Raised)
@@ -44,28 +59,31 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.lblBMIcon)
 
 
-        self.verticalLayout.addWidget(self.frIcon)
+        self.verticalLayout_2.addWidget(self.frIcon)
 
-        self.lblTitle = QLabel(Form)
+        self.lblTitle = QLabel(self.frContent)
         self.lblTitle.setObjectName(u"lblTitle")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lblTitle.sizePolicy().hasHeightForWidth())
-        self.lblTitle.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.lblTitle.sizePolicy().hasHeightForWidth())
+        self.lblTitle.setSizePolicy(sizePolicy1)
         font = QFont()
         font.setPointSize(14)
         font.setBold(True)
         self.lblTitle.setFont(font)
         self.lblTitle.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
 
-        self.verticalLayout.addWidget(self.lblTitle)
+        self.verticalLayout_2.addWidget(self.lblTitle)
 
-        self.lbAbout = QLabel(Form)
+        self.lbAbout = QLabel(self.frContent)
         self.lbAbout.setObjectName(u"lbAbout")
         self.lbAbout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout.addWidget(self.lbAbout)
+        self.verticalLayout_2.addWidget(self.lbAbout)
+
+
+        self.horizontalLayout_2.addWidget(self.frContent)
 
 
         self.retranslateUi(Form)
