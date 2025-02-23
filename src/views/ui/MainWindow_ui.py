@@ -184,9 +184,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Budget Maker", None))
 #if QT_CONFIG(tooltip)
-        MainWindow.setToolTip("")
-#endif // QT_CONFIG(tooltip)
-#if QT_CONFIG(tooltip)
         self.btnMenu.setToolTip(QCoreApplication.translate("MainWindow", u"Expandir men\u00fa", None))
 #endif // QT_CONFIG(tooltip)
         self.btnMenu.setText(QCoreApplication.translate("MainWindow", u"Men\u00fa", None))
