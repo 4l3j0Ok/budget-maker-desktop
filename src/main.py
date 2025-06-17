@@ -62,6 +62,7 @@ class MainWindow(QMainWindow, MainWindow):
         # Database
         self.db = Database()
         self.switchPage(self.btnPage["btnHome"](self))
+        self.db.run_post_update()
         self.checkUpdates()
         return
 

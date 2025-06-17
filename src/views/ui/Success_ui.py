@@ -103,7 +103,7 @@ class Ui_Form(object):
         sizePolicy2.setHeightForWidth(self.btnHome.sizePolicy().hasHeightForWidth())
         self.btnHome.setSizePolicy(sizePolicy2)
         icon = QIcon()
-        icon.addFile(u":/icons/views/assets/eva--home-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/icons/views/assets/home.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnHome.setIcon(icon)
 
         self.horizontalLayout.addWidget(self.btnHome)
@@ -111,7 +111,7 @@ class Ui_Form(object):
         self.btnSavePDF = QPushButton(self.frOptions)
         self.btnSavePDF.setObjectName(u"btnSavePDF")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/eva--save-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/icons/views/assets/save.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnSavePDF.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.btnSavePDF)

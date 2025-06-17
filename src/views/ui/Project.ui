@@ -89,7 +89,7 @@
         </property>
         <property name="icon">
          <iconset resource="../../resources.qrc">
-          <normaloff>:/icons/views/assets/ic--outline-edit.svg</normaloff>:/icons/views/assets/ic--outline-edit.svg</iconset>
+          <normaloff>:/icons/views/assets/edit.svg</normaloff>:/icons/views/assets/edit.svg</iconset>
         </property>
        </widget>
       </item>
@@ -103,7 +103,7 @@
         </property>
         <property name="icon">
          <iconset resource="../../resources.qrc">
-          <normaloff>:/icons/views/assets/eva--eye-outline.svg</normaloff>:/icons/views/assets/eva--eye-outline.svg</iconset>
+          <normaloff>:/icons/views/assets/eye-open.svg</normaloff>:/icons/views/assets/eye-open.svg</iconset>
         </property>
        </widget>
       </item>
@@ -117,7 +117,7 @@
         </property>
         <property name="icon">
          <iconset resource="../../resources.qrc">
-          <normaloff>:/icons/views/assets/ic--outline-delete.svg</normaloff>:/icons/views/assets/ic--outline-delete.svg</iconset>
+          <normaloff>:/icons/views/assets/trash.svg</normaloff>:/icons/views/assets/trash.svg</iconset>
         </property>
        </widget>
       </item>

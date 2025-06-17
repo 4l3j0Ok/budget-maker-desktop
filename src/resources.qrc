@@ -1,21 +1,22 @@
 <RCC>
   <qresource prefix="icons">
-    <file>views/assets/ix--about.svg</file>
-    <file>views/assets/ant-design--product-outlined.svg</file>
-    <file>views/assets/eva--settings-outline.svg</file>
-    <file>views/assets/icon.png</file>
-    <file>views/assets/eva--home-outline.svg</file>
-    <file>views/assets/eva--save-outline.svg</file>
-    <file>views/assets/eva--eye-off-2-outline.svg</file>
-    <file>views/assets/eva--eye-outline.svg</file>
-    <file>views/assets/ic--baseline-done.svg</file>
-    <file>views/assets/ic--outline-lock-open.svg</file>
-    <file>views/assets/ic--outline-lock.svg</file>
-    <file>views/assets/ic--outline-delete.svg</file>
-    <file>views/assets/ic--outline-edit.svg</file>
-    <file>views/assets/eos-icons--project-outlined.svg</file>
+    <file>views/assets/unlock.svg</file>
+    <file>views/assets/about.svg</file>
+    <file>views/assets/comment.svg</file>
+    <file>views/assets/done.svg</file>
+    <file>views/assets/edit.svg</file>
+    <file>views/assets/eye-closed.svg</file>
+    <file>views/assets/eye-open.svg</file>
+    <file>views/assets/home.svg</file>
     <file>views/assets/ic--baseline-lightbulb.svg</file>
-    <file>views/assets/ic--baseline-menu.svg</file>
+    <file>views/assets/lock.svg</file>
+    <file>views/assets/menu.svg</file>
+    <file>views/assets/trash.svg</file>
+    <file>views/assets/products.svg</file>
+    <file>views/assets/projects.svg</file>
+    <file>views/assets/save.svg</file>
+    <file>views/assets/settings.svg</file>
+    <file>views/assets/icon.png</file>
   </qresource>
   <qresource prefix="images">
     <file>views/assets/undraw--home.svg</file>

@@ -56,6 +56,7 @@
             <tr>
                 <th>Concepto</th>
                 <th>Cantidad</th>
+                <th>Comentario</th>
                 <th>Costo</th>
             </tr>
         </thead>
@@ -64,6 +65,7 @@
             <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.quantity }}</td>
+                <td>{{ item.comment if item.comment else "-" }}</td>
                 <td>{{ "$" ~ item.cost if item.cost and item.cost_visible else "-" }}</td>
             </tr>
             {% endfor %}

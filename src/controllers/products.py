@@ -33,7 +33,7 @@ class Product(QWidget, Product_ui.Ui_Element):
         )
         modify_button(
             self.btnEdit,
-            icon=":/icons/views/assets/ic--baseline-done.svg",
+            icon=":/icons/views/assets/done.svg",
             fg_color=self.selected_color.button_text_alt,
             bg_color="green",
         )
@@ -84,9 +84,9 @@ class Product(QWidget, Product_ui.Ui_Element):
         )
         modify_button(
             self.btnEdit,
-            icon=":/icons/views/assets/ic--baseline-done.svg"
+            icon=":/icons/views/assets/done.svg"
             if self.leName.isEnabled()
-            else ":/icons/views/assets/ic--outline-edit.svg",
+            else ":/icons/views/assets/edit.svg",
             fg_color=self.selected_color.button_text_alt,
             bg_color="green" if self.leName.isEnabled() else self.selected_color.accent,
         )

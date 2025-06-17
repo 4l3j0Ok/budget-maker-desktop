@@ -7,6 +7,7 @@ class ProductModel:
     quantity: int
     cost: float
     cost_visible: bool
+    comment: str | None
     project_id: int | None = None
     product_id: int | None = None
 
@@ -17,6 +18,7 @@ class ProductModel:
         quantity: int = 0,
         cost: float = 0.0,
         cost_visible: bool = True,
+        comment: str = "",
         project_id: int | None = None,
         product_id: int | None = None,
     ) -> None:
@@ -25,6 +27,7 @@ class ProductModel:
         self.quantity = quantity
         self.cost = cost
         self.cost_visible = cost_visible
+        self.comment = comment
         self.project_id = project_id
         self.product_id = self.insert() if not product_id else product_id
 
@@ -38,6 +41,7 @@ class ProductModel:
                 cost REAL NOT NULL,
                 quantity INTEGER NOT NULL,
                 cost_visible BOOLEAN NOT NULL,
+                comment TEXT,
                 project_id INTEGER NOT NULL,
                 FOREIGN KEY (project_id) REFERENCES projects(id)
             )
@@ -69,7 +73,8 @@ class ProductModel:
                         cost=query.value(2),
                         quantity=query.value(3),
                         cost_visible=query.value(4),
-                        project_id=query.value(5),
+                        comment=query.value(5),
+                        project_id=query.value(6),
                     )
                 )
             return products[0] if not project_id else products
@@ -93,6 +98,7 @@ class ProductModel:
                         quantity=query.value(2),
                         cost=query.value(3),
                         cost_visible=query.value(4),
+                        comment=query.value(5),
                     )
                 )
             return products
@@ -103,8 +109,8 @@ class ProductModel:
     def insert(self) -> int | None:
         try:
             statement = f"""
-            INSERT INTO products (name, quantity, cost, cost_visible, project_id)
-            VALUES ('{self.name}', {self.quantity}, {self.cost}, {self.cost_visible}, {self.project_id})
+            INSERT INTO products (name, quantity, cost, cost_visible, comment, project_id)
+            VALUES ('{self.name}', {self.quantity}, {self.cost}, {self.cost_visible}, '{self.comment}', {self.project_id})
             """
             result = self.db.execute_query(statement)
             self.product_id = result.lastInsertId()
@@ -117,7 +123,7 @@ class ProductModel:
         try:
             statement = f"""
             UPDATE products
-            SET name = '{self.name}', quantity = {self.quantity}, cost = {self.cost}, cost_visible = {self.cost_visible}
+            SET name = '{self.name}', quantity = {self.quantity}, cost = {self.cost}, cost_visible = {self.cost_visible}, comment = '{self.comment}'
             WHERE id = {self.product_id}
             """
             self.db.execute_query(statement)

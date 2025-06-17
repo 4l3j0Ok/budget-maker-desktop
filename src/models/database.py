@@ -3,6 +3,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from config import Path
 from models.products import ProductModel
 from models.projects import ProjectModel
+from models.post_update import PostUpdate
 from logger import logger
 
 
@@ -27,6 +28,10 @@ class Database(QSqlDatabase):
         except Exception as ex:
             logger.exception(ex)
             return False
+
+    def run_post_update(self) -> None:
+        post_update = PostUpdate()
+        post_update.run(self)
 
     def execute_query(self, statement: str) -> QSqlQuery:
         result = QSqlQuery(statement)

@@ -60,7 +60,7 @@ class Ui_Form(object):
         self.scrollArea.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 690, 148))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 690, 135))
         self.verticalLayout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frColumns = QFrame(self.scrollAreaWidgetContents)
@@ -86,6 +86,12 @@ class Ui_Form(object):
         self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_3.addWidget(self.label_3)
+
+        self.label_5 = QLabel(self.frColumns)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_3.addWidget(self.label_5)
 
         self.label_4 = QLabel(self.frColumns)
         self.label_4.setObjectName(u"label_4")
@@ -189,9 +195,10 @@ class Ui_Form(object):
         self.btnAdd.setToolTip(QCoreApplication.translate("Form", u"Agregar un producto a la lista", None))
 #endif // QT_CONFIG(tooltip)
         self.btnAdd.setText(QCoreApplication.translate("Form", u"+", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Producto", None))
-        self.label_2.setText(QCoreApplication.translate("Form", u"Cantidad", None))
-        self.label_3.setText(QCoreApplication.translate("Form", u"Costo", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Producto*", None))
+        self.label_2.setText(QCoreApplication.translate("Form", u"Cantidad*", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"Costo*", None))
+        self.label_5.setText(QCoreApplication.translate("Form", u"Comentario", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"Acci\u00f3n", None))
 #if QT_CONFIG(tooltip)
         self.btnClear.setToolTip(QCoreApplication.translate("Form", u"Limpia todos los datos cargados para empezar desde cero", None))

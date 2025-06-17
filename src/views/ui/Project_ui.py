@@ -60,7 +60,7 @@ class Ui_Element(object):
         self.btnEdit.setObjectName(u"btnEdit")
         self.btnEdit.setStyleSheet(u"")
         icon = QIcon()
-        icon.addFile(u":/icons/views/assets/ic--outline-edit.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/icons/views/assets/edit.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnEdit.setIcon(icon)
 
         self.horizontalLayout_2.addWidget(self.btnEdit)
@@ -68,7 +68,7 @@ class Ui_Element(object):
         self.btnPreview = QPushButton(self.frBox)
         self.btnPreview.setObjectName(u"btnPreview")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/eva--eye-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/icons/views/assets/eye-open.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnPreview.setIcon(icon1)
 
         self.horizontalLayout_2.addWidget(self.btnPreview)
@@ -76,7 +76,7 @@ class Ui_Element(object):
         self.btnDelete = QPushButton(self.frBox)
         self.btnDelete.setObjectName(u"btnDelete")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon2.addFile(u":/icons/views/assets/trash.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnDelete.setIcon(icon2)
 
         self.horizontalLayout_2.addWidget(self.btnDelete)

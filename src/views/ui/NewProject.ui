@@ -77,7 +77,7 @@
         <x>0</x>
         <y>0</y>
         <width>690</width>
-        <height>148</height>
+        <height>135</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -93,7 +93,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Producto</string>
+             <string>Producto*</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -103,7 +103,7 @@
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Cantidad</string>
+             <string>Cantidad*</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -113,7 +113,17 @@
           <item>
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Costo</string>
+             <string>Costo*</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Comentario</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>

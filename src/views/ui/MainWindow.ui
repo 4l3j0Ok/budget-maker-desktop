@@ -89,7 +89,7 @@
          </property>
          <property name="icon">
           <iconset resource="../../resources.qrc">
-           <normaloff>:/icons/views/assets/ic--baseline-menu.svg</normaloff>:/icons/views/assets/ic--baseline-menu.svg</iconset>
+           <normaloff>:/icons/views/assets/menu.svg</normaloff>:/icons/views/assets/menu.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -112,7 +112,7 @@
          </property>
          <property name="icon">
           <iconset resource="../../resources.qrc">
-           <normaloff>:/icons/views/assets/eva--home-outline.svg</normaloff>:/icons/views/assets/eva--home-outline.svg</iconset>
+           <normaloff>:/icons/views/assets/home.svg</normaloff>:/icons/views/assets/home.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -135,7 +135,7 @@
          </property>
          <property name="icon">
           <iconset resource="../../resources.qrc">
-           <normaloff>:/icons/views/assets/eos-icons--project-outlined.svg</normaloff>:/icons/views/assets/eos-icons--project-outlined.svg</iconset>
+           <normaloff>:/icons/views/assets/projects.svg</normaloff>:/icons/views/assets/projects.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -158,7 +158,7 @@
          </property>
          <property name="icon">
           <iconset resource="../../resources.qrc">
-           <normaloff>:/icons/views/assets/ant-design--product-outlined.svg</normaloff>:/icons/views/assets/ant-design--product-outlined.svg</iconset>
+           <normaloff>:/icons/views/assets/products.svg</normaloff>:/icons/views/assets/products.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -181,7 +181,7 @@
          </property>
          <property name="icon">
           <iconset resource="../../resources.qrc">
-           <normaloff>:/icons/views/assets/eva--settings-outline.svg</normaloff>:/icons/views/assets/eva--settings-outline.svg</iconset>
+           <normaloff>:/icons/views/assets/settings.svg</normaloff>:/icons/views/assets/settings.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -204,7 +204,7 @@
          </property>
          <property name="icon">
           <iconset resource="../../resources.qrc">
-           <normaloff>:/icons/views/assets/ix--about.svg</normaloff>:/icons/views/assets/ix--about.svg</iconset>
+           <normaloff>:/icons/views/assets/about.svg</normaloff>:/icons/views/assets/about.svg</iconset>
          </property>
          <property name="iconSize">
           <size>

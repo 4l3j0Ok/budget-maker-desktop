@@ -23,7 +23,7 @@ class Ui_Element(object):
     def setupUi(self, Element):
         if not Element.objectName():
             Element.setObjectName(u"Element")
-        Element.resize(627, 42)
+        Element.resize(627, 44)
         self.verticalLayout = QVBoxLayout(Element)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frBox = QFrame(Element)
@@ -49,7 +49,7 @@ class Ui_Element(object):
         self.btnEdit = QPushButton(self.frBox)
         self.btnEdit.setObjectName(u"btnEdit")
         icon = QIcon()
-        icon.addFile(u":/icons/views/assets/ic--outline-edit.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/icons/views/assets/edit.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnEdit.setIcon(icon)
 
         self.horizontalLayout.addWidget(self.btnEdit)
@@ -57,7 +57,7 @@ class Ui_Element(object):
         self.btnDelete = QPushButton(self.frBox)
         self.btnDelete.setObjectName(u"btnDelete")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/icons/views/assets/trash.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnDelete.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.btnDelete)

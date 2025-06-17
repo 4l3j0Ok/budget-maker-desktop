@@ -163,7 +163,7 @@
            </property>
            <property name="icon">
             <iconset resource="../../resources.qrc">
-             <normaloff>:/icons/views/assets/eva--home-outline.svg</normaloff>:/icons/views/assets/eva--home-outline.svg</iconset>
+             <normaloff>:/icons/views/assets/home.svg</normaloff>:/icons/views/assets/home.svg</iconset>
            </property>
           </widget>
          </item>
@@ -177,7 +177,7 @@
            </property>
            <property name="icon">
             <iconset resource="../../resources.qrc">
-             <normaloff>:/icons/views/assets/eva--save-outline.svg</normaloff>:/icons/views/assets/eva--save-outline.svg</iconset>
+             <normaloff>:/icons/views/assets/save.svg</normaloff>:/icons/views/assets/save.svg</iconset>
            </property>
           </widget>
          </item>

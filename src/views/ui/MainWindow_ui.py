@@ -58,7 +58,7 @@ class Ui_MainWindow(object):
         self.btnMenu.setObjectName(u"btnMenu")
         self.btnMenu.setStyleSheet(u"text-align: left;")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/ic--baseline-menu.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/icons/views/assets/menu.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnMenu.setIcon(icon1)
         self.btnMenu.setIconSize(QSize(32, 32))
 
@@ -68,7 +68,7 @@ class Ui_MainWindow(object):
         self.btnHome.setObjectName(u"btnHome")
         self.btnHome.setStyleSheet(u"text-align: left;")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/views/assets/eva--home-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon2.addFile(u":/icons/views/assets/home.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnHome.setIcon(icon2)
         self.btnHome.setIconSize(QSize(32, 32))
 
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.btnProjects.setObjectName(u"btnProjects")
         self.btnProjects.setStyleSheet(u"text-align: left;")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/views/assets/eos-icons--project-outlined.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon3.addFile(u":/icons/views/assets/projects.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnProjects.setIcon(icon3)
         self.btnProjects.setIconSize(QSize(32, 32))
 
@@ -88,7 +88,7 @@ class Ui_MainWindow(object):
         self.btnProducts.setObjectName(u"btnProducts")
         self.btnProducts.setStyleSheet(u"text-align: left;")
         icon4 = QIcon()
-        icon4.addFile(u":/icons/views/assets/ant-design--product-outlined.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon4.addFile(u":/icons/views/assets/products.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnProducts.setIcon(icon4)
         self.btnProducts.setIconSize(QSize(32, 32))
 
@@ -98,7 +98,7 @@ class Ui_MainWindow(object):
         self.btnSettings.setObjectName(u"btnSettings")
         self.btnSettings.setStyleSheet(u"text-align: left;")
         icon5 = QIcon()
-        icon5.addFile(u":/icons/views/assets/eva--settings-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon5.addFile(u":/icons/views/assets/settings.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnSettings.setIcon(icon5)
         self.btnSettings.setIconSize(QSize(32, 32))
 
@@ -108,7 +108,7 @@ class Ui_MainWindow(object):
         self.btnAbout.setObjectName(u"btnAbout")
         self.btnAbout.setStyleSheet(u"text-align: left;")
         icon6 = QIcon()
-        icon6.addFile(u":/icons/views/assets/ix--about.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon6.addFile(u":/icons/views/assets/about.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnAbout.setIcon(icon6)
         self.btnAbout.setIconSize(QSize(32, 32))
 

@@ -23,7 +23,7 @@ class Ui_Element(object):
     def setupUi(self, Element):
         if not Element.objectName():
             Element.setObjectName(u"Element")
-        Element.resize(804, 42)
+        Element.resize(804, 44)
         self.horizontalLayout = QHBoxLayout(Element)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.leProduct = QLineEdit(Element)
@@ -53,10 +53,16 @@ class Ui_Element(object):
 
         self.horizontalLayout.addWidget(self.leCost)
 
+        self.leComment = QLineEdit(Element)
+        self.leComment.setObjectName(u"leComment")
+        self.leComment.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.leComment)
+
         self.btnHide = QPushButton(Element)
         self.btnHide.setObjectName(u"btnHide")
         icon = QIcon()
-        icon.addFile(u":/icons/views/assets/eva--eye-outline.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/icons/views/assets/eye-open.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnHide.setIcon(icon)
 
         self.horizontalLayout.addWidget(self.btnHide)
@@ -64,7 +70,7 @@ class Ui_Element(object):
         self.btnLock = QPushButton(Element)
         self.btnLock.setObjectName(u"btnLock")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/views/assets/ic--outline-lock.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/icons/views/assets/lock.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnLock.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.btnLock)
@@ -72,7 +78,7 @@ class Ui_Element(object):
         self.btnDelete = QPushButton(Element)
         self.btnDelete.setObjectName(u"btnDelete")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/views/assets/ic--outline-delete.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon2.addFile(u":/icons/views/assets/trash.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnDelete.setIcon(icon2)
 
         self.horizontalLayout.addWidget(self.btnDelete)
@@ -88,6 +94,7 @@ class Ui_Element(object):
         self.leProduct.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese el nombre del producto", None))
         self.leQuantity.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese la cantidad", None))
         self.leCost.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese el costo", None))
+        self.leComment.setPlaceholderText(QCoreApplication.translate("Element", u"Ingrese un comentario si es necesario", None))
 #if QT_CONFIG(tooltip)
         self.btnHide.setToolTip(QCoreApplication.translate("Element", u"Ocultar precio del PDF final.", None))
 #endif // QT_CONFIG(tooltip)

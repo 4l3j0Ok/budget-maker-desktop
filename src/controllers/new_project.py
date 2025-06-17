@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QLabel,
     QVBoxLayout,
+    QInputDialog,
 )
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -50,7 +51,12 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
             self.btnHide,
             fg_color=self.selected_color.button_text_alt,
         )
-        modify_button(self.btnLock, fg_color=self.selected_color.button_text_alt)
+        modify_button(
+            self.btnLock,
+            fg_color=self.selected_color.button_text_alt,
+            bg_color=self.selected_color.accent,
+            bg_pressed_color=self.selected_color.accent_alt,
+        )
         self.locked = False
         self.costVisible = True
         self.btnLock.clicked.connect(self.toggleLock)
@@ -74,9 +80,9 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
                     modify_button(
                         element,
                         fg_color=self.selected_color.button_text_alt,
-                        icon=":/icons/views/assets/ic--outline-lock-open.svg"
+                        icon=":/icons/views/assets/unlock.svg"
                         if self.locked
-                        else ":/icons/views/assets/ic--outline-lock.svg",
+                        else ":/icons/views/assets/lock.svg",
                     )
                 elif element.objectName() == "btnDelete":
                     modify_button(
@@ -100,14 +106,14 @@ class ProjectProduct(QWidget, ProjectProduct_ui.Ui_Element):
                 )
 
     def toggleVisibility(self):
+        self.costVisible = not self.costVisible
         modify_button(
             self.sender(),
             fg_color=self.selected_color.button_text_alt,
-            icon=":/icons/views/assets/eva--eye-off-2-outline.svg"
+            icon=":/icons/views/assets/eye-open.svg"
             if self.costVisible
-            else ":/icons/views/assets/eva--eye-outline.svg",
+            else ":/icons/views/assets/eye-closed.svg",
         )
-        self.costVisible = not self.costVisible
         self.db_object.cost_visible = self.costVisible
         self.db_object.update()
 
@@ -129,9 +135,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
             else str(int(self.db_object.total))
         )
         self.leTotal.setText(pretty_total)
-        self.leTotal.textChanged.connect(self.updateTotalDB)
         self.leProjectName.setText(self.db_object.name)
-        self.leProjectName.textChanged.connect(self.updateNameDB)
         self.leProjectName.textChanged.connect(
             lambda: self.checkLineEdits(True, db_update=False)
         )
@@ -146,6 +150,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
                 cost=pretty_cost,
                 name=product.name,
                 quantity=str(product.quantity),
+                comment=product.comment,
                 product_id=product.product_id,
             )
         self.checkLineEdits(self, update_total=False, db_update=False)
@@ -168,6 +173,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         cost: str = "",
         name: str = "",
         quantity: str = "",
+        comment: str = "",
         product_id: int = None,
     ):
         widget = ProjectProduct(
@@ -181,9 +187,11 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         widget.leProduct.setText(name)
         widget.leQuantity.setText(quantity)
         widget.leCost.setText(cost)
+        widget.leComment.setText(comment)
         widget.leCost.textChanged.connect(lambda: self.checkLineEdits(widget, True))
         widget.leProduct.textChanged.connect(lambda: self.checkLineEdits(widget))
         widget.leQuantity.textChanged.connect(lambda: self.checkLineEdits(widget))
+        widget.leComment.textChanged.connect(lambda: self.checkLineEdits(widget))
         widget.btnDelete.clicked.connect(lambda: self.deleteProduct(widget))
 
     def deleteProduct(self, widget):
@@ -196,11 +204,15 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         self, widget: ProjectProduct, update_total: bool = False, db_update: bool = True
     ) -> None:
         if db_update:
+            self.db_object.name = self.leProjectName.text()
+            self.db_object.total = self.leTotal.text()
             widget.db_object.name = widget.leProduct.text()
             widget.db_object.quantity = (
                 widget.leQuantity.text() if widget.leQuantity.text() else 0
             )
             widget.db_object.cost = widget.leCost.text() if widget.leCost.text() else 0
+            print(f"comment: {widget.leComment.text()}")
+            widget.db_object.comment = widget.leComment.text()
             widget.db_object.update()
         line_edits_values = []
         for i in range(self.verticalLayout.count()):
@@ -209,6 +221,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
                 line_edits_values.append(widget.leProduct.text())
                 line_edits_values.append(widget.leQuantity.text())
                 line_edits_values.append(widget.leCost.text())
+                # line_edits_values.append(widget.leComment.text()) # Es opcional
         line_edits_values.append(self.leProjectName.text())
         self.toggleNextButton(all(line_edits_values))
         if update_total:
@@ -224,14 +237,6 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
                 total += cost
         pretty_total = str(total) if not str(total).endswith(".0") else str(int(total))
         self.leTotal.setText(pretty_total)
-
-    def updateTotalDB(self, total) -> None:
-        self.db_object.total = total
-        self.db_object.update()
-
-    def updateNameDB(self, name) -> None:
-        self.db_object.name = name
-        self.db_object.update()
 
     def reloadWidget(self, cls) -> None:
         msg = QMessageBox()
