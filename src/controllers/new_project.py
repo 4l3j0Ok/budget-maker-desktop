@@ -132,6 +132,9 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
         self.leTotal.textChanged.connect(self.updateTotalDB)
         self.leProjectName.setText(self.db_object.name)
         self.leProjectName.textChanged.connect(self.updateNameDB)
+        self.leProjectName.textChanged.connect(
+            lambda: self.checkLineEdits(True, db_update=False)
+        )
         for product in ProductModel.get(cls.db, project_id=self.db_object.project_id):
             pretty_cost = (
                 str(product.cost)
@@ -206,6 +209,7 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
                 line_edits_values.append(widget.leProduct.text())
                 line_edits_values.append(widget.leQuantity.text())
                 line_edits_values.append(widget.leCost.text())
+        line_edits_values.append(self.leProjectName.text())
         self.toggleNextButton(all(line_edits_values))
         if update_total:
             self.updateTotal()
