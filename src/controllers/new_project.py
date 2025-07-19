@@ -211,7 +211,6 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
                 widget.leQuantity.text() if widget.leQuantity.text() else 0
             )
             widget.db_object.cost = widget.leCost.text() if widget.leCost.text() else 0
-            print(f"comment: {widget.leComment.text()}")
             widget.db_object.comment = widget.leComment.text()
             widget.db_object.update()
         line_edits_values = []
