@@ -5,7 +5,6 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QLabel,
     QVBoxLayout,
-    QInputDialog,
 )
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWebEngineWidgets import QWebEngineView
