@@ -218,8 +218,8 @@ class NewProject(QWidget, NewProject_ui.Ui_Form):
             widget = self.verticalLayout.itemAt(i).widget()
             if widget and isinstance(widget, ProjectProduct):
                 line_edits_values.append(widget.leProduct.text())
-                line_edits_values.append(widget.leQuantity.text())
-                line_edits_values.append(widget.leCost.text())
+                # line_edits_values.append(widget.leQuantity.text()) # Es opcional
+                # line_edits_values.append(widget.leCost.text()) # Es opcional
                 # line_edits_values.append(widget.leComment.text()) # Es opcional
         line_edits_values.append(self.leProjectName.text())
         self.toggleNextButton(all(line_edits_values))
